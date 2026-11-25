@@ -1,0 +1,280 @@
+420	=	New weight
+421	=	Plan
+422	أنجزتما	You completed
+423	=	Appointment
+424	=	Thank-you note
+425	=	Note
+426	=	on
+427	=	The thank-you note
+428	=	The note
+429	=	Letter to the future
+430	=	Letter
+431	ماذا حدث اليوم	What happened today
+432	لم يحدث شيء اليوم بعد · آخر شيء:	Nothing yet today · Latest:
+433	لم يحدث شيء بعد	Nothing yet
+434	=	New
+435	أي شيء تضيفانه يظهر هنا.	Anything you add shows up here.
+436	شاهد الأسبوع كله	See the whole week
+437	=	Latest updates
+438	كل ما حدث خلال آخر ٧ أيام.	Everything from the last 7 days.
+439	لا شيء بعد.	Nothing yet.
+440	ماذا تريدان أن تفعلا معًا؟	What do you want to do together?
+441	ضعا هنا أحلامكما الصغيرة والكبيرة: مطعم تريدان تجربته، رحلة، فيلم…	Put your big and small dreams here: a restaurant to try, a trip, a movie…
+442	ما زالت تنتظر ·	still waiting ·
+443	أنجزناها	done
+444	أعدها	Undo
+445	أنجزناها	Done
+446	=	Last month
+447	شهرنا حتى الآن	Our month so far
+448	=	Our month in review
+449	<button class="nav" data-rm="1" aria-label="الشهر القادم"	<button class="nav" data-rm="1" aria-label="Next month"
+450	=	Dreams come true
+451	=	Best moment
+452	أكثر ما فعلناه:	What we did most:
+453	=	Points
+454	=	Letters to the future ·
+455	لا شيء مسجّل في هذا الشهر.	Nothing logged this month.
+456	الأرقام تأتي مع اللحظات	Stats come with moments
+457	سجّلا بعض الأشياء وعودا إلى هنا	Log a few things and come back
+458	أسابيع متتالية فيها لحظة	Weeks in a row with a moment
+459	متوسط القلوب	Average hearts
+460	آخر ٦ أشهر	Last 6 months
+461	ماذا نحب أن نفعل	What we love doing
+462	من يسجّل أكثر	Who logs more
+463	وأنجزتما	and you completed
+464	من خططكما	of your plans
+465	أجمل اللحظات	Best moments
+466	=	Running
+467	نادٍ وحديد	Gym & weights
+468	=	Walking
+469	=	Swimming
+470	=	Ball
+471	يوغا وإطالة	Yoga & stretching
+472	=	Cycling
+473	تمارين في البيت	Home workout
+474	غير ذلك	Other
+475	=	Light
+476	=	Medium
+477	=	Hard
+478	أنا وحدي	Just me
+479	عدّل التمرين	Edit workout
+480	=	New workout
+481	ماذا تمرّنت؟	What did you train?
+482	ما التمرين؟ مثلًا: تنس، ملاكمة…	What workout? e.g. tennis, boxing…
+483	مع من؟	With whom?
+484	المدة (دقيقة)	Duration (min)
+485	متى؟	When?
+486	كم كان قويًا؟	How hard was it?
+487	ملاحظة (اختياري)	Note (optional)
+488	<input class="in" id="wo-n" maxlength="200" placeholder="مثلًا: ٥ كم، أرجل، رقم جديد في البنش…" value="	<input class="in" id="wo-n" maxlength="200" placeholder="e.g. 5 km, legs, bench PR…" value="
+489	=	Log workout
+490	=	min
+491	حُفظ التمرين	Workout saved
+492	سُجّل التمرين 💪	Workout logged 💪
+493	حُذف التمرين	Workout deleted
+494	=	Undo
+495	عاد	Restored
+496	=	Recent workouts
+497	" aria-label="عدّل">	" aria-label="Edit">
+498	=	Weekly challenge
+499	=	week
+500	=	weeks
+501	متتالية	in a row
+502	بقي	left:
+503	=	workouts
+504	لتنهيا التحدّي معًا ·	to finish the challenge together ·
+505	اليوم آخر يوم	Today is the last day
+506	=	days
+507	أنهيتما تحدّي هذا الأسبوع معًا! أحسنتما	You finished this week challenge together! Well done
+508	· معًا هذا الشهر:	· Together this month:
+509	=	Log a workout
+510	=	My weekly goal
+511	كم تمرينًا في الأسبوع؟	How many workouts a week?
+512	التمرين الذي تسجّلانه «معًا» يُحسب للاثنين.	Workouts logged «together» count for both.
+513	حُفظ الهدف	Goal saved
+514	وصلت إلى الهدف!	Goal reached!
+515	كغ زيادة	kg gained
+516	كغ نزول	kg lost
+517	=	BMI
+518	· الوزن الصحي لطول	· Healthy weight for height
+519	سم تقريبًا	cm approx.
+520	=	kg
+521	⁩ كغ هذا الأسبوع	⁩ kg this week
+522	لا يوجد وزن مسجّل بعد	No weight logged yet
+523	=	Start
+524	=	Goal
+525	" aria-label="احذف">×	" aria-label="Delete">×
+526	">سجّل وزني	">Log my weight
+527	">طولي وهدفي	">My height & goal
+528	الأرقام تقريبية، ومؤشر كتلة الجسم دليل عام فقط. الأفضل أن يكون النزول أو الزيادة تدريجيًا، ويُستحسن أخذ خطة من طبيب أو أخصائي تغذية.	Numbers are approximate and BMI is only a general guide. Change weight gradually, ideally with a plan from a doctor or dietitian.
+529	" text-anchor="middle" font-size="14" fill="currentColor" opacity=".55" direction="rtl">سجّل وزنك كل أسبوع لترى المنحنى	" text-anchor="middle" font-size="14" fill="currentColor" opacity=".55" direction="ltr">Log your weight weekly to see the trend
+530	سجّل وزنك يا	Log your weight,
+531	=	Weight (kg)
+532	نصيحة: زن نفسك في الوقت نفسه كل أسبوع، صباحًا قبل الأكل.	Tip: weigh yourself at the same time each week, in the morning before eating.
+533	سُجّل الوزن	Weight logged
+534	طولك وهدفك	Your height & goal
+535	=	Height (cm)
+536	=	Starting weight (kg)
+537	=	Goal (kg)
+538	الوزن الصحي لهذا الطول تقريبًا	Approx. healthy weight for this height
+539	حُفظ	Saved
+540	حُذف الوزن	Weight deleted
+541	لا توجد مفضّلة بعد	No favorites yet
+542	ألبوم ذكرياتكما	Your memories album
+543	افتحا صورة واضغطا على القلب	Open a photo and tap the heart
+544	اضغطا على + واختارا أجمل صوركما معًا	Tap + and pick your best photos together
+545	لا يوجد اتصال الآن	No connection right now
+546	جارٍ الرفع	Uploading
+547	أُضيفت	Added
+548	=	photos
+549	لم تنجح	failed
+550	لم نستطع رفع الصور، حاولا مرة أخرى	Could not upload photos, try again
+551	جارٍ تجهيز الصورة…	Preparing photo…
+552	لم نستطع جلب الصورة	Could not load photo
+553	=	Photo ready
+554	اضغط «احفظ» واختر «Save Image» لتُحفظ في ألبوم الآيفون.	Tap «Save» and choose «Save Image» to save it to your iPhone.
+555	جارٍ تجهيز	Preparing
+556	=	photo ready
+557	صور جاهزة	photos ready
+558	اضغط «احفظها» واختر «Save Images» لتُحفظ كلها في ألبوم الآيفون.	Tap «Save all» and choose «Save Images» to save them to your iPhone.
+559	احفظها	Save all
+560	· أضافها	· added by
+561	عن هذه الصورة	About this photo
+562	=	Caption
+563	<input class="in" id="ph-c" maxlength="200" placeholder="أين كنا، وما المناسبة…" value="	<input class="in" id="ph-c" maxlength="200" placeholder="Where were we, what was the occasion…" value="
+564	هل نحذف هذه الصورة؟	Delete this photo?
+565	ستُحذف عند الاثنين. صورتكما الأصلية تبقى في ألبوم الهاتف.	It will be deleted for both of you. The original stays in your phone gallery.
+566	=	No
+567	نعم، احذف	Yes, delete
+568	حُذفت	Deleted
+569	عادت	Restored
+570	عائلة	Family
+571	=	Big day
+572	=	year
+573	سنوات	years
+574	الشهر القادم	Next month
+575	=	Sat
+576	=	Sun
+577	=	Mon
+578	=	Tue
+579	=	Wed
+580	=	Thu
+581	=	Fri
+582	لا شيء في هذا اليوم.	Nothing on this day.
+583	أضف شيئًا لهذا اليوم	Add something to this day
+584	=	Coming up
+585	سجّلا أول يوم مهم قادم: رحلة، عزيمة، عقد قران…	Add your first big day: a trip, a dinner, a wedding…
+586	=	Tomorrow
+587	· كل عام	· yearly
+588	عدّل اليوم	Edit day
+589	يوم مهم قادم	Upcoming big day
+590	ما المناسبة؟	What is the occasion?
+591	<input class="in" id="e-t" required maxlength="120" placeholder="مثلًا: رحلتنا إلى إسطنبول" value="	<input class="in" id="e-t" required maxlength="120" placeholder="e.g. Our trip to Istanbul" value="
+592	الساعة (اختياري)	Time (optional)
+593	نوعها	Type
+594	ما نوعها؟ مثلًا: عرس، تخرّج…	What type? e.g. wedding, graduation…
+595	هل تتكرّر؟	Repeats?
+596	">مرة واحدة	">Once
+597	">كل عام	">Every year
+598	<input class="in" id="e-n" maxlength="200" placeholder="أين، مع من، ماذا نحضّر…" value="	<input class="in" id="e-n" maxlength="200" placeholder="Where, with whom, what to prepare…" value="
+599	أضفه	Add it
+600	أُضيف إلى التقويم	Added to calendar
+601	حُذف	Deleted
+602	=	Time
+603	رسالتك «	Your letter «
+604	=	from your letters
+605	شاهد	View
+606	=	from you
+607	=
+608	وصلت،	arrived,
+609	لم تفتحها بعد	has not opened it yet
+610	لم يفتحها بعد	has not opened it yet
+611	تُفتح	opens
+612	=	✓ opened it
+613	وصلت! يمكنك فتحها الآن	It arrived! You can open it now
+614	مقفلة · تُفتح بعد	Locked · opens in
+615	=	Open it
+616	=	Letters to the future
+617	لا توجد رسائل لك بعد.	No letters for you yet.
+618	أرسلتها أنت	Sent by you
+619	=	Write a letter
+620	تُقفل حتى تاريخ تختاره، ولا يستطيع أحد قراءتها قبله، حتى لو حاول.	It locks until a date you choose, and no one can read it before then, even if they try.
+621	عدّل الرسالة	Edit letter
+622	=	to the future
+623	=	Title
+624	<input class="in" id="lt-t" maxlength="80" placeholder="مثلًا: لليلة زفافنا" value="	<input class="in" id="lt-t" maxlength="80" placeholder="e.g. For our wedding night" value="
+625	=	Opens on
+626	=	Letter
+627	=	Write from your heart…
+628	أقفلها وأرسلها	Lock & send
+629	جارٍ جلب الرسالة…	Loading letter…
+630	حُفظت	Saved
+631	أُقفلت وأُرسلت	Locked & sent
+632	لم نستطع الحفظ. تحقق من قواعد Firestore	Could not save. Check Firestore rules
+633	لم نستطع الحذف	Could not delete
+634	ما زال أمامها	still
+635	يومًا لتُفتح	days until it opens
+636	جارٍ فتح الرسالة…	Opening letter…
+637	لك	for you
+638	لم نستطع فتحها الآن، حاول لاحقًا.	Could not open it now, try later.
+639	=	to
+640	=	Our points
+641	أعطِ نقاطًا	Give points
+642	لم يعطِ أحد نقاطًا بعد. أول شيء جميل يستحق نقطة!	No points yet. The first nice thing deserves a point!
+643	ملاحظات لبعضنا	Notes to each other
+644	">مفتوحة (	">Open (
+645	">انتهينا منها (	">Resolved (
+646	=	Write a note
+647	تحدّثا عن الموقف لا عن الشخص، واكتبا ما تحبّان أن يحدث بدلًا منه.	Talk about the situation, not the person, and say what you would like instead.
+648	=	Thanks
+649	سلمت يداك، وصلت	Thank you, got it
+650	فهمتك، سأنتبه	Understood, I will pay attention
+651	لا توجد ملاحظات مفتوحة. رائع!	No open notes. Great!
+652	لا شيء هنا بعد	Nothing here yet
+653	لحظة، نتعرّف عليك…	One moment, getting to know you…
+654	كم نقطة؟	How many points?
+655	لماذا؟	Why?
+656	مثلًا: فاجأني بقهوة الصباح	e.g. surprised me with morning coffee
+657	أعطِ	Give
+658	أُرسلت	Sent
+659	سُحبت	Taken
+660	عدّل الملاحظة	Edit note
+661	ما نوعها؟	What kind?
+662	">ملاحظة ننتبه إليها	">Something to work on
+663	=	">Thanks
+664	ماذا تريد أن تقول؟	What do you want to say?
+665	مثلًا: عندما تتأخر دون أن تخبرني أقلق، ليتك ترسل لي رسالة	e.g. when you are late without telling me I worry, please text me
+666	أُرسلت الملاحظة	Note sent
+667	=	Got it
+668	سأنتبه	I will pay attention
+669	هل تريد الرد؟ (اختياري)	Want to reply? (optional)
+670	مثلًا: معك حق، آسف	e.g. you are right, sorry
+671	حسنًا	OK
+672	جميل، نُقلت إلى المنتهية	Nice, moved to resolved
+673	حُذفت النقاط	Points deleted
+674	عدّل اللحظة	Edit moment
+675	=	New moment
+676	ماذا فعلتما؟	What did you do?
+677	<input class="in" id="f-t" required maxlength="120" placeholder="مثلًا: عشاء على البحر" value="	<input class="in" id="f-t" required maxlength="120" placeholder="e.g. Dinner by the sea" value="
+678	ما نوعها؟ مثلًا: حفلة، تسوّق…	What type? e.g. party, shopping…
+679	من؟	Who?
+680	كم كانت جميلة؟	How lovely was it?
+681	شيء تريدان تذكّره	Something to remember
+682	تفصيل صغير، جملة قالها أحدكما، ماذا طلبتما…	A small detail, something someone said, what you ordered…
+683	أضفها	Add it
+684	حُفظ التعديل	Changes saved
+685	أُضيفت لحظة جديدة	New moment added
+686	عدّل الخطة	Edit plan
+687	شيء نريد فعله	Something we want to do
+688	ما هو؟	What is it?
+689	<input class="in" id="p-t" required maxlength="120" placeholder="مثلًا: نجرّب المطعم الياباني" value="	<input class="in" id="p-t" required maxlength="120" placeholder="e.g. Try the Japanese restaurant" value="
+690	نوعه	Type
+691	ما نوعه؟	What type?
+692	إن كان هناك تاريخ (اختياري)	Date if any (optional)
+693	أُضيفت إلى القائمة	Added to the list
+694	=	Our settings
+695	🎨 خصّص التطبيق (الأسماء، الشعار، الأقسام)	🎨 Customize the app (names, logo, sections)
+696	=	Your birthday
+697	إصدار التطبيق:	App version:
+698	أنت مسجّل باسم	You are signed in as
+699	. كلٌّ منكما يعدّل عيد ميلاده ووزنه وطوله بنفسه.	. Each of you edits their own birthday, weight and height.

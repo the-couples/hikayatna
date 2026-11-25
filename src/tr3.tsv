@@ -1,0 +1,298 @@
+700	لم تختر من أنت بعد.	You have not chosen who you are yet.
+701	=	Backup
+702	تسجيل الخروج	Sign out
+703	=	Delete my account
+704	هل أنت متأكد من حذف حسابك؟ لا يمكن التراجع	Are you sure you want to delete your account? This cannot be undone
+705	جارٍ تجهيز النسخة الاحتياطية…	Preparing backup…
+706	اختر «حفظ في الملفات»	Choose «Save to Files»
+707	حُفظت النسخة الاحتياطية	Backup saved
+708	أهلًا! من أنت؟	Hi! Who are you?
+709	انتبه: بمجرد أن تختار، يبقى الاختيار مرتبطًا بحسابك ولا يتغيّر.	Note: once you choose, it stays linked to your account.
+710	بالتأكيد، أنا	Yes, I am
+711	أهلًا	Welcome
+712	لم ينجح، ربما اختير هذا الاسم من قبل	Did not work, this name may already be taken
+713	هذا الحساب غير معروف في التطبيق.	This account is not recognized.
+714	لا يوجد اتصال للحفظ الآن	No connection to save right now
+715	هذا الحساب لا يملك صلاحية. تحقّقوا من قواعد Firestore.	This account has no permission. Check Firestore rules.
+716	امتلأت المساحة	Storage is full
+717	لم نستطع الحفظ، حاول مرة أخرى	Could not save, try again
+718	رائع! هل تريدان تسجيلها كلحظة؟	Yay! Log it as a moment?
+719	نعم	Yes
+720	أنتِ	You are
+721	أنت	You are
+722	، والحساب مرتبط باسمك	, and the account is linked to your name
+723	صباح الخير يا NAME ☀️🌸	Good morning NAME ☀️🌸
+724	يومك جميل وناعم مثلك 🤍	May your day be as lovely as you 🤍
+725	يومك جميل ومشرق مثلك 🤍	May your day be as bright as you 🤍
+726	هيا نبدأ يومنا ☀️	Let us start our day ☀️
+727	نهارك سعيد يا NAME 🌤️💙	Have a lovely day NAME 🌤️💙
+728	اشتقنا إليك منذ الصباح 🥰	Missed you since this morning 🥰
+729	هيا ندخل 💙	Come in 💙
+730	مساء الورد يا NAME 🌅🧡	Good evening NAME 🌅🧡
+731	الغروب أجمل وأنتِ فيه ✨	Sunset is prettier with you in it ✨
+732	الغروب أجمل وأنت فيه ✨	Sunset is better with you in it ✨
+733	هيا إلى السهرة 🧡	On to the evening 🧡
+734	مساء الخير يا NAME 🌙✨	Good evening NAME 🌙✨
+735	النجوم لا تلمع بقدر عينيك 💫	The stars do not shine like your eyes 💫
+736	ادخلي 🌙	Come in 🌙
+737	ادخل 🌙	Come in 🌙
+738	=	NAME
+739	يومًا 💞	days 💞
+740	=	&
+741	>شاب	>Man
+742	>فتاة	>Woman
+743	خصّصا تطبيقكما	Customize your app
+744	=	First name
+745	الاسم الثاني	Second name
+746	العنوان الذي يظهر في الأعلى (اختياري)	Title shown at the top (optional)
+747	علاقتكما	Your relationship
+748	=	Engaged
+749	=	Married
+750	=	Dating
+751	=	Logo (optional)
+752	ارفع شعارًا	Upload logo
+753	=	No logo
+754	الأقسام التي تريدانها	Sections you want
+755	=	>Chat
+756	>زر القبلة	>Kiss button
+757	رمز الدعوة لشريكك	Invite code for your partner
+758	لم نستطع قراءة الصورة	Could not read the image
+759	يجب اختيار قسم واحد على الأقل	Choose at least one section
+760	حُفظ التخصيص	Customization saved
+761	يتوفّر إصدار جديد من التطبيق	A new version is available
+762	=	Update
+763	لم نستطع الوصول إلى البيانات.	Could not reach your data.
+764	نحاول الوصول إلى بياناتكما… تحقّقا من الإنترنت.	Trying to reach your data… check your internet.
+765	انقطع الاتصال بالبيانات. أغلقا التطبيق وافتحاه من جديد.	Connection lost. Close and reopen the app.
+766	لديك صلاحية مشاهدة فقط. اطلب من شريكك منحك صلاحية التعديل من زر المشاركة.	You have view-only access. Ask your partner for edit access.
+767	=	Happy
+768	=	Happy
+769	=	Missing you
+770	=	Missing you
+771	=	Relaxed
+772	=	Relaxed
+773	=	Tired
+774	=	Tired
+775	=	Stressed
+776	=	Stressed
+777	=	Sad
+778	=	Sad
+779	=	Sick
+780	=	Sick
+781	=	How are you today?
+782	=	Not set yet
+783	=
+784	=	will see your mood. It disappears after a day.
+785	=	A little note (optional)
+786	=	<input class="in" id="md-n" maxlength="80" placeholder="e.g. long day, I miss you" value="
+787	=	Pick your mood first
+788	=	Your mood was sent to
+789	=	🛒 Shopping
+790	=	🍲 Weekly meals
+791	=	⏰ Reminders
+792	=	Back to the list
+793	=	Bought it
+794	=	Urgent
+795	=	Bought by
+796	=	Requested by
+797	=	What do we need? e.g. bread, milk…
+798	=	Add
+799	=	item needed
+800	=	items needed
+801	=	The list is empty 🎉
+802	=	Write what the house needs, and
+803	=	will see it instantly.
+804	=	Hide
+805	=	Show
+806	=	what we bought (
+807	=	Clear all bought
+808	=	Added
+809	=	items
+810	=	Added to the list
+811	=	bought items?
+812	=	Edit item
+813	=	Item
+814	=	Quantity
+815	=	<input class="in" id="se-q" maxlength="20" placeholder="e.g. 2 kg" value="
+816	=	<input class="in" id="se-n" maxlength="60" placeholder="Type, brand…" value="
+817	=	> Urgent
+818	=	Saved
+819	=	Deleted
+820	=	Plan the week meals and add ingredients to shopping in one tap.
+821	=	Tomorrow
+822	=	Lunch
+823	=	Dinner
+824	=	Not decided yet · tap to plan
+825	=	<input class="in" id="m-l" maxlength="60" placeholder="e.g. Maqluba" value="
+826	=	<input class="in" id="m-d" maxlength="60" placeholder="e.g. Pastries and salad" value="
+827	=	Ingredients we need
+828	=	Separate with commas: rice, eggplant, yogurt
+829	=	,
+830	=	🛒 Add ingredients to shopping
+831	=	Write the ingredients first
+832	=	Added
+833	=	to shopping
+834	=	All ingredients are already on the list
+835	=	Bill
+836	=	Doctor
+837	=	Medicine
+838	=	Papers & renewals
+839	=	Family occasion
+840	=	Other
+841	=	Done
+842	=	Overdue by
+843	=	" aria-label="Done">
+844	=	Weekly
+845	=	Monthly
+846	=	Yearly
+847	=	No reminders yet
+848	=	Bills, doctor visits, medicine, renewals and family occasions… all in one place.
+849	=	Edit reminder
+850	=	New reminder
+851	=	What should we remember?
+852	=	<input class="in" id="r-t" maxlength="80" required placeholder="e.g. Electricity bill" value="
+853	=	Type
+854	=	Time (optional)
+855	=	Repeat
+856	=	Once
+857	=	Whose task?
+858	=	Both of us
+859	=	Reminder added
+860	=	Well done 👏
+861	=	Done, it will come back next time
+862	=	Movie night at home with popcorn and a blanket
+863	=	Cook a dish together you have never tried
+864	=	Candlelight dinner at home
+865	=	Game night: cards, Uno or a puzzle
+866	=	Browse old photos and tell their stories
+867	=	Each writes a letter to the other and reads it aloud
+868	=	Night of old songs we love
+869	=	Self-care night with face masks
+870	=	Watch the sunset from a high place
+871	=	Try a new café
+872	=	Long walk by the sea or in a park
+873	=	Ice cream tour: each picks a flavor for the other
+874	=	Bowling or billiards
+875	=	Picnic in nature with a basket
+876	=	Cinema and dinner after
+877	=	Local market, buy each other something small
+878	=	Tea on the balcony while planning our dreams
+879	=	A drive with no destination and our playlist
+880	=	Pick a book and read it together
+881	=	Work out together then a healthy breakfast
+882	=	Draw together in the app and keep the drawing
+883	=	Write 10 things we love about each other
+884	=	A night at a nearby hotel like tourists
+885	=	Plan a short weekend getaway
+886	=	Surprise flowers and a small gift for no reason
+887	=	Fancy dinner, dressed up
+888	=	A whole day planned by one of us for the other
+889	=	At home
+890	=	Going out
+891	=	Almost free
+892	=	Special occasion
+893	=	✨ Date ideas
+894	=	🎁 Wishes & gifts
+895	=	Not sure what to do tonight?
+896	=	Another idea
+897	=	Suggest an idea
+898	=	Add to our plans
+899	=	">+ Plan
+900	=	Added to «Plans» 💫
+901	=	" target="_blank" rel="noopener noreferrer">Link ↗
+902	=	🤫 Reserved by you
+903	=	Unreserve
+904	=	I will gift it 🎁
+905	=	Wishes of
+906	=	does not know
+907	=	does not know
+908	=	what you reserve
+909	=
+910	=
+911	=	has no wishes yet.
+912	=	Remind her
+913	=	Remind him
+914	=	gently 😉
+915	=	My wishes
+916	=	· write what you wish for so
+917	=	knows what to gift you
+918	=	+ New wish
+919	=	Edit wish
+920	=	New wish
+921	=	What do you wish for?
+922	=	<input class="in" id="w-t" maxlength="80" required placeholder="e.g. sports watch, perfume, a book…" value="
+923	=	Approx. price
+924	=	<input class="in" id="w-n" maxlength="60" placeholder="Color, size…" value="
+925	=	Link (optional)
+926	=	Saved
+927	=	Deleted
+928	=	Reservation canceled
+929	=	Reserved for you, your secret is safe 🤫
+930	أنشئ حسابًا جديدًا	Create a new account
+931	أنشئ الحساب	Create account
+932	لديك حساب؟ ادخل	Have an account? Sign in
+933	اكتب بريدك الإلكتروني في الأعلى أولًا	Enter your email above first
+934	أرسلنا إليك بريدًا لتغيير كلمة المرور	We sent you an email to reset your password
+935	لم ينجح، تحقّق من البريد الإلكتروني	Did not work, check the email
+936	=	One moment…
+937	يوجد خطأ في إعدادات Firebase داخل الملف	Firebase settings error in the file
+938	لا يوجد اتصال بالإنترنت	No internet connection
+939	هذا البريد له حساب، ادخل بدلًا من إنشاء حساب جديد	This email already has an account, sign in instead
+940	كلمة المرور يجب أن تكون ٦ أحرف على الأقل	Password must be at least 6 characters
+941	البريد الإلكتروني غير صحيح	Invalid email
+942	البريد الإلكتروني أو كلمة المرور غير صحيحة	Wrong email or password
+943	أهلًا بك	Welcome
+944	دعنا نجهّز مساحتكما الخاصة	Let us set up your private space
+945	أنا الأول، أريد إنشاء مساحتنا	I am first, create our space
+946	شريكي أنشأ المساحة ولديّ رمز	My partner created it, I have a code
+947	خروج	Sign out
+948	=	Invite code
+949	اطلب الرمز من شريكك، يجده في الإعدادات	Ask your partner for the code, it is in Settings
+950	=	Your birthday (optional)
+951	انضمّ	Join
+952	الرمز من ٦ أحرف	The code is 6 characters
+953	هذا الرمز غير موجود	This code does not exist
+954	هذه المساحة مكتملة بشخصين	This space already has two people
+955	لم ينجح، حاول مرة أخرى	Did not work, try again
+956	=	Our space
+957	كل شيء هنا يمكنكما تغييره لاحقًا من الإعدادات	You can change everything later in Settings
+958	من أنتما؟	Who are you?
+959	=	Your name
+960	=	Partner name
+961	اسمه أو اسمها	Their name
+962	=	Your special date
+963	شعاركما (اختياري)	Your logo (optional)
+964	=	Upload image
+965	ماذا تريدان في التطبيق؟	What do you want in the app?
+966	=	Chat
+967	زر القبلة	Kiss button
+968	جهّز مساحتنا 💞	Create our space 💞
+969	اكتبا الاسمين	Enter both names
+970	اختارا قسمًا واحدًا على الأقل	Choose at least one section
+971	جارٍ التجهيز…	Setting up…
+972	جاهزون!	All set!
+973	أرسل هذا الرمز لشريكك، لينشئ حسابًا ويُدخله فينضمّ إليك	Send this code to your partner. They create an account and enter it to join you
+974	=	Share code
+975	ادخل إلى التطبيق	Enter the app
+976	نزّل التطبيق وأنشئ حسابًا، ثم اختر «لديّ رمز» وأدخل:	Get the app and create an account, then choose «I have a code» and enter:
+977	لأسباب أمنية: سجّل الخروج ثم ادخل من جديد، ثم احذف الحساب	For security: sign out and back in, then delete the account
+978	لم ينجح الحذف، حاول مرة أخرى	Delete failed, try again
+979	=	Get Hikayatna on your phone
+980	افتح الرابط في المتصفح لتثبيت التطبيق	Open the link in your browser to install
+981	اضغط	Tap
+982	في الأعلى واختر «افتح في Safari»، أو انسخ الرابط والصقه في Safari.	at the top and choose «Open in Safari», or copy the link into Safari.
+983	في الأعلى واختر «افتح في Chrome»، أو انسخ الرابط.	at the top and choose «Open in Chrome», or copy the link.
+984	=	Copy link
+985	=	Copied ✓
+986	=	Copy the link:
+987	افتح الرابط في Safari	Open the link in Safari
+988	تثبيت التطبيق على iPhone يعمل من Safari فقط. انسخ الرابط وافتحه هناك.	Installing on iPhone only works from Safari. Copy the link and open it there.
+989	اضغط زر المشاركة	Tap the Share button
+990	في الأسفل	below
+991	مرّر للأسفل واختر	Scroll down and choose
+992	=	«Add to Home Screen»
+993	=	«Add»
+994	في الأعلى، وانتهى 💞	at the top, done 💞
+995	يصبح لديك أيقونة مثل أي تطبيق، ويعمل أسرع.	You get an icon like any app, and it runs faster.
+996	ثبّت التطبيق	Install the app
+997	في الأعلى واختر «إضافة إلى الشاشة الرئيسية» أو «تثبيت التطبيق».	at the top and choose «Add to Home Screen» or «Install app».
