@@ -1,0 +1,45 @@
+rules_version = '2';
+// قواعد مشروع Firebase الجديد للتطبيق العام (مش مشروع hasan-leen)
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function coupleDoc(cid) { return get(/databases/$(database)/documents/couples/$(cid)); }
+    function isMember(cid) {
+      return signedIn() && request.auth.uid in coupleDoc(cid).data.members.values();
+    }
+
+    // كل مستخدم بيقرا ويكتب ملفو بس
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // أكواد الدعوة: أي حدا مسجّل بيقدر يفحص كود معيّن، بس ما بيقدر يشوف القائمة
+    match /invites/{code} {
+      allow get: if signedIn();
+      allow create: if signedIn()
+        && coupleDoc(request.resource.data.cid).data.members.hassan == request.auth.uid;
+      allow list, update, delete: if false;
+    }
+
+    // مساحة كل زوجين
+    match /couples/{cid} {
+      allow create: if signedIn()
+        && request.resource.data.members.hassan == request.auth.uid
+        && request.resource.data.members.size() == 1;
+      allow read: if isMember(cid);
+      // الأعضاء بيعدّلوا، والشريك التاني بينضم مرة وحدة بس
+      allow update: if isMember(cid) || (
+        signedIn()
+        && !('leen' in resource.data.members)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members'])
+        && request.resource.data.members.leen == request.auth.uid
+        && request.resource.data.members.hassan == resource.data.members.hassan
+      );
+
+      // كل بيانات الزوجين (لحظات، صور، محادثة…)
+      match /{rest=**} {
+        allow read, write: if isMember(cid);
+      }
+    }
+  }
+}
