@@ -2060,7 +2060,7 @@ function onbNew(u){let logo='';
   const sections=[...OX.querySelectorAll('.cbx input[value]:checked')].map(x=>x.value);if(!sections.length){E.textContent='اختاروا قسم واحد عالأقل';return}
   b.disabled=true;b.textContent='عم نجهّز…';E.textContent='';
   try{let code='';for(let i=0;i<5&&!code;i++){const c=genCode();const s=await getDoc(doc(fs,'invites',c));if(!s.exists())code=c}if(!code)throw 0;
-   const cref=doc(collection(fs,'couples'));await setDoc(cref,{members:{hassan:u.uid},code,createdAt:Date.now()});
+   const cref=doc(collection(fs,'couples'));await setDoc(cref,{members:{hassan:u.uid},code,createdAt:Date.now(),createdIso:new Date().toISOString(),plan:'beta',founding:true});
    await setDoc(doc(fs,'invites',code),{cid:cref.id});
    const base='couples/'+cref.id+'/';
    await setDoc(doc(fs,base+'meta/couple'),{names:{hassan:n1,leen:n2},gender:{hassan:document.getElementById('o-g1').value,leen:document.getElementById('o-g2').value},relation:document.getElementById('o-r').value,title:'',logo,sections,chat:document.getElementById('o-ch').checked,kiss:document.getElementById('o-ks').checked,code});
