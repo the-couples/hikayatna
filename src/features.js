@@ -27,7 +27,7 @@ function openMood(){const me=A().me;if(!me)return;const cur=moods[me]||{};
 function showMoodNote(k){const m=moodOf(k),n=moods[k]&&moods[k].n;if(!m)return;A().toast(W(k)+': '+m[1]+' '+(fem(k)?m[3]:m[2])+(n?' — '+n:''))}
 
 /* ---------- بيتنا ---------- */
-function renderHome(){const box=$('#home');if(!box)return;
+function renderHouse(){const box=$('#house');if(!box)return;
  const seg='<div class="seg hseg">'+[['shop','🛒 المشتريات'],['meals','🍲 طعام الأسبوع'],['rem','⏰ التذكيرات']].map(s=>'<button data-hs="'+s[0]+'" aria-pressed="'+(homeSeg===s[0])+'">'+s[1]+'</button>').join('')+'</div>';
  box.innerHTML=seg+'<div id="hbody"></div>';
  if(homeSeg==='shop')renderShop();else if(homeSeg==='meals')renderMeals();else renderRems()}
@@ -93,7 +93,7 @@ function openRem(r){r=r||{};const me=A().me;
 function toggleRem(r){if(r.repeat==='none')return save(()=>db.collection('reminders').doc(r.id).update({done:!r.done}),r.done?'':'أحسنتم 👏');
  const d=nextDue(r);save(()=>db.collection('reminders').doc(r.id).update({doneFor:iso(d)}),'تمّ، وسيعود في موعده القادم')}
 function dueBanner(){const n=rems.filter(r=>{const i=dueInfo(r);return i.cls==='now'||i.cls==='late'}).length;
- const b=document.querySelector('.tabs [data-t="home"]');if(b)b.classList.toggle('hasdot',n>0||shop.some(s=>!s.done&&s.urgent))}
+ const b=document.querySelector('#bnav [data-go="house"]')||document.querySelector('.tabs [data-t="house"]');if(b)b.classList.toggle('hasdot',n>0||shop.some(s=>!s.done&&s.urgent))}
 
 /* ---------- أمنياتنا ---------- */
 const IDEAS=[['home','🍿','ليلة أفلام في البيت مع فشار وبطانية'],['home','🍳','نطبخ معًا طبقًا لم نجرّبه من قبل'],['home','🕯️','عشاء على ضوء الشموع في البيت'],['home','🧩','ليلة ألعاب: ورق، أونو، أو أحجية'],['home','📸','نتصفّح صورنا القديمة ونحكي قصصها'],['home','💌','يكتب كلٌّ منّا رسالة للآخر ويقرأها بصوته'],['home','🎤','ليلة أغانٍ قديمة نحبها'],['home','🧖','ليلة عناية واسترخاء وأقنعة وجه'],
@@ -124,11 +124,11 @@ function openWish(w){w=w||{};A().open('<h2>'+(w.id?'تعديل الأمنية':'
  const x=$('#w-x');if(x)x.onclick=()=>{A().close();save(()=>db.collection('wishes').doc(w.id).delete(),'حُذفت')}}
 
 /* ---------- ربط ---------- */
-const FAB={home:()=>homeSeg==='rem'?openRem():homeSeg==='meals'?openMeal(todayIso()):(()=>{const i=$('#sh-t');if(i){i.focus();i.scrollIntoView({block:'center'})}})(),wish:()=>wishSeg==='wishes'?openWish():$('#id-r')&&$('#id-r').click()};
+const FAB={house:()=>homeSeg==='rem'?openRem():homeSeg==='meals'?openMeal(todayIso()):(()=>{const i=$('#sh-t');if(i){i.focus();i.scrollIntoView({block:'center'})}})(),wish:()=>wishSeg==='wishes'?openWish():$('#id-r')&&$('#id-r').click()};
 window.__extFab=FAB;
 document.addEventListener('click',e=>{const t=e.target;
  let b=t.closest('[data-mood]');if(b){const k=b.dataset.mood;k===A().me?openMood():showMoodNote(k);return}
- b=t.closest('[data-hs]');if(b){homeSeg=b.dataset.hs;renderHome();return}
+ b=t.closest('[data-hs]');if(b){homeSeg=b.dataset.hs;renderHouse();return}
  b=t.closest('[data-sh]');if(b){const s=shop.find(x=>x.id===b.dataset.sh);if(!s)return;b.classList.add('popped');save(()=>db.collection('shopping').doc(s.id).update(s.done?{done:false,doneBy:'',doneAt:0}:{done:true,doneBy:A().me,doneAt:Date.now()}));return}
  b=t.closest('[data-she]');if(b){const s=shop.find(x=>x.id===b.dataset.she);if(s)openShopItem(s);return}
  b=t.closest('[data-meal]');if(b){openMeal(b.dataset.meal);return}
@@ -141,7 +141,7 @@ document.addEventListener('click',e=>{const t=e.target;
  b=t.closest('[data-wr]');if(b){const w=wishes.find(x=>x.id===b.dataset.wr);if(w)save(()=>db.collection('wishes').doc(w.id).update({reserved:w.reserved?'':A().me}),w.reserved?'أُلغي الحجز':'محجوزة لك، والسرّ عندنا 🤫');return}
  if(t.closest('#w-add')){openWish();return}
 });
-window.__extRender=()=>{renderMoods();renderHome();renderWish();dueBanner()};
+window.__extRender=()=>{renderMoods();renderHouse();renderWish();dueBanner()};
 window.__dbReady.then(d=>{db=d;const go=()=>{try{window.__extRender()}catch(x){}};
  const sub=(c,fn)=>{try{db.collection(c).onSnapshot(sn=>{fn(sn.docs.map(x=>({...x.data(),id:x.id})));go()},()=>{})}catch(x){}};
  sub('shopping',l=>shop=l);sub('reminders',l=>rems=l);sub('wishes',l=>wishes=l);
