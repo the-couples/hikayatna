@@ -1,5 +1,5 @@
 // حكايتنا: تخزين للعمل بدون إنترنت + الإشعارات
-const C='hk-v4';
+const C='hk-v5';
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['./','en.html','manifest.json','manifest-en.json','icons/icon-192.png'])).catch(()=>{}));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==location.origin)return;
@@ -18,7 +18,8 @@ self.addEventListener('notificationclick',e=>{
   const url=new URL((e.notification.data&&e.notification.data.url)||'./',self.registration.scope).href;
   e.waitUntil((async()=>{
     const all=await self.clients.matchAll({type:'window',includeUncontrolled:true});
-    for(const c of all){if(c.url.startsWith(self.registration.scope)){try{await c.focus()}catch(x){}c.postMessage({open:'chat'});return}}
+    const tg=new URL(url).searchParams.get('open')||'chat';
+    for(const c of all){if(c.url.startsWith(self.registration.scope)){try{await c.focus()}catch(x){}c.postMessage({open:tg});return}}
     await self.clients.openWindow(url);
   })());
 });

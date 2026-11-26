@@ -27,6 +27,7 @@ rep("function openMore(){open(","function openMore(){MORE=MORE_L();open(")
 rep("[an==null?'—':an,'لذكرى الخطوبة']","[an==null?'—':an,(COUPLE&&COUPLE.relation==='married'?'لذكرى الزواج':COUPLE&&COUPLE.relation==='dating'?'لذكرى التعارف':'لذكرى الخطوبة')]")
 rep(" if(!on.includes(tab))setTimeout(()=>goTab(on[0]),0)}"," if(tab!=='home'&&!on.includes(tab))setTimeout(()=>goTab('home'),0);try{renderHome()}catch(x){}}")
 rep(".g-moments{background:linear-gradient(145deg,#8a63f2,#4b3aa8)}",".g-moments{background:linear-gradient(145deg,#8a63f2,#4b3aa8)}.g-house{background:linear-gradient(145deg,#f2a35e,#c4672a)}.g-wish{background:linear-gradient(145deg,#e66fc9,#8f3aa8)}")
+rep("'عم يتصل فيك'+(G[me]==='f'?'ي':'')","'عم يتصل فيك'")
 css=open(D+'/features.css',encoding='utf-8').read();js=open(D+'/features.js',encoding='utf-8').read()
 js+='\n'+re.sub(r'[\u0600-\u06FF]',lambda m:'\\u%04x'%ord(m.group(0)),open(D+'/pushtext.js',encoding='utf-8').read())
 i=s.rfind('</style>');s=s[:i]+css+s[i:]
