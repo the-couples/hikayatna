@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script>(function(){try{var w=localStorage.getItem('hk-lang'),here=document.documentElement.lang;if(w&&w!==here&&!/[?&]stay/.test(location.search)){location.replace(w==='en'?'en.html':'./');}}catch(e){}})();window.__setLang=function(l){try{localStorage.setItem('hk-lang',l)}catch(e){}location.href=l==='en'?'en.html':'./'};</script>
-<meta name="app-ver" content="2026-11-26.53">
+<meta name="app-ver" content="2026-11-26.59">
 <style>.nosp #splash{display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hikayatna</title>
@@ -639,6 +639,23 @@ body.kbopen .bnav{transform:translateY(120%)}
 .mgrid button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px;border-radius:20px;background:var(--soft);color:var(--ink);font-weight:800;font-size:14px}
 .mgrid button .ti{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:23px;color:#fff}
 .mgrid button[aria-current=page]{box-shadow:inset 0 0 0 2px var(--rose)}
+.tm .ed{font-style:normal;opacity:.8;font-size:.92em}
+.chmenu,.ch,.bnav{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.ch input,.ch textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.aum{display:inline-grid;place-items:center;width:18px;height:18px;margin-inline-start:4px;opacity:.55;flex:none}
+.aum svg{width:15px;height:15px}
+.aum.on{color:#3fa9f5;opacity:1}
+.cot .aum.nw{color:var(--rose);opacity:1}
+.cme .cb .aum.on{color:#9fdcff}
+.chsr{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--card);border-bottom:1px solid var(--line)}
+.chsr[hidden]{display:none}
+.chsr input{flex:1;min-width:0;height:40px;border-radius:20px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:0 14px;font:inherit;font-size:16px;font-weight:600;outline:none}
+.chsr #chsn{font-size:13px;font-weight:800;color:var(--mute);white-space:nowrap;min-width:38px;text-align:center}
+.chsr .x{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--ink);background:var(--soft);font-weight:800;flex:none}
+mark.srm{background:#ffd54a;color:#1a1300;border-radius:4px;padding:0 1px}
+.cb.srcur{box-shadow:0 0 0 3px #ffd54a}
+#chlist .cb{touch-action:manipulation}
+.dbh{position:fixed;z-index:90;font-size:76px;line-height:1;pointer-events:none;transform:translate(-50%,-50%) scale(0);animation:dbh .95s cubic-bezier(.2,1.3,.4,1) forwards;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+@keyframes dbh{0%{transform:translate(-50%,-50%) scale(0);opacity:0}25%{transform:translate(-50%,-50%) scale(1.15);opacity:1}45%{transform:translate(-50%,-50%) scale(.95)}70%{transform:translate(-50%,-60%) scale(1);opacity:1}100%{transform:translate(-50%,-110%) scale(.8);opacity:0}}
 
 .chinw{flex:1;min-width:0;position:relative;display:flex}
 .chinw textarea{padding-left:46px!important}
@@ -788,7 +805,7 @@ body.chat-open.kbopen main,body.chat-open.kbopen header,body.chat-open.kbopen .f
 <div class="dvidea" id="dvi" hidden></div>
 <div class="dva" id="dva"><canvas id="dvc"></canvas><canvas id="dvl"></canvas><div class="dvhint" id="dvhint">Draw here with your fingers, each from your own phone, and watch each other draw live ✨</div><span class="dvpen" id="dvpen"></span></div>
 <div class="dvbar"><div class="dvcols" id="dvcols"></div><div class="dvtools"><button class="sz" data-sz="0" aria-label="Thin"><i style="width:6px;height:6px"></i></button><button class="sz" data-sz="1" aria-label="Medium"><i style="width:11px;height:11px"></i></button><button class="sz" data-sz="2" aria-label="Thick"><i style="width:18px;height:18px"></i></button><span class="sep"></span><button id="dvundo" aria-label="Undo last line">↩️</button><button id="dvclr" aria-label="Clear board">🗑️</button><button id="dvsave" aria-label="Save to our album">📸</button></div></div></div>
-<div class="ch" id="ch" aria-hidden="true"><div class="chtop"><button class="x" id="chx" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="chav" id="chav"></div><div class="nm"><b id="chnm"></b><span id="chst"></span></div><button class="x chbell" id="chbell" aria-label="Notifications"></button></div>
+<div class="ch" id="ch" aria-hidden="true"><div class="chtop"><button class="x" id="chx" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="chav" id="chav"></div><div class="nm"><b id="chnm"></b><span id="chst"></span></div><button class="x" id="chsrb" aria-label="Search"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="x chbell" id="chbell" aria-label="Notifications"></button></div><div class="chsr" id="chsr" hidden><input id="chsq" type="search" enterkeyhint="search" placeholder="Search the chat…" autocomplete="off"><span id="chsn"></span><button class="x" id="chsup" aria-label="Older"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></button><button class="x" id="chsdn" aria-label="Newer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><button class="x" id="chsx" aria-label="Close search">✕</button></div>
 <div class="chpush" id="chpush" hidden><span>🔔</span><div id="chpusht">Turn on notifications to get messages even when the app is closed</div><button id="chpushb">Turn on</button><button class="x" id="chpushx" aria-label="Later">✕</button></div>
 <div class="chlist" id="chlist"></div>
 <div class="chbar"><button class="chjump" id="chjump" hidden aria-label="To latest message">⬇️</button><div class="chreply" id="chrp" hidden><div id="chrpt"></div><button id="chrpx" aria-label="Cancel reply">✕</button></div><div class="chquick" id="chq"></div><div class="chemo" id="chemo" hidden></div><div class="chstk" id="chstk" hidden></div><input type="file" id="stkfile" accept="image/*" hidden>
@@ -808,6 +825,10 @@ const otherInput=(id,v,shown,ph)=>'<input class="in" id="'+id+'" maxlength="40" 
 function wireOther(box,attr,id){sheet.querySelector(box).addEventListener('click',e=>{const b=e.target.closest('['+attr+']');if(!b)return;const i=document.getElementById(id);const on=b.getAttribute(attr)==='other';i.hidden=!on;if(on)setTimeout(()=>i.focus(),60)})}
 const WHO={both:'Together',hassan:'',leen:''},G={hassan:'m',leen:'f'};let COUPLE=null;try{COUPLE=JSON.parse(localStorage.getItem('hl-couple')||'null')}catch(x){}if(COUPLE&&COUPLE.names){WHO.hassan=COUPLE.names.hassan||WHO.hassan;WHO.leen=COUPLE.names.leen||WHO.leen}if(COUPLE&&COUPLE.gender){G.hassan=COUPLE.gender.hassan||'m';G.leen=COUPLE.gender.leen||'f'}const REL={engaged:'Engagement date',married:'Wedding date',dating:'Date we met'};const relLbl=()=>REL[(COUPLE&&COUPLE.relation)||'engaged']||REL.engaged;const TABS=[['moments','Moments'],['album','Album'],['fit','Fitness'],['cal','Calendar'],['us','Between us'],['games','Games'],['house','Household'],['wish','Wishes'],['plans','Plans'],['stats','Stats']];
 const L='en-GB';
+/* perf: cache Intl formatters (toLocale* builds a new formatter every call) */
+{const C=new Map(),fm=(loc,o)=>{const k=String(loc)+'|'+JSON.stringify(o);let f=C.get(k);if(!f){f=new Intl.DateTimeFormat(loc,o);C.set(k,f)}return f},D=Date.prototype,od=D.toLocaleDateString,ot=D.toLocaleTimeString;
+ D.toLocaleDateString=function(loc,o){if(isNaN(this))return od.call(this,loc,o);try{return fm(loc,o||{year:'numeric',month:'numeric',day:'numeric'}).format(this)}catch(e){return od.call(this,loc,o)}};
+ D.toLocaleTimeString=function(loc,o){if(isNaN(this))return ot.call(this,loc,o);try{return fm(loc,o||{hour:'numeric',minute:'numeric',second:'numeric'}).format(this)}catch(e){return ot.call(this,loc,o)}}}
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const pd=s=>{const [y,m,d]=String(s||today()).split('-').map(Number);return new Date(y,(m||1)-1,d||1)};
 const heart='<svg><use href="#h"/></svg>';
@@ -971,6 +992,7 @@ const CREACT=['❤️','😂','😍','🥺','😮','👍'];
 let chLimit=300,chUnsub=null,chStick=true,chNew=0,chKeep=0;
 function subChat(){if(!db)return;try{chUnsub&&chUnsub()}catch(x){}let q=db.collection('chat');if(q.orderBy){q=q.orderBy('t');if(q.limitToLast)q=q.limitToLast(chLimit)}
  chUnsub=q.onSnapshot(sn=>onChat(sn.docs.map(d=>({...d.data(),id:d.id,_p:d.pending?1:0}))),()=>{})}
+const CH_WIN=60;let chShow=CH_WIN,chStart=0,chMoreBusy=false;
 let chat=[],chMeta={},chOpen=false,chReply=null,chLoadT=Date.now(),chSeenIds=null,chTypT=0,chReadT=0,chFirst=true;
 const chl=$('#chlist'),chin=$('#chin');
 $('#chq').innerHTML=CQUICK.map(e=>'<button data-qe="'+e+'">'+e+'</button>').join('');
@@ -994,10 +1016,10 @@ function chMsgHtml(m,prevBy,oread){const mine=m.by===me;let inner='';
  if(m.del)inner='<div class="cb del">🚫 This message was deleted</div>';
  else{const big=!m.img&&!m.aud&&!m.reply&&isBigEmo(m.text);
   const rp=m.reply?'<span class="crp" data-goto="'+esc(m.reply.id||'')+'"><b>'+esc(WHO[m.reply.by]||'')+'</b><span class="crt">'+esc((m.reply.text||'📷 Photo').slice(0,80))+'</span></span>':'';
-  const im=m.img?'<img alt="Photo" data-cimg="'+esc(m.id)+'" src="'+m.img+'"'+imgDim(m)+'>':'';
+  const im=m.img?'<img alt="Photo" decoding="async" data-cimg="'+esc(m.id)+'" src="'+m.img+'"'+imgDim(m)+'>':'';
   const au=m.aud?audHtml(m):'';
   const tk=mine?(m._p?'<span class="tk pd">🕓</span>':'<span class="tk'+((oread||0)>=(m.t||0)?' rd':'')+'">✓✓</span>'):'';
-  inner=m.stk?'<div class="cb stk" data-chm="'+esc(m.id)+'">'+(m.reply?rp:'')+'<span class="sk">'+stkHtml(m.stk)+'</span>'+'<span class="tm">'+hm(m.t)+' '+tk+'</span></div>':'<div class="cb'+(big?' big':'')+'" data-chm="'+esc(m.id)+'">'+rp+im+au+(m.text?linkify(esc(m.text)):'')+'<span class="tm">'+hm(m.t)+' '+tk+'</span></div>'}
+  inner=m.stk?'<div class="cb stk" data-chm="'+esc(m.id)+'">'+(m.reply?rp:'')+'<span class="sk">'+stkHtml(m.stk)+'</span>'+'<span class="tm">'+(m.edited?'<i class="ed">edited</i> ':'')+hm(m.t)+' '+tk+'</span></div>':'<div class="cb'+(big?' big':'')+'" data-chm="'+esc(m.id)+'">'+rp+im+au+(m.text?linkify(esc(m.text)):'')+'<span class="tm">'+(m.edited?'<i class="ed">edited</i> ':'')+hm(m.t)+' '+tk+'</span></div>'}
  const rx=m.react&&!m.del?Object.values(m.react).filter(Boolean):[];
  if(rx.length)inner=inner.replace(/<\/div>$/,'<span class="crx">'+rx.join('')+'</span></div>');
  return '<div class="cm '+(mine?'cme':'cot')+(rx.length?' hasr':'')+'"'+(prevBy===m.by?'':' style="margin-top:10px"')+'>'+inner+'</div>'}
@@ -1021,11 +1043,12 @@ function renderChat(){chBadge();if(!chOpen)return;if(swBusy){swPend=true;return}
  if(!chat.length){chl.innerHTML='<div class="chempty"><b>💌</b>Your first message goes here, go on '+(G[me]==='f'?'Send him':'Send her')+' something sweet</div>';return}
  const oread=(chMeta[o]||{}).read||0,items=[];let lastDay='',prevBy='';
  const lastRead=[...chat].reverse().find(m=>m.by===me&&!m.del&&!m._p&&(m.t||0)<=oread);
- if(chat.length>=chLimit)items.push({k:'older',h:'<button class="cholder" id="cholder">⬆️ Older messages</button>'});
- chat.forEach(m=>{const d=dayLbl(m.t||0);if(d!==lastDay){items.push({k:'day:'+d,h:'<div class="chday"><span>'+d+'</span></div>'});lastDay=d;prevBy=''}
+ let start=Math.max(0,chat.length-chShow);if(chUnreadKey){const ui=chat.findIndex(m=>kOf(m)===chUnreadKey);if(ui>=0&&ui<start+3)start=Math.max(0,ui-6,chat.length-200)}chStart=start;
+ if(start>0||chat.length>=chLimit)items.push({k:'older',h:'<button class="cholder" id="cholder">⬆️ Older messages</button>'});
+ (start?chat.slice(start):chat).forEach(m=>{const d=dayLbl(m.t||0);if(d!==lastDay){items.push({k:'day:'+d,h:'<div class="chday"><span>'+d+'</span></div>'});lastDay=d;prevBy=''}
   const k=kOf(m);if(chUnreadKey&&k===chUnreadKey)items.push({k:'unread',h:'<div class="chunread"><span>New messages</span></div>'});
   items.push({k:'m:'+k,h:chMsgHtml(m,prevBy,oread),a:1});
-  if(lastRead&&m===lastRead)items.push({k:'read',h:'<div class="chread">Seen ✓✓</div>',a:1});prevBy=m.by});
+  if(lastRead&&m===lastRead)items.push({k:'read',h:'<div class="chread">'+(m.aud?(m.played?'Seen and played ✓✓':'Seen ✓✓ · not played yet'):'Seen ✓✓')+'</div>',a:1});prevBy=m.by});
  if(chTypingShown)items.push({k:'typing',h:chTypingShown==='rec'?'<div class="cm cot tyrow"><div class="cb tyb recb"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span> '+(G[other(me)]==='f'?'is recording':'is recording')+' a voice message</span><i></i><i></i><i></i></div></div>':'<div class="cm cot tyrow"><div class="cb tyb"><i></i><i></i><i></i></div></div>',a:1});
  const first=chFirst;chPatch(items,!first);
  if(chKeep){chl.scrollTop=chl.scrollHeight-chKeep;chKeep=0}
@@ -1037,9 +1060,40 @@ function jumpUI(){const j=$('#chjump');const far=chl.scrollHeight-chl.scrollTop-
 chl.addEventListener('scroll',()=>{chStick=chl.scrollHeight-chl.scrollTop-chl.clientHeight<140;if(chStick)chNew=0;jumpUI()},{passive:true});
 chl.addEventListener('load',e=>{if(e.target.tagName==='IMG'&&chStick)chl.scrollTop=chl.scrollHeight},true);
 $('#chjump').onclick=()=>{chl.scrollTo({top:chl.scrollHeight,behavior:'smooth'});chNew=0};
-chl.addEventListener('click',e=>{if(e.target.closest('#cholder')){chKeep=chl.scrollHeight-chl.scrollTop;chLimit+=300;subChat();return}
- const g=e.target.closest('[data-goto]');if(!g||!g.dataset.goto)return;e.stopPropagation();const t=chl.querySelector('[data-chm="'+CSS.escape(g.dataset.goto)+'"]');
+function chMore(){if(chMoreBusy)return;chMoreBusy=true;chKeep=chl.scrollHeight-chl.scrollTop;if(chStart>0){chShow+=50;renderChat()}else{chLimit+=300;subChat()}setTimeout(()=>chMoreBusy=false,250)}
+function chReveal(id){const i=chat.findIndex(m=>m.id===id);if(i<0)return null;if(i<chStart){chShow=chat.length-i+12;renderChat()}return chl.querySelector('[data-chm="'+CSS.escape(id)+'"]')}
+chl.addEventListener('scroll',()=>{if(chl.scrollTop<250&&chStart>0&&!chMoreBusy&&!chFirst)requestAnimationFrame(chMore)},{passive:true});
+chl.addEventListener('click',e=>{if(e.target.closest('#cholder')){chMore();return}
+ const g=e.target.closest('[data-goto]');if(!g||!g.dataset.goto)return;e.stopPropagation();const t=chl.querySelector('[data-chm="'+CSS.escape(g.dataset.goto)+'"]')||chReveal(g.dataset.goto);
  if(!t){toast('This message is too old. Scroll up and tap «Older messages»');return}const row=t.closest('.cm');row.scrollIntoView({block:'center',behavior:'smooth'});row.classList.remove('flash');void row.offsetWidth;row.classList.add('flash')});
+/* ---- chat search + double-tap heart (v54) ---- */
+const srN=t=>String(t||'').replace(/[ً-ٰٟـ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'&').replace(/ئ/g,'ي').toLowerCase();
+let srHits=[],srI=0,srQ='',srT=0,srLoaded=false;
+function srOpen(){const b=$('#chsr');if(!b.hidden){$('#chsq').focus();return}try{chClosePanels()}catch(x){}b.hidden=false;b.animate([{opacity:0,transform:'translateY(-8px)'},{opacity:1,transform:'none'}],{duration:220,easing:'cubic-bezier(.2,.85,.25,1)'});$('#chsq').value='';$('#chsn').textContent='';srHits=[];srQ='';$('#chsq').focus();
+ if(!srLoaded&&chat.length>=chLimit){srLoaded=true;chKeep=chl.scrollHeight-chl.scrollTop;chLimit=100000;subChat()}}
+function srClose(){const b=$('#chsr');if(b.hidden)return;b.hidden=true;srHits=[];srQ='';$('#chsq').blur();srMark()}
+function srRun(){srQ=srN($('#chsq').value.trim());srHits=srQ.length<2?[]:chat.filter(m=>!m.del&&m.text&&srN(m.text).includes(srQ)).map(m=>m.id).reverse();srI=0;srShow()}
+function srShow(){const n=$('#chsn');if(!srQ||srQ.length<2){n.textContent='';srMark();return}if(!srHits.length){n.textContent='No results';srMark();return}
+ n.textContent=(srI+1)+' of '+srHits.length;srMark();let t=chl.querySelector('[data-chm="'+CSS.escape(srHits[srI])+'"]');if(!t){t=chReveal(srHits[srI]);srMark()}if(t){const row=t.closest('.cm');row.scrollIntoView({block:'center',behavior:'smooth'});row.classList.remove('flash');void row.offsetWidth;row.classList.add('flash')}}
+function srMark(){chl.querySelectorAll('mark.srm').forEach(mk=>{const p=mk.parentNode;mk.replaceWith(document.createTextNode(mk.textContent));p&&p.normalize()});chl.querySelectorAll('.cb.srcur').forEach(e=>e.classList.remove('srcur'));
+ if(!srQ||srQ.length<2||!srHits.length)return;const set=new Set(srHits);
+ chl.querySelectorAll('[data-chm]').forEach(cb=>{if(!set.has(cb.dataset.chm))return;if(cb.dataset.chm===srHits[srI])cb.classList.add('srcur');
+  const w=document.createTreeWalker(cb,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement.closest('.tm,.crp,.crx,.cau')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});const ns=[];while(w.nextNode())ns.push(w.currentNode);
+  ns.forEach(nd=>{const raw=nd.textContent,nm=srN(raw);if(nm.length!==raw.length)return;let i=nm.indexOf(srQ);if(i<0)return;const f=document.createDocumentFragment();let last=0;
+   while(i>=0){f.appendChild(document.createTextNode(raw.slice(last,i)));const mk=document.createElement('mark');mk.className='srm';mk.textContent=raw.slice(i,i+srQ.length);f.appendChild(mk);last=i+srQ.length;i=nm.indexOf(srQ,last)}
+   f.appendChild(document.createTextNode(raw.slice(last)));nd.replaceWith(f)})})}
+$('#chsrb').addEventListener('click',srOpen);$('#chsx').addEventListener('click',srClose);
+$('#chsq').addEventListener('input',()=>{clearTimeout(srT);srT=setTimeout(srRun,180)});
+$('#chsq').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(srHits.length){srI=(srI+1)%srHits.length;srShow()}else srRun()}});
+$('#chsup').addEventListener('click',()=>{if(!srHits.length)return;srI=Math.min(srHits.length-1,srI+1);srShow()});
+$('#chsdn').addEventListener('click',()=>{if(!srHits.length)return;srI=Math.max(0,srI-1);srShow()});
+{const _rc=renderChat;renderChat=function(){const r=_rc.apply(this,arguments);if(srQ&&!$('#chsr').hidden)try{srMark()}catch(x){}return r}}
+let dtLast={id:'',t:0,x:0,y:0};
+chl.addEventListener('click',e=>{const cb=e.target.closest('[data-chm]');if(!cb||e.target.closest('.cau,a,[data-goto],[data-cimg],.crx'))return;const id=cb.dataset.chm,now=Date.now();
+ if(dtLast.id===id&&now-dtLast.t<350&&Math.hypot(e.clientX-dtLast.x,e.clientY-dtLast.y)<30){dtLast={id:'',t:0,x:0,y:0};dtHeart(id,e.clientX,e.clientY)}else dtLast={id,t:now,x:e.clientX,y:e.clientY}});
+function dtHeart(id,x,y){const m=chat.find(z=>z.id===id);if(!m||m.del||m._p||!db)return;const h=document.createElement('div');h.className='dbh';h.textContent='❤️';h.style.left=x+'px';h.style.top=y+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),950);
+ try{navigator.vibrate&&navigator.vibrate(12)}catch(z){}if((m.react||{})[me]==='❤️')return;m.react={...(m.react||{}),[me]:'❤️'};renderChat();try{Music.sfx.pop()}catch(z){}
+ db.collection('chat').doc(m.id).update({['react.'+me]:'❤️'}).catch(()=>db.collection('chat').doc(m.id).update({react:m.react}).catch(()=>{}))}
 function chMarkRead(){if(!chOpen||document.hidden||!me||!db)return;const last=chat.filter(m=>m.by!==me).reduce((a,m)=>Math.max(a,m.t||0),0);const cur=(chMeta[me]||{}).read||0;
  if(last>cur&&Date.now()-chReadT>800){chReadT=Date.now();chMeta[me]={...(chMeta[me]||{}),read:last};db.doc('chatmeta/'+me).set({...(chMeta[me]||{}),read:last,seen:Date.now()}).catch(()=>{});chBadge()}}
 function onChat(docs){const before=chSeenIds;chat=docs.sort((a,b)=>(a.t||0)-(b.t||0));
@@ -1047,7 +1101,8 @@ function onChat(docs){const before=chSeenIds;chat=docs.sort((a,b)=>(a.t||0)-(b.t
   if(fresh.length){try{Music.sfx.pop()}catch(x){}if(chOpen&&!chStick)chNew+=fresh.length;const m=fresh[fresh.length-1];
    if(!chOpen)toast('💬 '+(WHO[m.by]||'')+': '+(m.stk?'🌟 Sticker':m.aud?'🎤 Voice message':m.img?'📷 Photo':(m.text||'').slice(0,40)),'Open',openChat)}}
  chSeenIds=new Set(chat.map(m=>m.id));renderChat()}
-function onChatMeta(docs){chMeta={};docs.forEach(d=>chMeta[d.id]=d);if(chOpen){chStatus();renderChat()}else chBadge();navAct()}
+let chMetaSig='';
+function onChatMeta(docs){chMeta={};docs.forEach(d=>chMeta[d.id]=d);if(chOpen){chStatus();const sg=((chMeta[other(me)]||{}).read||0)+'|'+chAct();if(sg!==chMetaSig){chMetaSig=sg;renderChat()}}else{chMetaSig='';chBadge()}navAct()}
 let fitRaf=0,fitH=0,fitT=-1,maxVH=window.innerHeight;
 addEventListener('resize',()=>{maxVH=Math.max(maxVH,window.innerHeight)});
 function kbOpen(){const vv=window.visualViewport;return !!vv&&document.activeElement===chin&&maxVH-vv.height>120}
@@ -1096,7 +1151,7 @@ function chLock(on){const b=document.body;if(on){chLockY=window.scrollY;b.style.
  C.addEventListener('touchend',()=>{if(!edg||!drag){edg=false;return}edg=false;drag=false;const cur=new DOMMatrix(getComputedStyle(C).transform).m41;
   if(cur<-innerWidth*.33||vx<-.5)closeChat();else{const an=C.animate([{transform:'translateX('+cur+'px)'},{transform:'translateX(0)'}],{duration:220,easing:'cubic-bezier(.2,.8,.2,1)'});C.style.transform='';}},{passive:true})}
 function openChat(){if(needMe())return;if(chOpen)return;bnSize();document.body.classList.add('chat-open');document.querySelectorAll('#bnav .bn').forEach(b=>b===$('#chBtn')?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));{const r=(chMeta[me]||{}).read||0,o=other(me),f=chat.find(m=>m.by===o&&!m.del&&(m.t||0)>r);chUnreadKey=f?kOf(f):''}
- {const c0=$('#ch');c0.getAnimations().forEach(a=>a.cancel());c0.style.transform=''}chOpen=true;pushBanner();pushUI();try{navigator.clearAppBadge&&navigator.clearAppBadge()}catch(x){}fitH=-1;fitT=-1;setTimeout(healViewport,50);chFirst=true;chStick=true;chNew=0;try{const d=localStorage.getItem('hl-chat-draft');if(d&&!chin.value){chin.value=d;setTimeout(chGrow,0)}}catch(x){}const c=$('#ch');c.classList.add('on');c.setAttribute('aria-hidden','false');chLock(true);fitCh();renderChat();chBadge();
+ {const c0=$('#ch');c0.getAnimations().forEach(a=>a.cancel());c0.style.transform=''}chOpen=true;pushBanner();pushUI();try{navigator.clearAppBadge&&navigator.clearAppBadge()}catch(x){}fitH=-1;fitT=-1;setTimeout(healViewport,50);chFirst=true;chShow=CH_WIN;chStick=true;chNew=0;try{const d=localStorage.getItem('hl-chat-draft');if(d&&!chin.value){chin.value=d;setTimeout(chGrow,0)}}catch(x){}const c=$('#ch');c.classList.add('on');c.setAttribute('aria-hidden','false');chLock(true);fitCh();renderChat();chBadge();
  if(db)db.doc('chatmeta/'+me).set({...(chMeta[me]||{}),seen:Date.now()}).catch(()=>{});try{Music.hush(true)}catch(x){}}
 function closeChat(){if(!chOpen)return;document.body.classList.remove('chat-open');try{syncNav()}catch(x){}if(recMR)stopRec(true);if(auEl){auEl.pause();auEl=null;auId=''}chOpen=false;chUnreadKey='';const c=$('#ch');c.setAttribute('aria-hidden','true');chLock(false);
  {const from=c.style.transform||'translateX(0)';c.getAnimations().forEach(a=>a.cancel());const an=c.animate([{transform:from},{transform:'translateX(-100%)'}],{duration:270,easing:'cubic-bezier(.4,0,.6,1)',fill:'forwards'});an.onfinish=()=>{if(!chOpen){c.classList.remove('on');c.style.transform='';an.cancel()}}}
@@ -1104,8 +1159,11 @@ function closeChat(){if(!chOpen)return;document.body.classList.remove('chat-open
 $('#chBtn').onclick=e=>{e.stopPropagation();openChat()};$('#chx').onclick=closeChat;
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&chOpen)chMarkRead()});
 setInterval(()=>{if(chOpen)chStatus();navAct()},1500);
-function setReply(m){chReply=m?{id:m.id,by:m.by,text:m.stk?'🌟 Sticker':m.aud?'🎤 Voice message':m.img&&!m.text?'📷 Photo':(m.text||'').slice(0,120)}:null;$('#chrp').hidden=!chReply;if(chReply)$('#chrpt').innerHTML='<b>Reply to '+esc(WHO[m.by]||'')+'</b> · '+esc(chReply.text)}
-$('#chrpx').onclick=()=>setReply(null);
+let chEdit=null;
+function clrDraft(){chin.value='';chGrow();try{localStorage.removeItem('hl-chat-draft')}catch(x){}}
+function setEdit(m){chReply=null;chEdit=m;$('#chrp').hidden=false;$('#chrpt').innerHTML='<b>✏️ Edit message</b> · '+esc((m.text||'').slice(0,80));chin.value=m.text||'';chGrow();chin.focus();try{chin.setSelectionRange(chin.value.length,chin.value.length)}catch(x){}}
+function setReply(m){if(chEdit){chEdit=null;clrDraft()}chReply=m?{id:m.id,by:m.by,text:m.stk?'🌟 Sticker':m.aud?'🎤 Voice message':m.img&&!m.text?'📷 Photo':(m.text||'').slice(0,120)}:null;$('#chrp').hidden=!chReply;if(chReply)$('#chrpt').innerHTML='<b>Reply to '+esc(WHO[m.by]||'')+'</b> · '+esc(chReply.text)}
+$('#chrpx').onclick=()=>{if(chEdit){chEdit=null;$('#chrp').hidden=true;clrDraft()}else setReply(null)};
 function chGrow(){chin.style.height='44px';chin.style.height=Math.min(120,chin.scrollHeight+2)+'px';const has=!!chin.value.trim();$('#chsend').classList.toggle('hid',!has);$('#chmic').classList.toggle('hid',has)}
 chin.addEventListener('input',()=>{chGrow();try{localStorage.setItem('hl-chat-draft',chin.value)}catch(x){}if(db&&me&&Date.now()-chTypT>2500&&chin.value.trim()){chTypT=Date.now();db.doc('chatmeta/'+me).set({...(chMeta[me]||{}),typing:Date.now(),seen:Date.now()}).catch(()=>{})}});
 chin.addEventListener('focus',()=>{chClosePanels();window.scrollTo(0,0)});
@@ -1114,9 +1172,9 @@ async function chSend(text,img,extra){text=(text||'').trim();if(!text&&!img&&!(e
  const tmp={...m,id:'tmp'+m.t,_p:1};chat.push(tmp);setReply(null);chStick=true;renderChat();try{Music.sfx.tick()}catch(x){}
  try{await db.collection('chat').add(m);notifyOther('💬 '+(WHO[me]||''),m.stk?'🌟 Sticker':m.aud?'🎤 Voice message':m.img?(m.text?'📷 '+m.text:'📷 Photo'):m.text,'chat',{chat:m});if(chMeta[me]&&chMeta[me].typing)db.doc('chatmeta/'+me).set({...chMeta[me],typing:0}).catch(()=>{})}
  catch(e){chat=chat.filter(x=>x!==tmp);if(text&&!chin.value){chin.value=text;chGrow()}renderChat();toast(e&&e.code==='permission-denied'?'«chat» must be added to Firestore rules':'Message not sent, try again')}}
-$('#chsend').onclick=()=>{const t=chin.value;chin.value='';chGrow();try{localStorage.removeItem('hl-chat-draft')}catch(x){}chStick=true;chSend(t);chin.focus()};
+$('#chsend').onclick=()=>{if(chEdit){const m=chEdit,nt=chin.value.trim();chEdit=null;$('#chrp').hidden=true;clrDraft();if(nt&&nt!==m.text){m.text=nt;m.edited=Date.now();renderChat();try{Music.sfx.tick()}catch(x){}db.collection('chat').doc(m.id).update({text:nt,edited:m.edited}).catch(()=>toast('Message not edited, try again'))}return}const t=chin.value;chin.value='';chGrow();try{localStorage.removeItem('hl-chat-draft')}catch(x){}chStick=true;chSend(t);chin.focus()};
 chin.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!('ontouchstart' in window)){e.preventDefault();$('#chsend').click()}});
-$('#chq').onclick=e=>{const b=e.target.closest('[data-qe]');if(b)chSend(b.dataset.qe)};
+$('#chq').onclick=e=>{const b=e.target.closest('[data-qe]');if(!b)return;const em=b.dataset.qe,st=chin.selectionStart??chin.value.length,en=chin.selectionEnd??st;chin.value=chin.value.slice(0,st)+em+chin.value.slice(en);try{chin.setSelectionRange(st+em.length,st+em.length)}catch(x){}chin.dispatchEvent(new Event('input',{bubbles:true}));try{Music.sfx.tick()}catch(x){}b.animate([{transform:'scale(1.35)'},{transform:'none'}],{duration:220,easing:'cubic-bezier(.2,1.4,.4,1)'})};
 $('#chemob').onclick=()=>{const p=$('#chemo'),op=pOpen(p);panelAnim($('#chstk'),false);if(!op)chin.blur();panelAnim(p,!op)};
 $('#chemo').onclick=e=>{const b=e.target.closest('[data-ee]');if(!b)return;const st=chin.selectionStart??chin.value.length;chin.value=chin.value.slice(0,st)+b.dataset.ee+chin.value.slice(chin.selectionEnd??st);chGrow();try{Music.sfx.tick()}catch(x){}};
 $('#chpic').onclick=()=>$('#chfile').click();
@@ -1181,7 +1239,7 @@ let auRate=1;try{auRate=+localStorage.getItem('hl-au-rate')||1}catch(x){}const A
 const chFull={},chAud={};let recMR=null,recChunks=[],recT0=0,recTick=0,recStream=null,recAn=null,recCancel=false,auEl=null,auId='';
 const fmtDur=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function audBars(id){let h=0;for(const c of String(id))h=(h*31+c.charCodeAt(0))>>>0;const o=[];for(let i=0;i<28;i++){h=(h*1103515245+12345)>>>0;o.push(25+((h>>16)%75))}return o}
-function audHtml(m){return '<div class="cau" data-aud="'+esc(m.id)+'"><button class="pl" aria-label="Play">'+IC_PLAY+'</button><span class="wv">'+audBars(m.id).map(v=>'<i style="height:'+v+'%"></i>').join('')+'</span><span class="du">'+fmtDur(m.dur||0)+'</span><button class="sp'+(auRate!==1?' on':'')+'" aria-label="Playback speed">'+spTxt(auRate)+'</button></div>'}
+function audHtml(m){return '<div class="cau" data-aud="'+esc(m.id)+'"><button class="pl" aria-label="Play">'+IC_PLAY+'</button><span class="wv">'+audBars(m.id).map(v=>'<i style="height:'+v+'%"></i>').join('')+'</span><span class="du">'+fmtDur(m.dur||0)+'</span><span class="aum'+(m.played?' on':m.by!==me?' nw':'')+'"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><button class="sp'+(auRate!==1?' on':'')+'" aria-label="Playback speed">'+spTxt(auRate)+'</button></div>'}
 function spTxt(r){return '\u2066'+(r===1?'1':r)+'×\u2069'}
 let recRaf=0,recLv=0,recBars=[],recLastPush=0,recSec=-1,recUI=false;
 function recShow(on){const rec=$('#chrec'),row=document.querySelector('.chrow'),q=$('#chq');if(on===recUI)return;recUI=on;
@@ -1203,7 +1261,7 @@ function recDraw(){recRaf=requestAnimationFrame(recDraw);const cv=$('#chlvc');if
   g.globalAlpha=Math.max(.25,1-x/w*.75);g.beginPath();g.roundRect?g.roundRect(x,(h-bh)/2,bw,bh,1.5):g.rect(x,(h-bh)/2,bw,bh);g.fill()}
  const s=Math.floor((Date.now()-recT0)/1000);if(s!==recSec){recSec=s;$('#chrect').textContent=fmtDur(s);if(s>=180)stopRec(false)}}
 let recDict=false;
-async function startRec(dict){if(needMe()||recMR)return;recDict=dict===true;$('#chrec').classList.toggle('dict',recDict);if(!navigator.mediaDevices||!window.MediaRecorder){toast('Recording is not supported on this phone');return}
+async function startRec(dict){if(needMe()||recMR)return;try{if(auEl&&!auEl.paused)auEl.pause()}catch(x){}recDict=dict===true;$('#chrec').classList.toggle('dict',recDict);if(!navigator.mediaDevices||!window.MediaRecorder){toast('Recording is not supported on this phone');return}
  chClosePanels();recBars=[];recLv=0;recSec=-1;$('#chrect').textContent='0:00';recT0=Date.now();recShow(true);
  try{recStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}catch(x){recShow(false);toast('Allow the app to use the microphone');return}
  const mt=['audio/mp4','audio/aac','audio/webm;codecs=opus','audio/webm'].find(t=>MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(t))||'';
@@ -1245,7 +1303,7 @@ $('#chmic').onclick=startRec;$('#chrecx').onclick=()=>{if(recMR)stopRec(true);el
 function auUI(id,playing,p){const w=chl.querySelector('[data-aud="'+CSS.escape(id)+'"]');if(!w)return;w.querySelector('.pl').innerHTML=playing?IC_PAUSE:IC_PLAY;w.classList.toggle('playing',!!playing);const bars=w.querySelectorAll('.wv i');const n=Math.round((p||0)*bars.length);bars.forEach((b,i)=>b.classList.toggle('on',i<n));
  if(auEl&&playing)w.querySelector('.du').textContent=fmtDur(auEl.currentTime)}
 chl.addEventListener('click',e=>{const b=e.target.closest('.cau .pl');if(!b)return;const w=b.closest('[data-aud]');playAud(w.dataset.aud,null,true)});
-async function playAud(id,frac,toggle){const w=chl.querySelector('[data-aud="'+CSS.escape(id)+'"]');const b=w&&w.querySelector('.pl');const m=chat.find(x=>x.id===id);if(!m||!m.aud||!b)return;
+async function playAud(id,frac,toggle){const w=chl.querySelector('[data-aud="'+CSS.escape(id)+'"]');const b=w&&w.querySelector('.pl');const m=chat.find(x=>x.id===id);if(!m||!m.aud||!b)return;if(m.by!==me&&!m.played&&db&&m.id){m.played=Date.now();const ai=chl.querySelector('[data-aud="'+CSS.escape(id)+'"] .aum');if(ai){ai.classList.remove('nw');ai.classList.add('on')}db.collection('chat').doc(m.id).update({played:m.played}).catch(()=>{})}
  if(auEl&&auId===id){if(frac!=null){const D=isFinite(auEl.duration)?auEl.duration:(m.dur||1);auEl.currentTime=Math.min(D-.05,frac*D);if(auEl.paused)auEl.play().catch(()=>{});auUI(id,!auEl.paused,frac);return}if(toggle){if(auEl.paused)auEl.play();else auEl.pause()}return}
  if(auEl){auEl.pause();const old=auId;const om=chat.find(x=>x.id===old);auUI(old,false,0);if(om){const ow=chl.querySelector('[data-aud="'+CSS.escape(old)+'"] .du');if(ow)ow.textContent=fmtDur(om.dur)}}
  let d=chAud[m.aud];if(!d){b.innerHTML=IC_LOAD;try{const n=m.parts||1,ps=await Promise.all([...Array(n)].map((_,i)=>db.doc('chataudio/'+(i?m.aud+'_'+i:m.aud)).get()));if(ps.every(x=>x.exists)){d=ps.map(x=>x.data().data).join('');chAud[m.aud]=d}}catch(y){}}
@@ -1288,11 +1346,12 @@ chl.addEventListener('click',async e=>{const i=e.target.closest('[data-cimg]');i
  bs[1].onclick=()=>{try{saveFiles([dataToFile(src,'hassan-leen-chat-'+(m.t||0)+'.jpg')])}catch(x){toast('Could not download it')}}});
 function chMenu(id){const m=chat.find(x=>x.id===id);if(!m||m.del||!m.id||m._p)return;const mine=m.by===me;const my=(m.react||{})[me]||'';
  const w=document.createElement('div');w.className='chmenu';
- w.innerHTML='<div class="rx">'+CREACT.map(r=>'<button data-r="'+r+'" class="'+(r===my?'on':'')+'">'+r+'</button>').join('')+'</div><div class="pv">'+(m.stk?'🌟 Sticker ':'')+(m.aud?'🎤 Voice message ':'')+(m.img?'📷 Photo ':'')+esc((m.text||'').slice(0,200))+'</div><div class="ac"><button data-a="reply">↩️ Reply</button>'+(m.text?'<button data-a="copy">📋 Copy</button>':'')+(mine?'<button data-a="del" class="dl">🗑️ Delete</button>':'')+'</div>';
- document.body.appendChild(w);
+ w.innerHTML='<div class="rx">'+CREACT.map(r=>'<button data-r="'+r+'" class="'+(r===my?'on':'')+'">'+r+'</button>').join('')+'</div><div class="pv">'+(m.stk?'🌟 Sticker ':'')+(m.aud?'🎤 Voice message ':'')+(m.img?'📷 Photo ':'')+esc((m.text||'').slice(0,200))+'</div><div class="ac"><button data-a="reply">↩️ Reply</button>'+(m.text?'<button data-a="copy">📋 Copy</button>':'')+(mine&&m.text&&!m.aud&&!m.stk?'<button data-a="edit">✏️ Edit</button>':'')+(mine?'<button data-a="del" class="dl">🗑️ Delete</button>':'')+'</div>';
+ document.body.appendChild(w);['contextmenu','selectstart'].forEach(n=>w.addEventListener(n,e=>e.preventDefault()));
  w.onclick=async e=>{const r=e.target.closest('[data-r]'),a=e.target.closest('[data-a]');
   if(r){w.remove();const nv=r.dataset.r===my?'':r.dataset.r;m.react={...(m.react||{}),[me]:nv};renderChat();try{Music.sfx.pop()}catch(x){}try{await db.collection('chat').doc(m.id).update({['react.'+me]:nv})}catch(x){try{await db.collection('chat').doc(m.id).update({react:m.react})}catch(y){}}return}
   if(a){w.remove();if(a.dataset.a==='reply'){setReply(m);chin.focus()}
+   else if(a.dataset.a==='edit'){setEdit(m)}
    else if(a.dataset.a==='copy'){try{await navigator.clipboard.writeText(m.text);toast('Copied')}catch(x){}}
    else if(a.dataset.a==='del'){try{await db.collection('chat').doc(m.id).update({del:true,text:'',img:'',aud:'',reply:null,react:{}});if(m.imgId)db.doc('chatimg/'+m.imgId).delete().catch(()=>{});if(m.aud)for(let i=0;i<(m.parts||1);i++)db.doc('chataudio/'+(i?m.aud+'_'+i:m.aud)).delete().catch(()=>{})}catch(x){toast('Not deleted')}}return}
   if(e.target===w)w.remove()}}
