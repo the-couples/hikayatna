@@ -6,6 +6,7 @@
 //   VAPID_PRIVATE : المفتاح الخاص (base64url)
 //   VAPID_SUBJECT : mailto:you@example.com
 //   FIREBASE_PROJECT : hikayatna-app
+//   FCM_SA        : مفتاح حساب الخدمة (JSON) لإرسال إشعارات تطبيق الأندرويد عبر FCM
 
 const ORIGINS = ['https://the-couples.github.io', 'capacitor://localhost', 'http://localhost', 'https://localhost'];
 const te = new TextEncoder();
@@ -99,6 +100,33 @@ async function stt(req,env){
   catch(e){return json(req,{error:String((e&&e.message)||e).slice(0,200)},500)}
 }
 
+
+/* ---------- FCM (تطبيق الأندرويد) ---------- */
+let FCM_TOK = null, FCM_EXP = 0;
+const saOf = env => { const r = String(env.FCM_SA || '').trim(); return JSON.parse(r.startsWith('{') ? r : new TextDecoder().decode(Uint8Array.from(atob(r), c => c.charCodeAt(0)))); };
+async function fcmToken(env) {
+  if (FCM_TOK && Date.now() < FCM_EXP - 60e3) return FCM_TOK;
+  const sa = saOf(env);
+  const pem = sa.private_key.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
+  const der = Uint8Array.from(atob(pem), c => c.charCodeAt(0));
+  const key = await crypto.subtle.importKey('pkcs8', der, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']);
+  const now = Math.floor(Date.now() / 1000);
+  const h = b64u.enc(te.encode(JSON.stringify({ alg: 'RS256', typ: 'JWT' })));
+  const c = b64u.enc(te.encode(JSON.stringify({ iss: sa.client_email, scope: 'https://www.googleapis.com/auth/firebase.messaging', aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 })));
+  const sig = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, te.encode(h + '.' + c));
+  const r = await fetch('https://oauth2.googleapis.com/token', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=' + h + '.' + c + '.' + b64u.enc(sig) });
+  const j = await r.json(); if (!j.access_token) throw new Error('fcm auth');
+  FCM_TOK = j.access_token; FCM_EXP = Date.now() + (j.expires_in || 3600) * 1000; return FCM_TOK;
+}
+async function sendFcm(token, msg, open, env) {
+  const sa = saOf(env);
+  const r = await fetch('https://fcm.googleapis.com/v1/projects/' + sa.project_id + '/messages:send', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + await fcmToken(env) },
+    body: JSON.stringify({ message: { token, notification: { title: msg.title, body: msg.body }, data: { open: String(open || 'chat') },
+      android: { priority: 'high', notification: { tag: msg.tag, sound: 'default' } } } }) });
+  return r.status;
+}
+
 /* ---------- حدّ بسيط لمنع الإساءة ---------- */
 const hits = new Map();
 function limited(uid) { const now = Date.now(); const a = (hits.get(uid) || []).filter(t => now - t < 60e3); a.push(now); hits.set(uid, a); return a.length > 40; }
@@ -126,6 +154,10 @@ export default {
         if (st === 404 || st === 410) gone.push(s.endpoint);
       } catch (e) { }
     }));
-    return json(req, { ok: true, sent: subs.length - gone.length, gone });
+    const fcm = Array.isArray(d.fcm) ? d.fcm.slice(0, 6) : [];
+    if (fcm.length && env.FCM_SA) await Promise.all(fcm.map(async t => {
+      try { if (typeof t !== 'string' || t.length > 400) return; const st = await sendFcm(t, msg, d.open, env); if (st === 404 || st === 400) gone.push(t); } catch (e) { }
+    }));
+    return json(req, { ok: true, sent: subs.length + fcm.length - gone.length, gone });
   },
 };
