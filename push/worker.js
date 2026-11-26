@@ -1,5 +1,6 @@
 // حكايتنا — خادم إرسال الإشعارات (Cloudflare Worker)
 // يستقبل طلبًا من التطبيق مع رمز Firebase للمستخدم، ويرسل إشعار Web Push لاشتراكات الشريك.
+// ربط Workers AI باسم AI (لتحويل الصوت إلى نص عبر /stt)
 // الأسرار المطلوبة (Settings → Variables and Secrets):
 //   VAPID_PUBLIC  : المفتاح العام (base64url)
 //   VAPID_PRIVATE : المفتاح الخاص (base64url)
@@ -86,6 +87,18 @@ async function sendPush(sub, payload, env) {
   return r.status;
 }
 
+
+/* ---------- تحويل الصوت إلى نص ---------- */
+function b64(bytes){let s='';for(let i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(s)}
+async function stt(req,env){
+  const buf=new Uint8Array(await req.arrayBuffer());
+  if(buf.length<1000)return json(req,{text:''});
+  if(buf.length>4e6)return json(req,{error:'too long'},413);
+  if(!env.AI)return json(req,{error:'ai not bound'},500);
+  try{const out=await env.AI.run('@cf/openai/whisper-large-v3-turbo',{audio:b64(buf)});return json(req,{text:String((out&&out.text)||'').trim()})}
+  catch(e){return json(req,{error:String((e&&e.message)||e).slice(0,200)},500)}
+}
+
 /* ---------- حدّ بسيط لمنع الإساءة ---------- */
 const hits = new Map();
 function limited(uid) { const now = Date.now(); const a = (hits.get(uid) || []).filter(t => now - t < 60e3); a.push(now); hits.set(uid, a); return a.length > 40; }
@@ -95,11 +108,12 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { headers: cors(req) });
     const url = new URL(req.url);
     if (req.method === 'GET') return json(req, { ok: true, service: 'hikayatna-push', vapid: env.VAPID_PUBLIC || null });
-    if (req.method !== 'POST' || url.pathname !== '/notify') return json(req, { error: 'not found' }, 404);
+    if (req.method !== 'POST' || (url.pathname !== '/notify' && url.pathname !== '/stt')) return json(req, { error: 'not found' }, 404);
     let uid;
     try { uid = await verifyFirebase((req.headers.get('Authorization') || '').replace(/^Bearer\s+/i, ''), env.FIREBASE_PROJECT || 'hikayatna-app'); }
     catch (e) { return json(req, { error: 'unauthorized' }, 401); }
     if (limited(uid)) return json(req, { error: 'slow down' }, 429);
+    if (url.pathname === '/stt') return stt(req, env);
     let d; try { d = await req.json(); } catch (e) { return json(req, { error: 'bad json' }, 400); }
     const subs = Array.isArray(d.subs) ? d.subs.slice(0, 6) : [];
     const msg = { title: String(d.title || '').slice(0, 80), body: String(d.body || '').slice(0, 200), tag: String(d.tag || 'hk').slice(0, 30), url: String(d.url || './').slice(0, 200) };
