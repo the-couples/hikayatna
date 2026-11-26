@@ -591,6 +591,7 @@ textarea.in{min-height:84px;resize:vertical}
     <h1 class="names"></h1>
     <div class="days" id="days"></div>
      <div class="moods" id="moods"></div>
+     <div id="pushbar"></div>
     <button class="kissb" id="kissBtn" aria-label="Send a big kiss"><span class="kic"><svg viewBox="0 0 120 80"><use href="#lips"/></svg></span>Big kiss</button>
    </div>
   </div>
@@ -797,7 +798,7 @@ function sendFx(){const fx=$('#kissfx'),b=$('#kissBtn').getBoundingClientRect();
  fx.classList.add('on','send');setTimeout(kissSound,780);kissT=setTimeout(hideKiss,2150)}
 async function sendKiss(){if(needMe())return;if(Date.now()-(window.__lastKiss||0)<2200)return;window.__lastKiss=Date.now();
  unlockAudio();sendFx();
- try{await db.collection('kisses').add({from:me,to:other(me),createdAt:Date.now(),seenAt:0})}catch(x){setTimeout(()=>toast('Could not send the kiss. Check your internet'),2200)}}
+ try{await db.collection('kisses').add({from:me,to:other(me),createdAt:Date.now(),seenAt:0});try{window.__notify&&window.__notify('kiss',{})}catch(x){}}catch(x){setTimeout(()=>toast('Could not send the kiss. Check your internet'),2200)}}
 $('#kissBtn').onclick=sendKiss;
 async function checkKisses(){if(!me||!kissLoaded||!window.__spDone)return;const pend=kisses.filter(k=>k.to===me&&!k.seenAt);if(!pend.length)return;
  if(document.hidden)return;showKiss(pend[0].from,pend.length);for(const k of pend){try{await db.collection('kisses').doc(k.id).update({seenAt:Date.now()})}catch(x){}}}
@@ -925,7 +926,7 @@ chin.addEventListener('focus',()=>{$('#chemo').hidden=true;$('#chstk').hidden=tr
 async function chSend(text,img,extra){text=(text||'').trim();if(!text&&!img&&!(extra&&(extra.aud||extra.stk)))return;if(needMe())return;
  const m={by:me,text,t:Date.now(),...(extra||{})};if(chReply)m.reply=chReply;if(img)m.img=img;
  const tmp={...m,id:'tmp'+m.t,_p:1};chat.push(tmp);setReply(null);renderChat();chl.scrollTop=chl.scrollHeight;try{Music.sfx.tick()}catch(x){}
- try{await db.collection('chat').add(m);if(chMeta[me]&&chMeta[me].typing)db.doc('chatmeta/'+me).set({...chMeta[me],typing:0}).catch(()=>{})}
+ try{await db.collection('chat').add(m);try{window.__notify&&window.__notify('chat',m)}catch(x){}if(chMeta[me]&&chMeta[me].typing)db.doc('chatmeta/'+me).set({...chMeta[me],typing:0}).catch(()=>{})}
  catch(e){chat=chat.filter(x=>x!==tmp);if(text&&!chin.value){chin.value=text;chGrow()}renderChat();toast(e&&e.code==='permission-denied'?'«chat» must be added to Firestore rules':'Message not sent, try again')}}
 $('#chsend').onclick=()=>{const t=chin.value;chin.value='';chGrow();try{localStorage.removeItem('hl-chat-draft')}catch(x){}chStick=true;chSend(t);chin.focus()};
 chin.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!('ontouchstart' in window)){e.preventDefault();$('#chsend').click()}});
@@ -1767,7 +1768,7 @@ function openPlan(p){
 }
 
 function openSettings(){
- open('<h2>Our settings</h2><button type="button" class="btn" id="cust" style="width:100%;margin-bottom:6px">🎨 Customize the app (names, logo, sections)</button><form id="sf"><label class="l" for="s-d">'+relLbl()+'</label><input class="in" id="s-d" type="date" value="'+esc(settings.start||'')+'">'+
+ open('<h2>Our settings</h2>'+(window.__pushBtn?window.__pushBtn():'')+'<button type="button" class="btn" id="cust" style="width:100%;margin-bottom:6px">🎨 Customize the app (names, logo, sections)</button><form id="sf"><label class="l" for="s-d">'+relLbl()+'</label><input class="in" id="s-d" type="date" value="'+esc(settings.start||'')+'">'+
  (me?'<label class="l" for="s-b">Your birthday</label><input class="in" id="s-b" type="date" value="'+esc(bdayOf(me))+'">':'')+
  '<p class="small"><button type="button" class="chip" onclick="__setLang(\'ar\')">🌐 العربية</button></p><p class="small" style="opacity:.6">App version: '+APP_VER+'</p><p class="small">'+(me?'You are signed in as '+WHO[me]+'. Each of you edits their own birthday, weight and height.':'You have not chosen who you are yet.')+'</p><div class="acts"><button class="btn pri" type="submit">Save</button></div><div class="acts" style="margin-top:10px"><button type="button" class="btn" id="bk">Backup</button><button type="button" class="btn del" id="lo">Sign out</button></div>'+(COUPLE&&!COUPLE.legacy?'<div class="acts" style="margin-top:10px"><button type="button" class="btn del" id="delacc" style="opacity:.8">Delete my account</button></div>':'')+'</form>');
  $('#cust').onclick=openCustomize;
@@ -2141,6 +2142,69 @@ window.__dbReady.then(d=>{db=d;const go=()=>{try{window.__extRender()}catch(x){}
  const iv=setInterval(()=>{if(A()&&A().me){clearInterval(iv);go()}},400)});
 })();
 
+/* ========== الإشعارات (Web Push عبر Cloudflare Worker) ========== */
+(function(){
+const VAPID='BPYFwKe6waz7tgSSQWRV--E-cEMPd2_1Tlvzl5kTIYF7UM0n5H_0qoKuw8Tz-QKLfCO7SopSR-P6jmJs9MjE7Xw';
+const PUSH_URL='__PUSH_URL__';
+const A=()=>window.__app;const $=s=>document.querySelector(s);
+const EN=document.documentElement.lang==='en';
+const tx=(ar,en)=>EN?en:ar;
+let db=null;
+const supported=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.userAgent.includes('Mac')&&'ontouchend' in document);
+const u8=b=>{b=b.replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';const s=atob(b);return Uint8Array.from(s,c=>c.charCodeAt(0))};
+const other=k=>k==='hassan'?'leen':'hassan';
+const ready=()=>PUSH_URL.startsWith('https://');
+const state=()=>!supported()?(ios&&!standalone()?'ios':'no'):Notification.permission; // ios | no | default | granted | denied
+
+async function subscribe(){const reg=await navigator.serviceWorker.ready;let s=await reg.pushManager.getSubscription();
+ if(s&&s.options&&s.options.applicationServerKey){const a=new Uint8Array(s.options.applicationServerKey),b=u8(VAPID);if(a.length!==b.length||a.some((x,i)=>x!==b[i])){await s.unsubscribe();s=null}}
+ if(!s)s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)});return s.toJSON()}
+async function saveSub(sj){const me=A().me;if(!me||!db)return;const ref=db.doc('push/'+me);const cur=await ref.get();const d=cur.exists?cur.data():{};
+ const subs=(d.subs||[]).filter(x=>x.endpoint!==sj.endpoint);subs.unshift({endpoint:sj.endpoint,keys:sj.keys,t:Date.now()});
+ await ref.set({subs:subs.slice(0,5),lang:document.documentElement.lang,t:Date.now()})}
+async function enable(){const st=state();
+ if(st==='ios'){A().toast(tx('على الآيفون تعمل الإشعارات بعد إضافة التطبيق إلى الشاشة الرئيسية وفتحه منها','On iPhone, notifications work after adding the app to your Home Screen and opening it from there'));return}
+ if(st==='no'){A().toast(tx('هذا المتصفح لا يدعم الإشعارات','This browser does not support notifications'));return}
+ let p=Notification.permission;if(p==='default')p=await Notification.requestPermission();
+ if(p!=='granted'){A().toast(tx('الإشعارات مغلقة. فعّلها من إعدادات الهاتف للتطبيق','Notifications are blocked. Enable them in your phone settings'));render();return}
+ try{await saveSub(await subscribe());A().toast(tx('تفعّلت الإشعارات 🔔','Notifications are on 🔔'))}catch(e){A().toast(tx('لم نستطع تفعيل الإشعارات، حاول مرة أخرى','Could not turn on notifications, try again'))}
+ render()}
+function snoozed(){try{return Date.now()<(+localStorage.getItem('hk-push-snooze')||0)}catch(e){return false}}
+function render(){const bar=$('#pushbar');if(!bar)return;const st=state();const me=A()&&A().me;
+ if(!me||!ready()||st==='granted'||st==='no'||snoozed()){bar.innerHTML='';return}
+ const ot=A().WHO[other(me)]||'';
+ bar.innerHTML='<div class="pushbar"><span class="pi">🔔</span><span class="pt">'+(st==='denied'?tx('الإشعارات مغلقة لهذا التطبيق. فعّلها من إعدادات الهاتف','Notifications are blocked. Turn them on in your phone settings'):st==='ios'?tx('أضف التطبيق للشاشة الرئيسية لتصلك رسائل ','Add the app to your Home Screen to get messages from ')+esc(ot)+tx(' وقبلاته',''):tx('فعّل الإشعارات لتعرف فورًا حين يراسلك ','Turn on notifications to know when ')+esc(ot)+tx('',' messages you'))+'</span>'+(st==='default'?'<button class="pb" id="push-on">'+tx('فعّل','Turn on')+'</button>':'')+'<button class="px" id="push-x" aria-label="'+tx('إغلاق','Close')+'">✕</button></div>';
+ const on=$('#push-on');if(on)on.onclick=enable;
+ $('#push-x').onclick=()=>{try{localStorage.setItem('hk-push-snooze',Date.now()+5*864e5)}catch(e){}render()}}
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+window.__pushBtn=()=>{if(!ready())return '';const st=state();
+ return '<button type="button" class="btn" id="pushset" style="width:100%;margin-bottom:6px" onclick="window.__pushEnable()">'+(st==='granted'?tx('🔔 الإشعارات مفعّلة · حدّث','🔔 Notifications on · refresh'):tx('🔔 فعّل الإشعارات','🔔 Turn on notifications'))+'</button>'};
+window.__pushEnable=()=>{try{A().close()}catch(e){}enable()};
+
+window.__notify=async(type,data)=>{try{
+ if(!ready()||!db)return;const me=A().me;if(!me)return;const ot=other(me);
+ const s=await db.doc('push/'+ot).get();if(!s.exists)return;const d=s.data();const subs=(d.subs||[]).map(x=>({endpoint:x.endpoint,keys:x.keys}));if(!subs.length)return;
+ const en=d.lang==='en',name=A().WHO[me]||(en?'Your partner':'شريكك'),fem=A().G[me]==='f';
+ let title,body,tag;
+ if(type==='chat'){title=name;tag='chat';
+  body=data.text?String(data.text).slice(0,140):data.img?(en?'📷 Photo':'📷 Photo'):data.aud?(en?'🎤 Voice message':'🎤 Voice message'):data.stk?(en?'🌟 Sticker':'🌟 ملصق'):'…';
+  if(data.reply&&data.text)body=(en?'↩︎ ':'↩︎ ')+body}
+ else if(type==='kiss'){title=en?'Hikayatna':'Hikayatna';tag='kiss';body=name+(en?' sent you a kiss 💋':(fem?' أرسلت لك قبلة 💋':' أرسل لك قبلة 💋'))}
+ else return;
+ const tok=await window.__idToken();
+ const r=await fetch(PUSH_URL+'/notify',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},body:JSON.stringify({subs,title,body,tag,url:en?'./en.html':'./'})});
+ const j=await r.json().catch(()=>({}));
+ if(j.gone&&j.gone.length)await db.doc('push/'+ot).set({...d,subs:(d.subs||[]).filter(x=>!j.gone.includes(x.endpoint))});
+}catch(e){}};
+
+window.__dbReady.then(d=>{db=d;
+ const iv=setInterval(async()=>{if(!(A()&&A().me))return;clearInterval(iv);render();
+  if(ready()&&supported()&&Notification.permission==='granted'){try{await saveSub(await subscribe())}catch(e){}}},500)});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
+})();
+
 </script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
@@ -2154,7 +2218,7 @@ const firebaseConfig={
   messagingSenderId:"687234874601",
   appId:"1:687234874601:web:26ee0a3ec4512d70e70478"
 };
-const app=initializeApp(firebaseConfig),auth=getAuth(app);
+const app=initializeApp(firebaseConfig),auth=getAuth(app);window.__idToken=()=>auth.currentUser?auth.currentUser.getIdToken():Promise.reject(new Error('no user'));
 let fs;try{fs=initializeFirestore(app,{localCache:persistentLocalCache()})}catch(e){fs=getFirestore(app)}
 const wd=s=>({id:s.id,exists:s.exists(),data:()=>s.data(),metadata:s.metadata});
 const mkDoc=r=>({id:r.id,get:()=>getDoc(r).then(wd),set:d=>setDoc(r,d),update:d=>updateDoc(r,d),delete:()=>deleteDoc(r),onSnapshot:(n,e)=>onSnapshot(r,{includeMetadataChanges:true},s=>n(wd(s)),e)});
@@ -2283,6 +2347,10 @@ onAuthStateChanged(auth,async u=>{if(!u){L.classList.add('on');return}
 .wishc{align-items:center}.wishc a{color:var(--rose)}.resv{color:#2bb39a;font-weight:700}
 .month small{font-weight:400;opacity:.8}
 .tabs [data-t].hasdot{position:relative}.tabs [data-t].hasdot::after{content:"";position:absolute;top:6px;inset-inline-end:14px;width:9px;height:9px;border-radius:50%;background:#e5484d;box-shadow:0 0 0 2px var(--bg)}
+.pushbar{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(241,207,131,.45);color:#fff6e8;font-size:13.5px;line-height:1.5}
+.pushbar .pi{font-size:20px}.pushbar .pt{flex:1}
+.pushbar .pb{border:0;border-radius:10px;padding:7px 14px;background:var(--gold,#f1cf83);color:#14112c;font-weight:800;font-size:14px}
+.pushbar .px{border:0;background:none;color:inherit;opacity:.7;font-size:14px;padding:4px}
 </style>
 <script>
 (function(){

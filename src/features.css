@@ -24,3 +24,7 @@
 .wishc{align-items:center}.wishc a{color:var(--rose)}.resv{color:#2bb39a;font-weight:700}
 .month small{font-weight:400;opacity:.8}
 .tabs [data-t].hasdot{position:relative}.tabs [data-t].hasdot::after{content:"";position:absolute;top:6px;inset-inline-end:14px;width:9px;height:9px;border-radius:50%;background:#e5484d;box-shadow:0 0 0 2px var(--bg)}
+.pushbar{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(241,207,131,.45);color:#fff6e8;font-size:13.5px;line-height:1.5}
+.pushbar .pi{font-size:20px}.pushbar .pt{flex:1}
+.pushbar .pb{border:0;border-radius:10px;padding:7px 14px;background:var(--gold,#f1cf83);color:#14112c;font-weight:800;font-size:14px}
+.pushbar .px{border:0;background:none;color:inherit;opacity:.7;font-size:14px;padding:4px}

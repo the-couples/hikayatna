@@ -18,7 +18,14 @@ rep("['moments','album','fit','cal','us','games','plans','stats'].forEach(v=>$('
 rep("$('#fab').onclick=()=>tab==='album'","$('#fab').onclick=()=>window.__extFab&&window.__extFab[tab]?window.__extFab[tab]():tab==='album'")
 rep("function render(){renderHead();","function render(){try{window.__extRender&&window.__extRender()}catch(x){}renderHead();")
 rep("window.__resizeLogo=resizeLogo;","window.__resizeLogo=resizeLogo;\nwindow.__app={open,close,toast,write,goTab,get me(){return me},get WHO(){return WHO},get G(){return G}};")
+rep('<div class="moods" id="moods"></div>','<div class="moods" id="moods"></div>\n     <div id="pushbar"></div>')
+rep("try{await db.collection('chat').add(m);","try{await db.collection('chat').add(m);try{window.__notify&&window.__notify('chat',m)}catch(x){}")
+rep("try{await db.collection('kisses').add({from:me,to:other(me),createdAt:Date.now(),seenAt:0})}","try{await db.collection('kisses').add({from:me,to:other(me),createdAt:Date.now(),seenAt:0});try{window.__notify&&window.__notify('kiss',{})}catch(x){}}")
+rep("open('<h2>إعداداتنا</h2>","open('<h2>إعداداتنا</h2>'+(window.__pushBtn?window.__pushBtn():'')+'")
+rep("const app=initializeApp(firebaseConfig),auth=getAuth(app);","const app=initializeApp(firebaseConfig),auth=getAuth(app);window.__idToken=()=>auth.currentUser?auth.currentUser.getIdToken():Promise.reject(new Error('no user'));")
 css=open(D+'/features.css',encoding='utf-8').read();js=open(D+'/features.js',encoding='utf-8').read()
+cfg=json.load(open(D+'/push.config.json'))
+js+='\n'+open(D+'/push.js',encoding='utf-8').read().replace('__VAPID_PUBLIC__',cfg['vapid_public']).replace('__PUSH_URL__',cfg['push_url'])
 i=s.rfind('</style>');s=s[:i]+css+s[i:]
 i=s.find('<script type="module">');s=s[:i]+'<script>\n'+js+'\n</script>\n'+s[i:]
 open(D+'/merged.html','w',encoding='utf-8').write(s)
