@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <script>(function(){try{var w=localStorage.getItem('hk-lang'),here=document.documentElement.lang;if(w&&w!==here&&!/[?&]stay/.test(location.search)){location.replace(w==='en'?'en.html':'./');}}catch(e){}})();window.__setLang=function(l){try{localStorage.setItem('hk-lang',l)}catch(e){}location.href=l==='en'?'en.html':'./'};</script>
-<meta name="app-ver" content="2026-11-26.70">
+<meta name="app-ver" content="2026-11-26.73">
+<script>try{var n=navigator;if((n.maxTouchPoints>1&&/Macintosh/.test(n.userAgent)||/iPad/.test(n.userAgent))&&(n.standalone||matchMedia("(display-mode: standalone)").matches))document.documentElement.classList.add("ipad")}catch(e){}</script>
 <style>.nosp #splash{display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hikayatna</title>
@@ -507,6 +508,14 @@ textarea.in{min-height:84px;resize:vertical}
 .chday span{box-shadow:0 2px 10px rgba(0,0,0,.18);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);background:color-mix(in srgb,var(--soft) 85%,transparent)}
 .chunread{text-align:center;margin:12px -10px;padding:6px 0;background:color-mix(in srgb,var(--rose) 14%,transparent)}
 .chunread span{font-size:13px;font-weight:800;color:var(--rose)}
+.chmenu .inf{background:var(--card);border-radius:14px;padding:10px 16px;margin:0;min-width:220px;box-sizing:border-box;font-size:13.5px;display:grid;gap:5px;box-shadow:0 10px 30px -12px rgba(0,0,0,.4)}
+.chmenu .inf div{display:flex;justify-content:space-between;gap:14px}
+.chmenu .inf span{color:var(--mute);font-weight:700}
+.chmenu .inf b{font-weight:800}
+.chmenu .inf b.no{color:var(--rose)}
+.chday span{min-width:104px;background:var(--soft)}
+html.ipad .chtop{padding-top:calc(env(safe-area-inset-top) + 34px)}
+html.ipad .hero .top{margin-top:26px}
 .tyb{display:flex;gap:5px;align-items:center;padding:13px 16px!important}
 .tyb i{width:8px;height:8px;border-radius:50%;background:var(--mute);animation:tyd 1.2s infinite ease-in-out}
 .tyb i:nth-child(2){animation-delay:.15s}.tyb i:nth-child(3){animation-delay:.3s}
@@ -692,7 +701,7 @@ mark.srm{background:#ffd54a;color:#1a1300;border-radius:4px;padding:0 1px}
 @keyframes dbh{0%{transform:translate(-50%,-50%) scale(0);opacity:0}25%{transform:translate(-50%,-50%) scale(1.15);opacity:1}45%{transform:translate(-50%,-50%) scale(.95)}70%{transform:translate(-50%,-60%) scale(1);opacity:1}100%{transform:translate(-50%,-110%) scale(.8);opacity:0}}
 
 .chinw{flex:1;min-width:0;position:relative;display:flex}
-.chinw textarea{padding-left:46px!important}
+.chdict{display:none!important}
 .chdict{position:absolute;left:4px;bottom:4px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--rose);background:color-mix(in srgb,var(--rose) 12%,transparent);transition:transform .15s,background .2s}
 .chdict:active{transform:scale(.86)}
 .chdict svg{width:21px;height:21px}
@@ -845,7 +854,7 @@ body.chat-open.kbopen main,body.chat-open.kbopen header,body.chat-open.kbopen .f
 <div class="chpush" id="chpush" hidden><span>🔔</span><div id="chpusht">Turn on notifications to get messages even when the app is closed</div><button id="chpushb">Turn on</button><button class="x" id="chpushx" aria-label="Later">✕</button></div>
 <div class="chlist" id="chlist"></div>
 <div class="chbar"><button class="chjump" id="chjump" hidden aria-label="To latest message">⬇️</button><div class="chreply" id="chrp" hidden><div id="chrpt"></div><button id="chrpx" aria-label="Cancel reply">✕</button></div><div class="chquick" id="chq"></div><div class="chemo" id="chemo" hidden></div><div class="chstk" id="chstk" hidden></div><input type="file" id="stkfile" accept="image/*" hidden>
-<div class="chrow"><button class="ib" id="chemob" aria-label="Emoji">😊</button><button class="ib" id="chstkb" aria-label="Stickers"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v6.5z"/><path d="M14.5 21v-3.5a3 3 0 0 1 3-3H21"/><circle cx="9" cy="10" r=".9" fill="currentColor"/><circle cx="15" cy="10" r=".9" fill="currentColor"/><path d="M8.8 13.6c1.6 1.3 4 1.3 5.4 0"/></svg></button><button class="ib" id="chpic" aria-label="Photo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg></button><div class="chinw"><textarea id="chin" rows="1" placeholder="Write a message…" maxlength="2000"></textarea><button class="chdict" id="chdict" type="button" aria-label="Turn your speech into text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/><path d="M19.5 2.5v3M18 4h3" stroke-width="1.6"/></svg><i class="spin"></i></button></div><button class="chmic" id="chmic" aria-label="Record a voice message"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button><button class="chsend hid" id="chsend" aria-label="Send"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5L3.6 10.6c-.8.3-.8 1.5.1 1.7l6.3 1.7 1.7 6.3c.2.9 1.4 1 1.7.1L20.5 3.5z" transform="scale(-1,1) translate(-24,0)"/></svg></button></div>
+<div class="chrow"><button class="ib" id="chemob" aria-label="Emoji">😊</button><button class="ib" id="chstkb" aria-label="Stickers"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v6.5z"/><path d="M14.5 21v-3.5a3 3 0 0 1 3-3H21"/><circle cx="9" cy="10" r=".9" fill="currentColor"/><circle cx="15" cy="10" r=".9" fill="currentColor"/><path d="M8.8 13.6c1.6 1.3 4 1.3 5.4 0"/></svg></button><button class="ib" id="chpic" aria-label="Photo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg></button><div class="chinw"><textarea id="chin" rows="1" placeholder="Write a message…" maxlength="2000"></textarea><button class="chdict" id="chdict" hidden type="button" aria-label="Turn your speech into text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/><path d="M19.5 2.5v3M18 4h3" stroke-width="1.6"/></svg><i class="spin"></i></button></div><button class="chmic" id="chmic" aria-label="Record a voice message"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button><button class="chsend hid" id="chsend" aria-label="Send"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5L3.6 10.6c-.8.3-.8 1.5.1 1.7l6.3 1.7 1.7 6.3c.2.9 1.4 1 1.7.1L20.5 3.5z" transform="scale(-1,1) translate(-24,0)"/></svg></button></div>
 <div class="chrec" id="chrec" hidden><button class="ib" id="chrecx" aria-label="Cancel" style="width:44px;height:44px;font-size:20px">🗑️</button><div class="recst"><i class="rdot"></i><b class="dictl">Listening…</b><span id="chrect">0:00</span><span class="lv" id="chlv"><canvas id="chlvc"></canvas></span></div><button class="chsend" id="chrecs" aria-label="Send audio"><svg class="ck" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><svg class="pl" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5L3.6 10.6c-.8.3-.8 1.5.1 1.7l6.3 1.7 1.7 6.3c.2.9 1.4 1 1.7.1L20.5 3.5z" transform="scale(-1,1) translate(-24,0)"/></svg></button></div>
 <input type="file" id="chfile" accept="image/*" multiple hidden></div></div>
 <div class="toast" id="toast"><span id="tmsg"></span><button id="tbtn"></button></div>
@@ -1495,9 +1504,16 @@ chl.addEventListener('click',async e=>{const i=e.target.closest('[data-cimg]');i
  const bs=v.querySelectorAll('button'),vi=v.querySelector('img');let src=m.img;bs[0].onclick=()=>v.remove();vi.onclick=()=>v.remove();
  if(m.imgId){if(chFull[m.imgId]){src=vi.src=chFull[m.imgId]}else{try{const d=await db.doc('chatimg/'+m.imgId).get();const x=d.exists&&d.data().data;if(x){chFull[m.imgId]=x;src=vi.src=x}}catch(y){}}}
  bs[1].onclick=()=>{try{saveFiles([dataToFile(src,'hassan-leen-chat-'+(m.t||0)+'.jpg')])}catch(x){toast('Could not download it')}}});
+const NOTYET='Not yet';function chWhen(t){if(!t)return '';const d=new Date(t),n=new Date(),tm=d.toLocaleTimeString(L,{hour:'numeric',minute:'2-digit'});if(d.toDateString()===n.toDateString())return 'Today '+tm;const y=new Date(n);y.setDate(n.getDate()-1);if(d.toDateString()===y.toDateString())return 'Yesterday '+tm;return d.toLocaleDateString(L,{day:'numeric',month:'long'})+' '+tm}
+function chInfo(m){const o=other(me),on=WHO[o]||'',mine=m.by===me,rd=(chMeta[o]||{}).read||0,f=G[o]==='f';const rows=[];
+ rows.push(['📤 Sent',chWhen(m.t)]);
+ if(mine){rows.push(['👀 '+(f?'Seen':'Seen'),rd>=m.t?'✓✓':'Not yet']);
+  if(m.aud)rows.push(['🎧 '+(f?'Listened':'Listened'),m.played?chWhen(m.played):'Not yet'])}
+ else if(m.aud)rows.push(['🎧 You listened',m.played?chWhen(m.played):'Not yet'])
+ return '<div class="inf">'+rows.map(r=>'<div><span>'+r[0]+'</span><b class="'+(r[1]===NOTYET?'no':'')+'">'+esc(r[1])+'</b></div>').join('')+'</div>'}
 function chMenu(id){const m=chat.find(x=>x.id===id);if(!m||m.del||!m.id||m._p)return;const mine=m.by===me;const my=(m.react||{})[me]||'';
  const w=document.createElement('div');w.className='chmenu';
- w.innerHTML='<div class="rx">'+CREACT.map(r=>'<button data-r="'+r+'" class="'+(r===my?'on':'')+'">'+r+'</button>').join('')+'</div><div class="pv">'+(m.stk?'🌟 Sticker ':'')+(m.aud?'🎤 Voice message ':'')+(m.img?'📷 Photo ':'')+esc((m.text||'').slice(0,200))+'</div><div class="ac"><button data-a="reply">↩️ Reply</button>'+(m.text?'<button data-a="copy">📋 Copy</button>':'')+(mine&&m.text&&!m.aud&&!m.stk?'<button data-a="edit">✏️ Edit</button>':'')+(mine?'<button data-a="del" class="dl">🗑️ Delete</button>':'')+'</div>';
+ w.innerHTML='<div class="rx">'+CREACT.map(r=>'<button data-r="'+r+'" class="'+(r===my?'on':'')+'">'+r+'</button>').join('')+'</div><div class="pv">'+(m.stk?'🌟 Sticker ':'')+(m.aud?'🎤 Voice message ':'')+(m.img?'📷 Photo ':'')+esc((m.text||'').slice(0,200))+'</div>'+chInfo(m)+'<div class="ac"><button data-a="reply">↩️ Reply</button>'+(m.text?'<button data-a="copy">📋 Copy</button>':'')+(mine&&m.text&&!m.aud&&!m.stk?'<button data-a="edit">✏️ Edit</button>':'')+(mine?'<button data-a="del" class="dl">🗑️ Delete</button>':'')+'</div>';
  document.body.appendChild(w);['contextmenu','selectstart'].forEach(n=>w.addEventListener(n,e=>e.preventDefault()));
  w.onclick=async e=>{const r=e.target.closest('[data-r]'),a=e.target.closest('[data-a]');
   if(r){w.remove();const nv=r.dataset.r===my?'':r.dataset.r;m.react={...(m.react||{}),[me]:nv};renderChat();try{Music.sfx.pop()}catch(x){}try{await db.collection('chat').doc(m.id).update({['react.'+me]:nv})}catch(x){try{await db.collection('chat').doc(m.id).update({react:m.react})}catch(y){}}return}

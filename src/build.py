@@ -32,5 +32,11 @@ css=open(D+'/features.css',encoding='utf-8').read();js=open(D+'/features.js',enc
 js+='\n'+re.sub(r'[\u0600-\u06FF]',lambda m:'\\u%04x'%ord(m.group(0)),open(D+'/pushtext.js',encoding='utf-8').read())
 i=s.rfind('</style>');s=s[:i]+css+s[i:]
 i=s.find('<script type="module">');s=s[:i]+'<script>\n'+js+'\n</script>\n'+s[i:]
+# chat info panel (v73): locale + simpler "not yet"
+if 'function chWhen' in s:
+    s=s.replace("d.toLocaleTimeString('ar',","d.toLocaleTimeString(L,").replace("d.toLocaleDateString('ar',{day:'numeric',month:'long'})","d.toLocaleDateString(L,{day:'numeric',month:'long'})")
+    s=s.replace("'لسّا ما '+(f?'سمعتها':'سمعها')","'لسّا'")
+    s=s.replace("(/لسّا/.test(r[1])?'no':'')","(r[1]===NOTYET?'no':'')")
+    s=s.replace("function chWhen(t){","const NOTYET='لسّا';function chWhen(t){")
 open(D+'/merged.html','w',encoding='utf-8').write(s)
 print('merged',len(s))

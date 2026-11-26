@@ -4,7 +4,7 @@ from extract import units,chunks_of
 D=os.path.dirname(os.path.abspath(__file__))
 keys=json.load(open(D+'/keys.json',encoding='utf-8'))
 tr={}
-for f in ['tr1.tsv','tr2.tsv','tr3.tsv','tr4.tsv','tr5.tsv','tr6.tsv','tr7.tsv','tr8.tsv','tr9.tsv']:
+for f in ['tr1.tsv','tr2.tsv','tr3.tsv','tr4.tsv','tr5.tsv','tr6.tsv','tr7.tsv','tr8.tsv','tr9.tsv','tr10.tsv']:
     for line in open(D+'/'+f,encoding='utf-8').read().split('\n'):
         if not line.strip(): continue
         p=line.split('\t')
