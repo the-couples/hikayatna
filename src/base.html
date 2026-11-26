@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-ver" content="2026-11-26.59">
+<meta name="app-ver" content="2026-11-26.60">
 <style>.nosp #splash{display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>حكايتنا</title>
@@ -639,6 +639,7 @@ body.kbopen .bnav{transform:translateY(120%)}
 .mgrid button .ti{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:23px;color:#fff}
 .mgrid button[aria-current=page]{box-shadow:inset 0 0 0 2px var(--rose)}
 .tm .ed{font-style:normal;opacity:.8;font-size:.92em}
+body.chat-open #sky,body.chat-open #sky *,#sky.off,#sky.off *{animation-play-state:paused!important}
 .chmenu,.ch,.bnav{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.ch input,.ch textarea{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
 .aum{display:inline-grid;place-items:center;width:18px;height:18px;margin-inline-start:4px;opacity:.55;flex:none}
 .aum svg{width:15px;height:15px}
@@ -1479,7 +1480,7 @@ const Music=(()=>{
   night:{bpm:62,prob:.55,perc:.45,oct:[12,24],chords:[[50,54,57,61],[47,50,54,57],[43,47,50,54],[45,49,52,57]],pad:0.130,pl:0.120,wave:'sine',bell:1}};
  let ctx=null,master,mus,sfx,rev,revIn,on=false,booted=false,phase='night',beat=0,nextT=0,timer=0,ducked=false;
  const pref=()=>{try{return localStorage.getItem('hl-music')!=='off'}catch(x){return true}};
- function impulse(){const len=Math.floor(ctx.sampleRate*2.6),b=ctx.createBuffer(2,len,ctx.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6)}return b}
+ function impulse(){const len=Math.floor(ctx.sampleRate*1.8),b=ctx.createBuffer(2,len,ctx.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6)}return b}
  function boot(){if(booted||!actx)return;ctx=actx;booted=true;
   master=ctx.createGain();master.gain.value=1;master.connect(ctx.destination);
   mus=ctx.createGain();mus.gain.value=0;mus.connect(master);sfx=ctx.createGain();sfx.gain.value=.9;sfx.connect(master);
@@ -1487,9 +1488,10 @@ const Music=(()=>{
   setBtn();if(pref())start()}
  let hushed=false;
  function level(){return hushed?0:ducked?.06:.6}
- function hush(h){if(hushed===h)return;hushed=h;if(on)fade(level(),.5)}
+ function hush(h){if(hushed===h)return;hushed=h;if(on)fade(level(),.5);napCheck()}
+ let napT=0;function napCheck(){if(!ctx)return;clearTimeout(napT);const quiet=!on||level()===0;if(quiet){if(timer){clearInterval(timer);timer=0}napT=setTimeout(()=>{if((!on||level()===0)&&ctx.state==='running')try{ctx.suspend()}catch(x){}},1200)}else{if(ctx.state!=='running')try{ctx.resume()}catch(x){}if(on&&!timer){nextT=ctx.currentTime+.05;timer=setInterval(tick,150)}}}
  function fade(to,sec){if(!mus)return;const t=ctx.currentTime;mus.gain.cancelScheduledValues(t);mus.gain.setValueAtTime(mus.gain.value,t);mus.gain.linearRampToValueAtTime(to,t+sec)}
- function voice(f,t,dur,vol,type,cut,dest){const o=ctx.createOscillator(),g=ctx.createGain(),lp=ctx.createBiquadFilter();o.type=type;o.frequency.value=f;lp.type='lowpass';lp.frequency.value=cut;
+ function voice(f,t,dur,vol,type,cut,dest){if(dest&&dest===sfx){if(ctx.state!=='running')try{ctx.resume()}catch(x){}if(!on||level()===0){clearTimeout(napT);napT=setTimeout(napCheck,900)}}const o=ctx.createOscillator(),g=ctx.createGain(),lp=ctx.createBiquadFilter();o.type=type;o.frequency.value=f;lp.type='lowpass';lp.frequency.value=cut;
   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.008);g.gain.exponentialRampToValueAtTime(.0005,t+dur);o.connect(lp).connect(g);g.connect(dest||mus);g.connect(revIn);o.start(t);o.stop(t+dur+.05)}
  function pad(ch,t,dur,vol){ch.forEach(m=>{[-4,4].forEach(dt=>{const o=ctx.createOscillator(),g=ctx.createGain(),lp=ctx.createBiquadFilter();o.type='sine';o.frequency.value=mf(m-12);o.detune.value=dt;lp.type='lowpass';lp.frequency.value=900;
   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol/ch.length,t+1.6);g.gain.setValueAtTime(vol/ch.length,t+dur-1.4);g.gain.linearRampToValueAtTime(0,t+dur+.4);o.connect(lp).connect(g);g.connect(mus);g.connect(revIn);o.start(t);o.stop(t+dur+.5)})})}
@@ -1507,13 +1509,13 @@ const Music=(()=>{
     voice(mf(m),nextT,c.bell?2:1.3,c.pl*(s8%2?.75:1),c.wave,c.bell?3800:2600);if(c.bell&&s8%4===0)voice(mf(m)*2,nextT,1,c.pl*.22,'sine',5000)}
    nextT+=st;beat++}}
  function start(){if(!booted)return;if(on)return;on=true;beat=0;nextT=ctx.currentTime+.02;clearInterval(timer);timer=setInterval(tick,150);first=true;tick();fade(level(),.25);setBtn()}
- function stop(){if(!on){setBtn();return}on=false;fade(0,.8);setTimeout(()=>{if(!on)clearInterval(timer)},900);setBtn()}
+ function stop(){if(!on){setBtn();return}on=false;fade(0,.8);setTimeout(()=>{if(!on){clearInterval(timer);timer=0;napCheck()}},900);setBtn()}
  function setBtn(){const b=document.getElementById('musBtn');if(b)b.classList.toggle('off',!pref())}
  function toggle(){const n=!pref();try{localStorage.setItem('hl-music',n?'on':'off')}catch(x){}unlockAudio();if(n)start();else stop();setBtn();toast(n?'الموسيقى اشتغلت':'الموسيقى انطفت')}
  function setPhase(p){if(!P[p]||p===phase)return;phase=p;if(on){fade(0,1.2);setTimeout(()=>{beat=0;fade(level(),2.5)},1300)}}
- function duck(d){if(ducked===d)return;ducked=d;if(on)fade(level(),.6)}
+ function duck(d){if(ducked===d)return;ducked=d;if(on)fade(level(),.6);napCheck()}
  ['pointerdown','touchstart'].forEach(n=>document.addEventListener(n,()=>{if(booted&&on&&ctx.state!=='running'){try{ctx.resume()}catch(x){}}},{passive:true}));
- document.addEventListener('visibilitychange',()=>{if(!booted)return;if(document.hidden){if(on){fade(0,.3);setTimeout(()=>{if(document.hidden)ctx.suspend&&ctx.suspend()},350)}}else{ctx.resume&&ctx.resume();if(on)fade(level(),1.5)}});
+ document.addEventListener('visibilitychange',()=>{if(!booted)return;if(document.hidden){if(on){fade(0,.3);setTimeout(()=>{if(document.hidden)ctx.suspend&&ctx.suspend()},350)}}else{ctx.resume&&ctx.resume();if(on)fade(level(),1.5);napCheck()}});
  /* game sfx */
  function sf(f,t,dur,vol,type){voice(f,t,dur,vol,type||'sine',6000,sfx)}
  const S={touch(){if(!ctx)return;const t=ctx.currentTime;sf(660,t,.25,.25,'sine');sf(990,t+.04,.2,.12,'sine')},
@@ -2185,6 +2187,7 @@ function syncNav(titleOnly){const h=$('#hero'),pt=$('#ptitle');
  document.querySelectorAll('#bnav .bn').forEach(b=>b.dataset.go===nv?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'))}
 function openMore(){open('<h2 style="text-align:center;margin-bottom:6px">المزيد</h2><div class="mgrid">'+MORE.map(t=>'<button data-mg="'+t+'"'+(tab===t?' aria-current="page"':'')+'><span class="ti g-'+t+'">'+PG[t][1]+'</span>'+PG[t][0]+'</button>').join('')+'<button data-mg="set"><span class="ti g-stats">⚙️</span>الإعدادات</button></div>');
  sheet.querySelector('.mgrid').addEventListener('click',e=>{const b=e.target.closest('[data-mg]');if(!b)return;close();const g=b.dataset.mg;if(g==='set')setTimeout(openSettings,250);else goTab(g)})}
+try{const sk=$('#sky');if(sk&&window.IntersectionObserver)new IntersectionObserver(es=>es.forEach(e=>sk.classList.toggle('off',!e.isIntersecting))).observe(sk)}catch(x){}
 function bnSize(){const b=$('#bnav');if(b&&b.offsetHeight)document.documentElement.style.setProperty('--bnh',b.offsetHeight+'px')}
 addEventListener('resize',bnSize);setTimeout(bnSize,0);
 function navGo(g){if(chOpen){closeChat();if(g===tab)return}if(g==='more')return openMore();if(g===tab){window.scrollTo({top:0,behavior:'smooth'});return}goTab(g)}
