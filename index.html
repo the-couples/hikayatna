@@ -1982,7 +1982,7 @@ render();
  db.collection('notes').onSnapshot(s=>{notes=s.docs.map(d=>({...d.data(),id:d.id}));renderUs()},err);
  db.collection('points').onSnapshot(s=>{points=s.docs.map(d=>({...d.data(),id:d.id}));renderUs()},err);
  db.collection('weights').onSnapshot(s=>{weights=s.docs.map(d=>({...d.data(),id:d.id}));renderFit()},err);
- db.doc('meta/settings').onSnapshot(s=>{if(!s.exists&&!s.metadata.fromCache&&!window.__seeded){window.__seeded=1;db.doc('meta/settings').set({start:'2026-07-17',bday:{hassan:'1994-07-25',leen:'2000-09-16'},fit:{hassan:{h:175,start:75,target:82},leen:{h:169,start:87,target:71}}}).catch(()=>{})}settings=s.exists?{...s.data()}:{};renderHead();renderFit();renderCal();resolveMe()},err);
+ db.doc('meta/settings').onSnapshot(s=>{{const d=s.exists?s.data():null;if(d&&!s.metadata.fromCache&&!window.__cleaned&&d.bday&&d.bday.hassan==='1994-07-25'&&d.bday.leen==='2000-09-16'){window.__cleaned=1;const c={...d};delete c.bday;delete c.fit;if(c.start==='2026-07-17')delete c.start;db.doc('meta/settings').set(c).catch(()=>{})}}settings=s.exists?{...s.data()}:{};renderHead();renderFit();renderCal();resolveMe()},err);
  db.collection('profiles').onSnapshot(s=>{profiles={};s.docs.forEach(d=>profiles[d.id]=d.data());if(!s.metadata.fromCache)profilesLoaded=true;renderHead();renderFit();renderCal();resolveMe()},err);
  try{const u=await claude.use('user');const w=u?await u.can('data.write'):null;if(w===false){canWrite=false;banner('لديك صلاحية مشاهدة فقط. اطلب من شريكك منحك صلاحية التعديل من زر المشاركة.')}}catch(e){}
 })();
