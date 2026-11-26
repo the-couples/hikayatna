@@ -1,3 +1,4 @@
+import json
 import re,sys,json,os
 D=os.path.dirname(os.path.abspath(__file__))
 s=open(D+'/base.html',encoding='utf-8').read()
@@ -16,7 +17,7 @@ rep("['games','ألعابنا'],['plans','خططنا']","['games','ألعابن�
 rep("['home','moments','album','fit','cal','us','games','plans','stats'].forEach(v=>$('#v-'+v).hidden=v!==tab)","['home',...TABS.map(t=>t[0])].forEach(v=>{const el=$('#v-'+v);if(el)el.hidden=v!==tab})")
 rep("$('#fab').onclick=()=>tab==='album'","$('#fab').onclick=()=>window.__extFab&&window.__extFab[tab]?window.__extFab[tab]():tab==='album'")
 rep("function render(){renderHead();","function render(){try{window.__extRender&&window.__extRender()}catch(x){}renderHead();")
-rep("window.__resizeLogo=resizeLogo;","window.__resizeLogo=resizeLogo;\nwindow.__app={open,close,toast,write,goTab,get me(){return me},get WHO(){return WHO},get G(){return G}};")
+rep("window.__resizeLogo=resizeLogo;","window.__resizeLogo=resizeLogo;\nwindow.__app={open,close,toast,write,goTab,get db(){return db},get me(){return me},get WHO(){return WHO},get G(){return G}};")
 rep("const app=initializeApp(firebaseConfig),auth=getAuth(app);","const app=initializeApp(firebaseConfig),auth=getAuth(app);window.__idToken=()=>auth.currentUser?auth.currentUser.getIdToken():Promise.reject(new Error('no user'));")
 # home tiles / more menu for new sections, respect enabled sections
 rep("const PG={moments:['لحظاتنا','💞'],album:['ألبومنا','📸'],fit:['رياضتنا','💪'],cal:['تقويمنا','📅'],us:['بيناتنا','💌'],games:['ألعابنا','🎮'],plans:['خططنا','🚩'],stats:['أرقامنا','📊']};\nconst MORE=['fit','cal','us','games','plans','stats'];",
@@ -32,6 +33,25 @@ css=open(D+'/features.css',encoding='utf-8').read();js=open(D+'/features.js',enc
 js+='\n'+re.sub(r'[\u0600-\u06FF]',lambda m:'\\u%04x'%ord(m.group(0)),open(D+'/pushtext.js',encoding='utf-8').read())
 i=s.rfind('</style>');s=s[:i]+css+s[i:]
 i=s.find('<script type="module">');s=s[:i]+'<script>\n'+js+'\n</script>\n'+s[i:]
+# ---- native shell (Capacitor) hooks: inert on the web
+rep("const pushOK=()=>'serviceWorker' in navigator","const pushOK=()=>!window.__nativePush&&'serviceWorker' in navigator")
+rep("function pushIsOn(){return ","function pushIsOn(){if(window.__nativePush)return !!window.__NATPUSH&&!pushOffLocal();return ")
+rep("async function enablePush(){try{localStorage.removeItem('hl-push-off')}catch(x){}","async function enablePush(){try{localStorage.removeItem('hl-push-off')}catch(x){}\n if(window.__nativePush){let ok=false;try{ok=await window.__nativePush()}catch(x){}window.__NATPUSH=ok;if(!ok)toast((G[me]==='f'?'اسمحي':'اسمح')+' بالإشعارات من إعدادات الهاتف');pushUI();pushBanner();return}")
+rep(" const need=pushOK()?"," const need=window.__nativePush?!window.__NATPUSH:pushOK()?")
+rep("const o=other(me),ps=pushSubs[o];if(!ps||!ps.sub||!PUSH_URL","const o=other(me),ps=pushSubs[o];if(!ps||(!ps.sub&&!ps.fcm)||!PUSH_URL")
+rep("body:JSON.stringify({subs:[ps.sub],title,body,","body:JSON.stringify({subs:ps.sub?[ps.sub]:[],fcm:ps.fcm?[ps.fcm]:[],open:target||'chat',title,body,")
+s=s.replace("const db={uid:null,","window.__dbReady=1;const db={uid:null,",1) if False else s
+# ---- account deletion: also wipe the couple's data when the last member leaves
+import re as _re
+_cols=sorted(set(_re.findall(r"db\.collection\('([A-Za-z]+)'\)",s))|set(_re.findall(r"db\.doc\('([A-Za-z]+)/",s)))
+_old="if(db.base.startsWith('couples/')){const cid=db.base.split('/')[1];try{const s=await getDoc(doc(fs,'couples',cid));const m={...(s.data().members||{})};delete m[db.who];await updateDoc(doc(fs,'couples',cid),{members:m})}catch(x){}}"
+assert _old in s
+_new=("if(db.base.startsWith('couples/')){const cid=db.base.split('/')[1];try{const s=await getDoc(doc(fs,'couples',cid));const cd=s.data()||{},m={...(cd.members||{})};delete m[db.who];"
+ "try{await deleteDoc(doc(fs,'couples',cid,'push',db.who))}catch(x){}try{await deleteDoc(doc(fs,'couples',cid,'profiles',db.who))}catch(x){}"
+ "if(!Object.keys(m).length){const C="+json.dumps(_cols)+";for(const c of C){try{const r=await getDocs(collection(fs,'couples',cid,c));for(const d of r.docs){try{await deleteDoc(d.ref)}catch(x){}}}catch(x){}}"
+ "if(cd.code){try{await deleteDoc(doc(fs,'invites',cd.code))}catch(x){}}try{await deleteDoc(doc(fs,'couples',cid))}catch(x){}}"
+ "else await updateDoc(doc(fs,'couples',cid),{members:m})}catch(x){}}")
+s=s.replace(_old,_new,1)
 # chat info panel (v73): locale + simpler "not yet"
 if 'function chWhen' in s:
     s=s.replace("d.toLocaleTimeString('ar',","d.toLocaleTimeString(L,").replace("d.toLocaleDateString('ar',{day:'numeric',month:'long'})","d.toLocaleDateString(L,{day:'numeric',month:'long'})")

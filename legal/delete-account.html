@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حذف الحساب · حكايتنا — Delete account · Hikayatna</title><link rel="icon" href="../icons/icon-192.png"><style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;background:#151a45;color:#f6f0ff;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+header img{width:52px;height:52px;border-radius:14px}
+header b{font-size:22px}header span{display:block;font-size:13px;opacity:.7}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px}
+nav a{color:#ffd88a;text-decoration:none;font-size:14px;padding:6px 12px;border:1px solid rgba(255,255,255,.18);border-radius:99px}
+nav a.on{background:#ffd88a;color:#151a45}
+.lang{display:flex;gap:8px;margin-bottom:6px}
+.lang button{font:inherit;font-size:14px;border:0;border-radius:99px;padding:6px 14px;background:rgba(255,255,255,.12);color:#fff;cursor:pointer}
+.lang button.on{background:#f06292}
+section{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px 20px;margin:12px 0}
+h1{font-size:24px;margin:6px 0 4px}h2{font-size:18px;margin:0 0 6px;color:#ffd88a}
+p,li{font-size:15px}ul{padding-inline-start:20px;margin:6px 0}
+a{color:#ffb3cf}.small{font-size:13px;opacity:.7}
+.btn{display:inline-block;background:#f06292;color:#fff;text-decoration:none;padding:10px 18px;border-radius:12px;font-weight:700;margin-top:6px}
+[data-l]{display:none}body.ar [data-l=ar],body.en [data-l=en]{display:block}
+</style></head><body class="ar"><div class="wrap">
+<header><img src="../icons/icon-192.png" alt=""><div><b>حكايتنا · Hikayatna</b><span>تطبيق للأزواج · An app for couples</span></div></header>
+<div class="lang"><button data-set="ar">العربية</button><button data-set="en">English</button></div>
+<div data-l="ar"><nav><a href="privacy.html#ar">سياسة الخصوصية</a><a href="terms.html#ar">شروط الاستخدام</a><a href="support.html#ar">الدعم</a><a href="delete-account.html#ar" class="on">حذف الحساب</a></nav><h1>حذف الحساب</h1><section><h2>حذف حسابك في «حكايتنا»</h2><p><b>من داخل التطبيق (الأسرع):</b></p><ol><li>افتح التطبيق وسجّل الدخول.</li><li>اضغط ⚙️ <b>الإعدادات</b>.</li><li>اضغط <b>احذف حسابي</b> ثم أكّد.</li></ol><p><b>أو اطلب الحذف بالبريد:</b> أرسل من البريد المسجّل في حسابك رسالة إلى <a href="mailto:hikayatna.app@gmail.com">hikayatna.app@gmail.com</a> بعنوان «حذف الحساب»، وسنحذفه خلال 7 أيام.</p></section><section><h2>ماذا يُحذف؟</h2><ul><li>حسابك (البريد وكلمة المرور) وملفك الشخصي ورمز الإشعارات: تُحذف فورًا.</li><li>المحتوى المشترك (الذكريات، المحادثة، الصور…): يبقى لشريكك ما دام حسابه قائمًا، ويُحذف بالكامل عندما يحذف الشريكان حسابيهما.</li><li>قد تبقى نسخ احتياطية تقنية لدى مزوّد الخدمة حتى 30 يومًا ثم تُمحى.</li></ul></section></div>
+<div data-l="en"><nav><a href="privacy.html#en">Privacy Policy</a><a href="terms.html#en">Terms of Use</a><a href="support.html#en">Support</a><a href="delete-account.html#en" class="on">Delete account</a></nav><h1>Delete account</h1><section><h2>Delete your Hikayatna account</h2><p><b>Inside the app (fastest):</b></p><ol><li>Open the app and sign in.</li><li>Tap ⚙️ <b>Settings</b>.</li><li>Tap <b>Delete my account</b> and confirm.</li></ol><p><b>Or request deletion by email:</b> from the email registered on your account, write to <a href="mailto:hikayatna.app@gmail.com">hikayatna.app@gmail.com</a> with the subject “Delete account”, and we will delete it within 7 days.</p></section><section><h2>What gets deleted?</h2><ul><li>Your account (email and password), personal profile and notification token: deleted immediately.</li><li>Shared content (memories, chat, photos…): stays available to your partner while their account exists, and is fully deleted when both partners delete their accounts.</li><li>Technical backups at our provider may persist for up to 30 days and are then erased.</li></ul></section></div>
+</div><script>(function(){var l=(location.hash==='#en'||/[?&]lang=en/.test(location.search)||(!/^ar/.test(navigator.language||'')&&!location.hash))?'en':'ar';
+function set(x){document.body.className=x;document.documentElement.lang=x;document.documentElement.dir=x==='ar'?'rtl':'ltr';
+document.querySelectorAll('.lang button').forEach(function(b){b.classList.toggle('on',b.dataset.set===x)})}
+document.querySelectorAll('.lang button').forEach(function(b){b.onclick=function(){set(b.dataset.set);history.replaceState(null,'','#'+b.dataset.set)}});
+if(location.hash==='#ar')l='ar';set(l)})();</script></body></html>

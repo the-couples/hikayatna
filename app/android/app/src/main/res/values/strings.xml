@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">حكايتنا</string>
+    <string name="title_activity_main">حكايتنا</string>
+    <string name="package_name">com.hikayatna.app</string>
+    <string name="custom_url_scheme">com.hikayatna.app</string>
+</resources>

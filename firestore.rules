@@ -18,7 +18,8 @@ service cloud.firestore {
       allow get: if signedIn();
       allow create: if signedIn()
         && coupleDoc(request.resource.data.cid).data.members.hassan == request.auth.uid;
-      allow list, update, delete: if false;
+      allow delete: if signedIn() && isMember(resource.data.cid);
+      allow list, update: if false;
     }
 
     // مساحة كل زوجين
@@ -27,6 +28,8 @@ service cloud.firestore {
         && request.resource.data.members.hassan == request.auth.uid
         && request.resource.data.members.size() == 1;
       allow read: if isMember(cid);
+      // حذف مساحة الزوجين بالكامل (لما آخر عضو يحذف حسابه)
+      allow delete: if isMember(cid);
       // الأعضاء بيعدّلوا، والشريك التاني بينضم مرة وحدة بس
       allow update: if isMember(cid) || (
         signedIn()
