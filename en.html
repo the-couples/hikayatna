@@ -2732,7 +2732,7 @@ document.addEventListener('click',e=>{if(e.target.closest('#moodc [data-mood]'))
 function renderHome(){try{moodRender()}catch(x){}const hc=$('#hcnt');if(!hc)return;
  const n=settings.start?Math.max(0,Math.floor((pd(today())-pd(settings.start))/864e5)):0;
  const an=settings.start?nextOf(settings.start).days:null;
- hc.innerHTML=[[n.toLocaleString(L),'days together'],[an==null?'—':an,(COUPLE&&COUPLE.relation==='married'?'to wedding anniversary':COUPLE&&COUPLE.relation==='dating'?'to meeting anniversary':'to engagement anniversary')],[moments.length,'Moment']].map(([v,l])=>'<div><b>'+v+'</b><span>'+l+'</span></div>').join('');
+ hc.innerHTML=[[n.toLocaleString(L),'days together'],[an==null?'—':an,(COUPLE&&COUPLE.relation==='married'?'days to your wedding anniversary':COUPLE&&COUPLE.relation==='dating'?'days to the day you met':'days to your engagement anniversary')],[moments.length,'Moment']].map(([v,l])=>'<div><b>'+v+'</b><span>'+l+'</span></div>').join('');
  $('#htiles').innerHTML=Object.keys(PG).filter(secOn).map(t=>'<button class="htile g-'+t+'" data-go="'+t+'"><span class="ti">'+PG[t][1]+'</span><span><b>'+PG[t][0]+'</b><small>'+esc(pgSub(t))+'</small></span></button>').join('');
  if(tab!=='home')syncNav(true)}
 function syncNav(titleOnly){const h=$('#hero'),pt=$('#ptitle');

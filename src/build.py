@@ -57,6 +57,8 @@ _q="const db={uid:null,base:'',collection:p=>mkCol(collection(fs,db.base+p)),doc
 assert _q in s
 s=s.replace(_q,_q+"\nwindow.__coupleApi={watch:cb=>onSnapshot(doc(fs,'couples',db.base.split('/')[1]),x=>cb(x.data()),()=>{}),set:d=>updateDoc(doc(fs,'couples',db.base.split('/')[1]),d)};",1)
 rep("plan:'beta',founding:true","plan:window.__NATIVE?'store':'beta',founding:!window.__NATIVE")
+# ---- clearer anniversary counter label (days remaining)
+s=s.replace("(COUPLE&&COUPLE.relation==='married'?'لذكرى الزواج':COUPLE&&COUPLE.relation==='dating'?'لذكرى التعارف':'لذكرى الخطوبة')","(COUPLE&&COUPLE.relation==='married'?'يومًا باقية لذكرى الزواج':COUPLE&&COUPLE.relation==='dating'?'يومًا باقية لذكرى التعارف':'يومًا باقية لذكرى الخطوبة')")
 # chat info panel (v73): locale + simpler "not yet"
 if 'function chWhen' in s:
     s=s.replace("d.toLocaleTimeString('ar',","d.toLocaleTimeString(L,").replace("d.toLocaleDateString('ar',{day:'numeric',month:'long'})","d.toLocaleDateString(L,{day:'numeric',month:'long'})")
