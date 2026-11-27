@@ -73,6 +73,13 @@ rep("if(d)await setDoc(doc(fs,base+'meta/settings'),{start:d});",
     "if(d||pe||pm)await setDoc(doc(fs,base+'meta/settings'),{start:d,dates})}")
 rep("relation:$('#c-r').value,sections:sec,",
     "relation:$('#c-r').value,sections:(()=>{const r=$('#c-r').value,o=c.relation||'engaged';let x=sec.slice();if(r!==o){if(r==='dating')x=x.filter(t=>t!=='house');else if(o==='dating'&&!x.includes('house'))x.push('house')}return x.length?x:sec})(),")
+# ---- feed ("ماذا حدث اليوم") always follows deletes
+rep("db.collection('moments').onSnapshot(s=>{moments=s.docs.map(d=>({...d.data(),id:d.id}));done(s);render();",
+    "db.collection('moments').onSnapshot(s=>{moments=s.docs.map(d=>({...d.data(),id:d.id}));queueFeed();done(s);try{render()}catch(x){console.error(x)}")
+rep(" try{await fn();ok&&toast(ok)}"," try{await fn();ok&&toast(ok);try{queueFeed()}catch(x){}}")
+rep("close();await write(()=>db.collection('moments').doc(m.id).delete());","close();moments=moments.filter(x=>x.id!==m.id);queueFeed();await write(()=>db.collection('moments').doc(m.id).delete());",2)
+rep("const copy={...w};delete copy.id;await write(()=>db.collection('weights').doc(w.id).delete());","const copy={...w};delete copy.id;weights=weights.filter(v=>v.id!==w.id);queueFeed();await write(()=>db.collection('weights').doc(w.id).delete());")
+
 # ---- mood cards: neutral "(you)" in MSA
 rep("(mine?' (إنت'+(f?'ي':'')+')':'')","(mine?' (إنت)':'')")
 # chat info panel (v73): locale + simpler "not yet"

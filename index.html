@@ -2142,7 +2142,7 @@ function openWorkout(m){
   const t=val('#wot','data-c')||'other',wo=t==='other'?$('#wo-ot').value.trim():'',name=wo||(WT.find(x=>x[0]===t)||WT[8])[1],min=Math.round(num($('#wo-m').value)||0);
   const doc={title:name+(min?' · '+min+' دقيقة':''),date:$('#wo-d').value||today(),cat:'sport',workoutType:t,workoutOther:wo,minutes:min,effort:val('#woe','data-e')||'mid',who:val('#wow','data-w')||'both',rating:0,note:$('#wo-n').value.trim(),by:m.by||me||'',createdAt:m.createdAt||Date.now(),updatedAt:Date.now(),editedBy:me||''};
   close();await write(()=>m.id?db.collection('moments').doc(m.id).set(doc):db.collection('moments').add(doc),m.id?'حُفظ التمرين':'سُجّل التمرين 💪'.replace(' 💪',''))});
- const d=$('#wodel');if(d)d.onclick=async()=>{const copy={...m};delete copy.id;close();await write(()=>db.collection('moments').doc(m.id).delete());toast('حُذف التمرين','تراجع',()=>write(()=>db.collection('moments').doc(m.id).set(copy),'عاد'))};
+ const d=$('#wodel');if(d)d.onclick=async()=>{const copy={...m};delete copy.id;close();moments=moments.filter(x=>x.id!==m.id);queueFeed();await write(()=>db.collection('moments').doc(m.id).delete());toast('حُذف التمرين','تراجع',()=>write(()=>db.collection('moments').doc(m.id).set(copy),'عاد'))};
 }
 function recentWorkouts(){
  const list=moments.filter(m=>m.cat==='sport').sort((a,b)=>String(b.date).localeCompare(String(a.date))||(b.createdAt||0)-(a.createdAt||0)).slice(0,6);
@@ -2230,7 +2230,7 @@ $('#fit').addEventListener('click',async e=>{
  const wo=e.target.closest('[data-wo]');if(wo){const m=moments.find(x=>x.id===wo.dataset.wo);if(m)return openWorkout(m)}
  if(e.target.closest('#setGoal'))return openWeekGoal();
  const x=e.target.closest('[data-wdel]');if(!x)return;const w=weights.find(v=>v.id===x.dataset.wdel);if(!w||w.who!==me)return;
- const copy={...w};delete copy.id;await write(()=>db.collection('weights').doc(w.id).delete());toast('حُذف الوزن','تراجع',()=>write(()=>db.collection('weights').doc(w.id).set(copy),'عاد'));
+ const copy={...w};delete copy.id;weights=weights.filter(v=>v.id!==w.id);queueFeed();await write(()=>db.collection('weights').doc(w.id).delete());toast('حُذف الوزن','تراجع',()=>write(()=>db.collection('weights').doc(w.id).set(copy),'عاد'));
 });
 
 /* ---------- album ---------- */
@@ -2576,7 +2576,7 @@ function openMoment(m,prefill){
   await write(()=>m.id?db.collection('moments').doc(m.id).set(doc):db.collection('moments').add(doc),m.id?'حُفظ التعديل':'أُضيفت لحظة جديدة');
   if(p.planId)await write(()=>db.collection('plans').doc(p.planId).update({moment:true}));
  });
- const del=$('#fdel');if(del)del.onclick=async()=>{const copy={...m};delete copy.id;close();await write(()=>db.collection('moments').doc(m.id).delete());toast('حُذفت','تراجع',()=>write(()=>db.collection('moments').doc(m.id).set(copy),'عادت'))};
+ const del=$('#fdel');if(del)del.onclick=async()=>{const copy={...m};delete copy.id;close();moments=moments.filter(x=>x.id!==m.id);queueFeed();await write(()=>db.collection('moments').doc(m.id).delete());toast('حُذفت','تراجع',()=>write(()=>db.collection('moments').doc(m.id).set(copy),'عادت'))};
  if(!m.id)setTimeout(()=>$('#f-t')?.focus(),50);
 }
 
@@ -2698,7 +2698,7 @@ function resolveMe(){
 /* ---------- writes ---------- */
 async function write(fn,ok){
  if(!db){toast('لا يوجد اتصال للحفظ الآن');return}
- try{await fn();ok&&toast(ok)}
+ try{await fn();ok&&toast(ok);try{queueFeed()}catch(x){}}
  catch(e){const c=e&&e.code;
   if(c==='invalid_argument'||c==='permission-denied'){canWrite=false;banner('هذا الحساب لا يملك صلاحية. تحقّقوا من قواعد Firestore.')}
   toast(c==='quota_exceeded'?'امتلأت المساحة':'لم نستطع الحفظ، حاول مرة أخرى')}
@@ -2938,7 +2938,7 @@ render();
  let got=0;const timer=setTimeout(()=>{if(got<2)banner('نحاول الوصول إلى بياناتكما… تحقّقا من الإنترنت.')},10000);
  const done=snap=>{if(!snap.metadata.fromCache){got++;if(got>=2){clearTimeout(timer);banner(canWrite?'':$('#banner').textContent)}}};
  const err=()=>{clearTimeout(timer);banner('انقطع الاتصال بالبيانات. أغلقا التطبيق وافتحاه من جديد.')};
- let firstAnim=true;db.collection('moments').onSnapshot(s=>{moments=s.docs.map(d=>({...d.data(),id:d.id}));done(s);render();if(firstAnim&&!s.metadata.fromCache){firstAnim=false;animateTab(tab)}},err);
+ let firstAnim=true;db.collection('moments').onSnapshot(s=>{moments=s.docs.map(d=>({...d.data(),id:d.id}));queueFeed();done(s);try{render()}catch(x){console.error(x)}if(firstAnim&&!s.metadata.fromCache){firstAnim=false;animateTab(tab)}},err);
  db.collection('plans').onSnapshot(s=>{plans=s.docs.map(d=>({...d.data(),id:d.id}));done(s);renderPlans();renderStats()},err);
  db.collection('photos').onSnapshot(s=>{photos=s.docs.map(d=>({...d.data(),id:d.id}));renderAlbum();if(vIdx>-1)showV()},err);
  db.collection('events').onSnapshot(s=>{events=s.docs.map(d=>({...d.data(),id:d.id}));renderCal()},err);
