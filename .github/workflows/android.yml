@@ -2,7 +2,7 @@ name: Android build
 on:
   push:
     branches: [main]
-    paths: ["app/**", ".github/workflows/android.yml"]
+    paths: ["app/**", "index.html", "en.html", ".github/workflows/android.yml"]
   workflow_dispatch:
     inputs:
       version_name:
