@@ -1,0 +1,7 @@
+.invc{margin:12px 0 14px;padding:14px;border-radius:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--rose) 18%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--rose) 45%,var(--line));text-align:center}
+.invc.cmp{margin:0 0 10px}
+.invt b{display:block;font-size:16px}.invt span{display:block;font-size:13.5px;color:var(--mute);margin-top:2px}
+.invcode{font-family:ui-monospace,Menlo,monospace;font-size:28px;font-weight:800;letter-spacing:6px;margin:10px auto;padding:8px 14px;border-radius:14px;border:1.5px dashed var(--gold);display:inline-block;user-select:all}
+.inva{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}
+.inva .btn{flex:1;min-width:120px;min-height:44px}
+.invx{flex-basis:100%;border:0;background:none;color:var(--mute);font-size:13px;text-decoration:underline;margin-top:2px}

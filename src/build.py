@@ -17,7 +17,7 @@ rep("['games','ألعابنا'],['plans','خططنا']","['games','ألعابن�
 rep("['home','moments','album','fit','cal','us','games','plans','stats'].forEach(v=>$('#v-'+v).hidden=v!==tab)","['home',...TABS.map(t=>t[0])].forEach(v=>{const el=$('#v-'+v);if(el)el.hidden=v!==tab})")
 rep("$('#fab').onclick=()=>tab==='album'","$('#fab').onclick=()=>window.__extFab&&window.__extFab[tab]?window.__extFab[tab]():tab==='album'")
 rep("function render(){renderHead();","function render(){try{window.__extRender&&window.__extRender()}catch(x){}renderHead();")
-rep("window.__resizeLogo=resizeLogo;","window.__resizeLogo=resizeLogo;\nwindow.__app={open,close,toast,write,goTab,get db(){return db},get cid(){return db&&db.base&&db.base.startsWith('couples/')?db.base.split('/')[1]:''},coupleWatch:cb=>window.__coupleApi.watch(cb),coupleSet:d=>window.__coupleApi.set(d),get me(){return me},get WHO(){return WHO},get G(){return G}};")
+rep("window.__resizeLogo=resizeLogo;","window.__resizeLogo=resizeLogo;\nwindow.__app={open,close,toast,write,goTab,get db(){return db},get cid(){return db&&db.base&&db.base.startsWith('couples/')?db.base.split('/')[1]:''},coupleWatch:cb=>window.__coupleApi.watch(cb),coupleSet:d=>window.__coupleApi.set(d),get me(){return me},get COUPLE(){return COUPLE},get settings(){return settings},get WHO(){return WHO},get G(){return G}};")
 rep("const app=initializeApp(firebaseConfig),auth=getAuth(app);","const app=initializeApp(firebaseConfig),auth=getAuth(app);window.__idToken=()=>auth.currentUser?auth.currentUser.getIdToken():Promise.reject(new Error('no user'));")
 # home tiles / more menu for new sections, respect enabled sections
 rep("const PG={moments:['لحظاتنا','💞'],album:['ألبومنا','📸'],fit:['رياضتنا','💪'],cal:['تقويمنا','📅'],us:['بيناتنا','💌'],games:['ألعابنا','🎮'],plans:['خططنا','🚩'],stats:['أرقامنا','📊']};\nconst MORE=['fit','cal','us','games','plans','stats'];",
@@ -29,7 +29,7 @@ rep("[an==null?'—':an,'لذكرى الخطوبة']","[an==null?'—':an,(COUPL
 rep(" if(!on.includes(tab))setTimeout(()=>goTab(on[0]),0)}"," if(tab!=='home'&&!on.includes(tab))setTimeout(()=>goTab('home'),0);try{renderHome()}catch(x){}}")
 rep(".g-moments{background:linear-gradient(145deg,#8a63f2,#4b3aa8)}",".g-moments{background:linear-gradient(145deg,#8a63f2,#4b3aa8)}.g-house{background:linear-gradient(145deg,#f2a35e,#c4672a)}.g-wish{background:linear-gradient(145deg,#e66fc9,#8f3aa8)}")
 rep("'عم يتصل فيك'+(G[me]==='f'?'ي':'')","'عم يتصل فيك'")
-css=open(D+'/features.css',encoding='utf-8').read()+'\n'+open(D+'/paywall.css',encoding='utf-8').read();js=open(D+'/features.js',encoding='utf-8').read()+'\n'+open(D+'/paywall.js',encoding='utf-8').read()
+css=open(D+'/features.css',encoding='utf-8').read()+'\n'+open(D+'/paywall.css',encoding='utf-8').read()+'\n'+open(D+'/couple.css',encoding='utf-8').read();js=open(D+'/features.js',encoding='utf-8').read()+'\n'+open(D+'/paywall.js',encoding='utf-8').read()+'\n'+open(D+'/couple.js',encoding='utf-8').read()
 js+='\n'+re.sub(r'[\u0600-\u06FF]',lambda m:'\\u%04x'%ord(m.group(0)),open(D+'/pushtext.js',encoding='utf-8').read())
 i=s.rfind('</style>',0,s.find('</head>'));s=s[:i]+css+s[i:]
 i=s.find('<script type="module">');s=s[:i]+'<script>\n'+js+'\n</script>\n'+s[i:]
