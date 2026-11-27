@@ -129,7 +129,7 @@ function fill(sh){
   sh.innerHTML='<div class="avrow"><div class="avp">'+circle(me,1)+'<b>'+((a.WHO&&a.WHO[me])||'')+' (أنت)</b>'+
    '<div class="ava"><button type="button" class="btn pri" data-av="pick">'+(av[me]?'غيّر صورتي':'أضف صورتي')+'</button>'+
    (av[me]?'<button type="button" class="btn" data-av="del">احذف الصورة</button>':'')+'</div></div>'+
-   '<div class="avp">'+circle(o,1)+'<b>'+((a.WHO&&a.WHO[o])||'')+'</b>'+(av[o]?'':'<span class="small">لم يضف صورة بعد</span>')+'</div></div>'+
+   '<div class="avp">'+circle(o,1)+'<b>'+((a.WHO&&a.WHO[o])||'')+'</b>'+(av[o]?'':'<span class="small">'+((a.G&&a.G[o]==='f')?'لم تضف صورة بعد':'لم يضف صورة بعد')+'</span>')+'</div></div>'+
    '<input type="file" id="avf" accept="image/*" hidden>';
 }
 function openAv(){

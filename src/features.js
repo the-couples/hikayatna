@@ -127,7 +127,7 @@ function openWish(w){w=w||{};A().open('<h2>'+(w.id?'تعديل الأمنية':'
 const FAB={house:()=>homeSeg==='rem'?openRem():homeSeg==='meals'?openMeal(todayIso()):(()=>{const i=$('#sh-t');if(i){i.focus();i.scrollIntoView({block:'center'})}})(),wish:()=>wishSeg==='wishes'?openWish():$('#id-r')&&$('#id-r').click()};
 window.__extFab=FAB;
 document.addEventListener('click',e=>{const t=e.target;
- let b=t.closest('[data-mood]');if(b){const k=b.dataset.mood;k===A().me?openMood():showMoodNote(k);return}
+ let b=t.closest('[data-mood]');if(b&&b.id!=='chav'){const k=b.dataset.mood;k===A().me?openMood():showMoodNote(k);return}
  b=t.closest('[data-hs]');if(b){homeSeg=b.dataset.hs;renderHouse();return}
  b=t.closest('[data-sh]');if(b){const s=shop.find(x=>x.id===b.dataset.sh);if(!s)return;b.classList.add('popped');save(()=>db.collection('shopping').doc(s.id).update(s.done?{done:false,doneBy:'',doneAt:0}:{done:true,doneBy:A().me,doneAt:Date.now()}));return}
  b=t.closest('[data-she]');if(b){const s=shop.find(x=>x.id===b.dataset.she);if(s)openShopItem(s);return}
