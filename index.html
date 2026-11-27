@@ -2732,7 +2732,7 @@ document.addEventListener('click',e=>{if(e.target.closest('#moodc [data-mood]'))
 function renderHome(){try{moodRender()}catch(x){}const hc=$('#hcnt');if(!hc)return;
  const n=settings.start?Math.max(0,Math.floor((pd(today())-pd(settings.start))/864e5)):0;
  const an=settings.start?nextOf(settings.start).days:null;
- hc.innerHTML=[[n.toLocaleString(L),'يومًا معًا'],[an==null?'—':an,(COUPLE&&COUPLE.relation==='married'?'يومًا باقية لذكرى الزواج':COUPLE&&COUPLE.relation==='dating'?'يومًا باقية لذكرى التعارف':'يومًا باقية لذكرى الخطوبة')],[moments.length,'لحظة']].map(([v,l])=>'<div><b>'+v+'</b><span>'+l+'</span></div>').join('');
+ hc.innerHTML=[[n.toLocaleString(L),'يومًا معًا'],[an==null?'—':an,(COUPLE&&COUPLE.relation==='married'?'لذكرى الزواج':COUPLE&&COUPLE.relation==='dating'?'لذكرى التعارف':'لذكرى الخطوبة')],[moments.length,'لحظة']].map(([v,l])=>'<div><b>'+v+'</b><span>'+l+'</span></div>').join('');
  $('#htiles').innerHTML=Object.keys(PG).filter(secOn).map(t=>'<button class="htile g-'+t+'" data-go="'+t+'"><span class="ti">'+PG[t][1]+'</span><span><b>'+PG[t][0]+'</b><small>'+esc(pgSub(t))+'</small></span></button>').join('');
  if(tab!=='home')syncNav(true)}
 function syncNav(titleOnly){const h=$('#hero'),pt=$('#ptitle');
