@@ -111,6 +111,7 @@ function paint(){
   if(src){el.style.backgroundImage='url("'+src+'")';el.classList.add('hasimg')}
   else{el.style.backgroundImage='';el.classList.remove('hasimg')}
   const sh=document.getElementById('avsh');if(sh)fill(sh);
+  try{window.__avRender&&window.__avRender()}catch(x){}
 }
 function watch(){
   const a=A();if(!a||!a.db||!a.cid)return;
@@ -152,6 +153,7 @@ async function save(patch){
   const a=A();const n=Object.assign({},av,patch);Object.keys(n).forEach(k=>{if(!n[k])delete n[k]});
   await a.db.doc('meta/avatars').set(n);
 }
+window.__hkAv={get:w=>av[w]||'',set:(w,d)=>save({[w]:d}),shrink};
 document.addEventListener('click',e=>{
   if(e.target.closest('#chav')||e.target.closest('.chtop .nm')){openAv();return}
   const b=e.target.closest('#avsh [data-av]');if(!b)return;

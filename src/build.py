@@ -92,5 +92,18 @@ if 'function chWhen' in s:
     s=s.replace("'لسّا ما '+(f?'سمعتها':'سمعها')","'لسّا'")
     s=s.replace("(/لسّا/.test(r[1])?'no':'')","(r[1]===NOTYET?'no':'')")
     s=s.replace("function chWhen(t){","const NOTYET='لسّا';function chWhen(t){")
+
+# ---- profile photos (hasan-leen v100) on top of Hikayatna's own avatar store (meta/avatars, couple.js):
+# calls/feed/settings read the same photos; the chat-header tap keeps opening Hikayatna's photo sheet
+rep("function avImg(w){const d=chMeta&&chMeta['av_'+w];return d&&typeof d.img==='string'&&d.img.startsWith('data:image/')?d.img:''}",
+    "function avImg(w){let u='';try{u=window.__hkAv?window.__hkAv.get(w):''}catch(x){}return typeof u==='string'&&u.startsWith('data:image/')?u:''}")
+rep("let avSig='';function avRender(){const sg=['hassan','leen'].map(w=>((chMeta||{})['av_'+w]||{}).t||0).join('|');",
+    "let avSig='';function avRender(){const sg=['hassan','leen'].map(w=>avImg(w).length).join('|');")
+rep("try{const img=await shrink(f,400,.85,90000,true);const d={img,t:Date.now(),by:me};chMeta['av_'+me]=d;avRender();await db.doc('chatmeta/av_'+me).set(d);",
+    "try{const img=await window.__hkAv.shrink(f);await window.__hkAv.set(me,img);avRender();")
+rep("async function avRemove(){if(!me||!db)return;const d={img:'',t:Date.now(),by:me};chMeta['av_'+me]=d;avRender();try{await db.doc('chatmeta/av_'+me).set(d);",
+    "window.__avRender=()=>{try{avRender()}catch(x){}};\nasync function avRemove(){if(!me||!db||!window.__hkAv)return;try{await window.__hkAv.set(me,null);avRender();")
+rep("document.addEventListener('click',e=>{if(e.target.closest('#chav')&&me&&!document.querySelector('.avov'))avView(other(me));else if(",
+    "document.addEventListener('click',e=>{if(")
 open(D+'/merged.html','w',encoding='utf-8').write(s)
 print('merged',len(s))
