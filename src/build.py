@@ -80,6 +80,10 @@ rep(" try{await fn();ok&&toast(ok)}"," try{await fn();ok&&toast(ok);try{queueFee
 rep("close();await write(()=>db.collection('moments').doc(m.id).delete());","close();moments=moments.filter(x=>x.id!==m.id);queueFeed();await write(()=>db.collection('moments').doc(m.id).delete());",2)
 rep("const copy={...w};delete copy.id;await write(()=>db.collection('weights').doc(w.id).delete());","const copy={...w};delete copy.id;weights=weights.filter(v=>v.id!==w.id);queueFeed();await write(()=>db.collection('weights').doc(w.id).delete());")
 
+# ---- feed: weight entries get their own scale icon (not the dumbbell used for workouts)
+rep("weights.forEach(w=>push(w.createdAt,w.by||w.who,'fit',","weights.forEach(w=>push(w.createdAt,w.by||w.who,'scale',")
+rep("const FIC={kiss:","const FIC={scale:'<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"4\"/><path d=\"M8.5 9.5a5 5 0 0 1 7 0M12 9.8l1.2-1.6\"/>',kiss:")
+
 # ---- mood cards: neutral "(you)" in MSA
 rep("(mine?' (إنت'+(f?'ي':'')+')':'')","(mine?' (إنت)':'')")
 # chat info panel (v73): locale + simpler "not yet"
