@@ -4,7 +4,7 @@ from extract import units,chunks_of
 D=os.path.dirname(os.path.abspath(__file__))
 keys=json.load(open(D+'/keys.json',encoding='utf-8'))
 tr={}
-for f in ['tr1.tsv','tr2.tsv','tr3.tsv','tr4.tsv','tr5.tsv','tr6.tsv','tr7.tsv','tr8.tsv','tr9.tsv','tr10.tsv','tr11.tsv','tr12.tsv','tr13.tsv']:
+for f in ['tr1.tsv','tr2.tsv','tr3.tsv','tr4.tsv','tr5.tsv','tr6.tsv','tr7.tsv','tr8.tsv','tr9.tsv','tr10.tsv','tr11.tsv','tr12.tsv','tr13.tsv','tr14.tsv']:
     for line in open(D+'/'+f,encoding='utf-8').read().split('\n'):
         if not line.strip(): continue
         p=line.split('\t')
@@ -39,7 +39,12 @@ en=en.replace("const L='ar-u-nu-latn'","const L='en-GB'")
 en=en.replace('href="manifest.json"','href="manifest-en.json"')
 for o,n in [("(e.years===1?' first':' the'+e.years)","(' ('+e.years+')')"),
              ("relLbl().replace('Date','Anniversary')","relLbl().replace(' date',' anniversary').replace('Date we met','Anniversary of meeting')"),
-             ("' &'+","' & '+")]:
+             ("' &'+","' & '+"),
+             ("'<!DOCTYPE html><html lang=\"ar\" dir=\"rtl\">","'<!DOCTYPE html><html lang=\"en\" dir=\"ltr\">"),
+             (".fvi{display:block;text-align:right",".fvi{display:block;text-align:start"),
+             (".cb.tx .tm{position:absolute;left:10px;",".cb.tx .tm{position:absolute;right:10px;"),
+             (".favrm{position:absolute;top:9px;left:10px;",".favrm{position:absolute;top:9px;right:10px;"),
+             (".fvi .fh{padding-left:78px}",".fvi .fh{padding-right:78px}")]:
     c=en.count(o)
     assert c>=1,o
     en=en.replace(o,n)

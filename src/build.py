@@ -31,7 +31,7 @@ rep(".g-moments{background:linear-gradient(145deg,#8a63f2,#4b3aa8)}",".g-moments
 rep("'عم يتصل فيك'+(G[me]==='f'?'ي':'')","'عم يتصل فيك'")
 css=open(D+'/features.css',encoding='utf-8').read()+'\n'+open(D+'/paywall.css',encoding='utf-8').read();js=open(D+'/features.js',encoding='utf-8').read()+'\n'+open(D+'/paywall.js',encoding='utf-8').read()
 js+='\n'+re.sub(r'[\u0600-\u06FF]',lambda m:'\\u%04x'%ord(m.group(0)),open(D+'/pushtext.js',encoding='utf-8').read())
-i=s.rfind('</style>');s=s[:i]+css+s[i:]
+i=s.rfind('</style>',0,s.find('</head>'));s=s[:i]+css+s[i:]
 i=s.find('<script type="module">');s=s[:i]+'<script>\n'+js+'\n</script>\n'+s[i:]
 # ---- native shell (Capacitor) hooks: inert on the web
 rep("const pushOK=()=>'serviceWorker' in navigator","const pushOK=()=>!window.__nativePush&&'serviceWorker' in navigator")

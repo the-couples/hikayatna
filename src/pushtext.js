@@ -15,5 +15,6 @@ window.__pushText=(kind,en,nm,fem,ofem)=>{
   if(en)return [(th?'💐 ':'📝 ')+nm,(th?nm+' sent you a thank-you: ':nm+' wrote you a note: ')+t];
   return [(th?'💐 ':'📝 ')+nm,(th?(fem?'أرسلت لك شكرًا: ':'أرسل لك شكرًا: '):(fem?'كتبت لك ملاحظة: ':'كتب لك ملاحظة: '))+t]}
  if(kind.call)return en?['📞 '+nm,nm+' is calling you, tap to answer']:['📞 '+nm,(fem?'تتصل':'يتصل')+' بك، '+(ofem?'اضغطي':'اضغط')+' للرد'];
+ if(kind.plike){const r=kind.reason?' · '+kind.reason:'';return en?['❤️ '+nm,nm+' loved the points you gave'+r]:['❤️ '+nm,(fem?'أعجبتها':'أعجبته')+' النقاط التي منحتها'+r]}
  if(kind.missed)return en?['📞 '+nm,'Missed call']:['📞 '+nm,'مكالمة فائتة'];
  return null};
