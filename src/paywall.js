@@ -2,7 +2,7 @@
 (function(){
 const TRIAL_DAYS=7;
 const FREE_PLANS=['beta'];          // الأزواج اللي سجّلوا بالنسخة التجريبية على الويب
-const RC_KEY='';                     // مفتاح RevenueCat العام لأندرويد (goog_...) — يُضاف لاحقًا
+const RC_KEY='goog_IZdxTBWhvccpTkjBnrbjuXrDQOo';                     // مفتاح RevenueCat العام لأندرويد (goog_...) — يُضاف لاحقًا
 const ENT='premium';
 const DAY=864e5;
 const A=()=>window.__app;
