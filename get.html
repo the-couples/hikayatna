@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حمّل حكايتنا · Get Hikayatna</title><link rel="icon" href="icons/icon-192.png">
+<meta property="og:title" content="حكايتنا · Hikayatna 💞"><meta property="og:description" content="شريكك يدعوك إلى مساحتكما الخاصة · Your partner invited you"><meta property="og:image" content="icons/icon-512.png">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:-apple-system,"SF Arabic","Segoe UI",Tahoma,sans-serif;background:radial-gradient(circle at 70% 15%,#3a3f8f 0,#1a1f52 45%,#0f1336 100%);color:#fff;padding:24px}
+.c{width:100%;max-width:420px;text-align:center}
+img{width:96px;height:96px;border-radius:24px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+h1{margin:16px 0 4px;font-size:28px;background:linear-gradient(90deg,#ffd88a,#f48fb1);-webkit-background-clip:text;color:transparent}
+p{margin:6px 0;opacity:.9;line-height:1.7}
+.code{display:inline-block;margin:14px 0;padding:10px 18px;border:1.5px dashed #ffd88a;border-radius:16px;font:800 30px/1 ui-monospace,Menlo,monospace;letter-spacing:6px;direction:ltr}
+.btn{display:block;width:100%;margin:10px 0;padding:15px;border:0;border-radius:16px;font:700 17px inherit;font-family:inherit;color:#fff;background:#f06292;text-decoration:none;cursor:pointer}
+.btn.alt{background:rgba(255,255,255,.12)}
+.small{font-size:13px;opacity:.7}
+[data-l]{display:none}html[lang=ar] [data-l=ar],html[lang=en] [data-l=en]{display:block}
+</style></head><body><div class="c">
+<img src="icons/icon-512.png" alt="">
+<div data-l="ar"><h1>حكايتنا</h1><p>شريكك يدعوك إلى مساحتكما الخاصة 💞</p></div>
+<div data-l="en"><h1>Hikayatna</h1><p>Your partner invited you to your private space 💞</p></div>
+<div id="cw" hidden><div data-l="ar" class="small">كود الدعوة (سننسخه لك تلقائيًا)</div><div data-l="en" class="small">Invite code (we’ll copy it for you)</div><div class="code" id="code"></div></div>
+<a class="btn" id="go" href="#"></a>
+<a class="btn alt" id="other" href="#"></a>
+<p class="small" id="note"></p>
+</div>
+<script>
+(function(){
+var PLAY='https://play.google.com/store/apps/details?id=com.hikayatna.app';
+var APPSTORE=''; // يُضاف عند نشر نسخة الآيفون
+var q=new URLSearchParams(location.search),code=(q.get('c')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);
+var en=q.get('lang')==='en'||(!q.get('lang')&&!/^ar/i.test(navigator.language||''));
+document.documentElement.lang=en?'en':'ar';document.documentElement.dir=en?'ltr':'rtl';
+var T=en?{play:'Get it on Google Play',ios:'Download on the App Store',soon:'The iPhone version is coming soon.',otherA:'Have an iPhone?',otherI:'Have an Android phone?'}
+        :{play:'حمّل التطبيق من Google Play',ios:'حمّل التطبيق من App Store',soon:'نسخة الآيفون قادمة قريبًا.',otherA:'لديك آيفون؟',otherI:'لديك هاتف أندرويد؟'};
+if(code){document.getElementById('cw').hidden=false;document.getElementById('code').textContent=code}
+var ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),android=/Android/i.test(ua);
+var go=document.getElementById('go'),other=document.getElementById('other'),note=document.getElementById('note');
+function set(primaryIos){
+  var url=primaryIos?APPSTORE:PLAY;
+  if(primaryIos&&!APPSTORE){go.style.display='none';note.textContent=T.soon}else{go.style.display='';go.textContent=primaryIos?T.ios:T.play;go.href=url;note.textContent=''}
+  other.textContent=primaryIos?T.otherI:T.otherA;other.onclick=function(e){e.preventDefault();set(!primaryIos)};
+}
+set(ios&&!android);
+go.addEventListener('click',function(){if(code&&navigator.clipboard)try{navigator.clipboard.writeText(code)}catch(x){}});
+})();
+</script></body></html>

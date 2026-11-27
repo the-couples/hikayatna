@@ -57,6 +57,24 @@ _q="const db={uid:null,base:'',collection:p=>mkCol(collection(fs,db.base+p)),doc
 assert _q in s
 s=s.replace(_q,_q+"\nwindow.__coupleApi={watch:cb=>onSnapshot(doc(fs,'couples',db.base.split('/')[1]),x=>cb(x.data()),()=>{}),set:d=>updateDoc(doc(fs,'couples',db.base.split('/')[1]),d)};",1)
 rep("plan:'beta',founding:true","plan:window.__NATIVE?'store':'beta',founding:!window.__NATIVE")
+# ---- relationship-aware onboarding: planned dates + sections by relationship
+rep("<option value=\"dating\">مرتبطين</option></select>'+\n '<div class=\"row\"><div><label class=\"lb\">تاريخكن المميز</label>",
+    "<option value=\"dating\">مرتبطين</option></select>'+\n '<div class=\"row\"><div><label class=\"lb\" id=\"o-dl\">تاريخكن المميز</label>")
+rep("<div><label class=\"lb\">عيد ميلادك</label><input class=\"in\" id=\"o-bd\" type=\"date\"></div></div>'+",
+    "<div><label class=\"lb\">عيد ميلادك</label><input class=\"in\" id=\"o-bd\" type=\"date\"></div></div><div id=\"o-xd\"></div>'+")
+rep("document.getElementById('o-lu').onclick=",
+    "{const rx=()=>{const r=document.getElementById('o-r').value,X=document.getElementById('o-xd');if(!X)return;const ke={pe:(document.getElementById('o-pe')||{}).value||'',pm:(document.getElementById('o-pm')||{}).value||''};"
+    "X.innerHTML=(r==='dating'?'<label class=\"lb\">تاريخ الخطوبة المتوقّع (اختياري)</label><input class=\"in\" id=\"o-pe\" type=\"date\">':'')+(r!=='married'?'<label class=\"lb\">'+(r==='dating'?'تاريخ الزواج المتوقّع (اختياري)':'تاريخ الزواج المقرّر (اختياري)')+'</label><input class=\"in\" id=\"o-pm\" type=\"date\">':'');"
+    "const pe=document.getElementById('o-pe'),pm=document.getElementById('o-pm');if(pe)pe.value=ke.pe;if(pm)pm.value=ke.pm;"
+    "const dl=document.getElementById('o-dl');if(dl)dl.textContent=r==='married'?'تاريخ زواجكما':r==='dating'?'تاريخ تعارفكما':'تاريخ خطبتكما';"
+    "const h=OX.querySelector('.cbx input[value=house]');if(h)h.checked=r!=='dating'};document.getElementById('o-r').onchange=rx;rx()}\n document.getElementById('o-lu').onclick=")
+rep("if(d)await setDoc(doc(fs,base+'meta/settings'),{start:d});",
+    "{const r=document.getElementById('o-r').value,pe=(document.getElementById('o-pe')||{}).value||'',pm=(document.getElementById('o-pm')||{}).value||'';const dates={dating:'',engaged:'',married:''};dates[r]=d;if(r==='dating'&&pe)dates.engaged=pe;if(r!=='married'&&pm)dates.married=pm;"
+    "if(d||pe||pm)await setDoc(doc(fs,base+'meta/settings'),{start:d,dates})}")
+rep("relation:$('#c-r').value,sections:sec,",
+    "relation:$('#c-r').value,sections:(()=>{const r=$('#c-r').value,o=c.relation||'engaged';let x=sec.slice();if(r!==o){if(r==='dating')x=x.filter(t=>t!=='house');else if(o==='dating'&&!x.includes('house'))x.push('house')}return x.length?x:sec})(),")
+# ---- mood cards: neutral "(you)" in MSA
+rep("(mine?' (إنت'+(f?'ي':'')+')':'')","(mine?' (إنت)':'')")
 # chat info panel (v73): locale + simpler "not yet"
 if 'function chWhen' in s:
     s=s.replace("d.toLocaleTimeString('ar',","d.toLocaleTimeString(L,").replace("d.toLocaleDateString('ar',{day:'numeric',month:'long'})","d.toLocaleDateString(L,{day:'numeric',month:'long'})")

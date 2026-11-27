@@ -5,3 +5,13 @@
 .inva{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}
 .inva .btn{flex:1;min-width:120px;min-height:44px}
 .invx{flex-basis:100%;border:0;background:none;color:var(--mute);font-size:13px;text-decoration:underline;margin-top:2px}
+#chav,.chtop .nm{cursor:pointer}
+#chav.hasimg{background-size:cover;background-position:center;font-size:0}
+#chav.hasimg::after{color:var(--ink)}
+.avrow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:8px 0 4px}
+.avp{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.avc{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:26px;color:var(--on);background:linear-gradient(135deg,var(--rose),color-mix(in srgb,var(--rose) 60%,#000));background-size:cover;background-position:center}
+.avc.big{width:96px;height:96px;font-size:38px}
+.ava{display:flex;flex-direction:column;gap:6px;width:100%}
+.ava .btn{width:100%}
+body.chat-open #scrim.on{z-index:80}

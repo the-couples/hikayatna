@@ -925,8 +925,8 @@ body.chat-open.kbopen main,body.chat-open.kbopen header,body.chat-open.kbopen .f
 .pushbar .pi{font-size:20px}.pushbar .pt{flex:1}
 .pushbar .pb{border:0;border-radius:10px;padding:7px 14px;background:var(--gold,#f1cf83);color:#14112c;font-weight:800;font-size:14px}
 .pushbar .px{border:0;background:none;color:inherit;opacity:.7;font-size:14px;padding:4px}
-/* Hikayatna keeps its own mood strip; hide the newer home mood cards to avoid duplicates */
-#moodc{display:none!important}
+/* moods: card style (#moodc); hide the older strip */
+#moods{display:none!important}
 
 .pw{position:fixed;inset:0;z-index:9000;display:flex;align-items:flex-end;justify-content:center;background:rgba(8,6,24,.72);backdrop-filter:blur(8px);padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
 .pw[hidden]{display:none}
@@ -948,6 +948,11 @@ html.pw-on body{overflow:hidden}
 .pw-rest{margin-top:10px;border:0;background:none;color:var(--mute,#cfc8e6);text-decoration:underline;font-size:13.5px}
 .pw-legal{font-size:11.5px;color:var(--mute,#cfc8e6);opacity:.85;margin:10px 0 0;line-height:1.6}.pw-legal a{color:inherit}
 .pw-acc{display:flex;justify-content:center;gap:14px;margin-top:10px}.pw-acc button{border:0;background:none;color:var(--mute,#cfc8e6);font-size:13px;text-decoration:underline}
+.trem{text-align:center;display:flex;flex-direction:column;gap:10px;padding-bottom:6px}
+.trem .tremi{font-size:44px;line-height:1}
+.trem h2{margin:0;font-size:22px}
+.trem p{margin:0}
+.trem .btn{width:100%}
 
 .invc{margin:12px 0 14px;padding:14px;border-radius:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--rose) 18%,var(--card)),var(--card));border:1px solid color-mix(in srgb,var(--rose) 45%,var(--line));text-align:center}
 .invc.cmp{margin:0 0 10px}
@@ -956,6 +961,16 @@ html.pw-on body{overflow:hidden}
 .inva{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}
 .inva .btn{flex:1;min-width:120px;min-height:44px}
 .invx{flex-basis:100%;border:0;background:none;color:var(--mute);font-size:13px;text-decoration:underline;margin-top:2px}
+#chav,.chtop .nm{cursor:pointer}
+#chav.hasimg{background-size:cover;background-position:center;font-size:0}
+#chav.hasimg::after{color:var(--ink)}
+.avrow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:8px 0 4px}
+.avp{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.avc{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:26px;color:var(--on);background:linear-gradient(135deg,var(--rose),color-mix(in srgb,var(--rose) 60%,#000));background-size:cover;background-position:center}
+.avc.big{width:96px;height:96px;font-size:38px}
+.ava{display:flex;flex-direction:column;gap:6px;width:100%}
+.ava .btn{width:100%}
+body.chat-open #scrim.on{z-index:80}
 </style>
 </head>
 <body>
@@ -2718,7 +2733,7 @@ function moodRender(){const box=$('#moodc');if(!box)return;const ws=G[me]==='f'?
  try{const o=mdGet(other(me));const av=$('#chav');if(av){if(o)av.dataset.mood=MOODS[o.i][0];else delete av.dataset.mood}}catch(x){}
  if(sg===mdSig)return;mdSig=sg;
  box.innerHTML=ws.map(w=>{const d=mdGet(w),mine=w===me,f=G[w]==='f';
-  const nm=(WHO[w]||'')+(mine?' (you'+(f?'ي':'')+')':'');
+  const nm=(WHO[w]||'')+(mine?' (you)':'');
   if(!d)return '<button class="mdh'+(mine?' mine':'')+'" '+(mine?'data-mood="1"':'disabled')+'><span class="mn">'+esc(nm)+'</span><span class="me2 q">🙂</span><span class="ml">'+(mine?(f?'How are you feeling today?':'How are you feeling today?'):'Not '+(f?'set':'set')+' a mood'+(f?'':'ه'))+'</span><span class="mt">'+(mine?'Tap to choose':'&nbsp;')+'</span></button>';
   return '<button class="mdh'+(mine?' mine':'')+'" '+(mine?'data-mood="1"':'disabled')+'>'+(mine?'<span class="med">✎</span>':'')+'<span class="mn">'+esc(nm)+'</span><span class="me2">'+MOODS[d.i][0]+'</span><span class="ml">'+esc(mdLbl(w,d.i))+'</span><span class="mt">'+esc(d.note||hm(d.t))+'</span></button>'}).join('')}
 function moodPick(){if(needMe()||!db)return;const cur=mdGet(me),f=G[me]==='f';
@@ -2894,7 +2909,7 @@ function openCustomize(){const c=COUPLE||{};const nm=c.names||{hassan:WHO.hassan
   $('#c-lf').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{logo=await resizeLogo(f,360);pv()}catch(x){toast('Could not read the image')}}}
  $('#cf').addEventListener('submit',async e=>{e.preventDefault();
   const sec=[...sheet.querySelectorAll('.cbx input[value]:checked')].map(x=>x.value);if(!sec.length){toast('Choose at least one section');return}
-  const n={...c,names:{hassan:$('#c-n1').value.trim()||WHO.hassan,leen:$('#c-n2').value.trim()||WHO.leen},gender:{hassan:$('#c-g1').value,leen:$('#c-g2').value},title:$('#c-t').value.trim(),relation:$('#c-r').value,sections:sec,chat:$('#c-ch').checked,kiss:$('#c-ks').checked};
+  const n={...c,names:{hassan:$('#c-n1').value.trim()||WHO.hassan,leen:$('#c-n2').value.trim()||WHO.leen},gender:{hassan:$('#c-g1').value,leen:$('#c-g2').value},title:$('#c-t').value.trim(),relation:$('#c-r').value,sections:(()=>{const r=$('#c-r').value,o=c.relation||'engaged';let x=sec.slice();if(r!==o){if(r==='dating')x=x.filter(t=>t!=='house');else if(o==='dating'&&!x.includes('house'))x.push('house')}return x.length?x:sec})(),chat:$('#c-ch').checked,kiss:$('#c-ks').checked};
   if(logo!==null)n.logo=logo;const save={...n};delete save.legacy;close();
   await write(()=>db.doc('meta/couple').set(save),'Customization saved');window.__applyCouple(n);renderHead()})}
 {const lg=document.querySelector('#hero .logo');if(lg&&lg.getAttribute('src'))$('#splogo').src=lg.getAttribute('src');}
@@ -3215,7 +3230,33 @@ function hide(){if(!el)return;el.hidden=true;shown=false;blocking=false;document
 function evaluate(){
   if(gated(couple)){if(!shown||!blocking)show(true)}
   else if(shown&&blocking)hide();
+  else lastDay();
 }
+
+/* تذكير قبل يوم من نهاية التجربة المجانية (مرة باليوم) */
+function trialApplies(c){return !!c&&!premiumOn(c)&&!FREE_PLANS.includes(c.plan)&&(native()||c.plan==='store')}
+let ldT=0;
+function lastDay(){
+  const c=couple,a=A();if(!trialApplies(c)||!a||!a.me||shown)return;
+  const ms=trialEnd(c)-Date.now();if(ms<=0||ms>DAY)return;
+  const k='hk-trial-rem-'+(a.cid||'')+'-'+new Date().toDateString();
+  try{if(localStorage.getItem(k))return}catch(x){}
+  if(ldT)return;
+  ldT=setTimeout(()=>{ldT=0;
+    if(document.getElementById('sheet')&&document.getElementById('scrim').classList.contains('on'))return;
+    try{localStorage.setItem(k,'1')}catch(x){}
+    const h=Math.max(1,Math.round(ms/36e5));
+    a.open('<div class="trem"><div class="tremi">⏳</div><h2>Only one day left in your free trial</h2>'+
+      '<p>Subscribe now to keep every feature of your story — one subscription covers you both.</p>'+
+      '<p class="small">Your trial ends in about '+h+' hours.</p>'+
+      '<button type="button" class="btn pri" id="trem-go">💎 Subscribe now</button>'+
+      '<button type="button" class="btn ghost" id="trem-later">Later</button></div>');
+  },2500);
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#trem-go')){try{A().close()}catch(x){}setTimeout(()=>show(false),300)}
+  else if(e.target.closest('#trem-later')){try{A().close()}catch(x){}}
+});
 
 /* زر الاشتراك داخل الإعدادات */
 function addSettingsRow(){
@@ -3248,9 +3289,10 @@ const code=()=>(cdoc&&cdoc.code)||(A()&&A().COUPLE&&A().COUPLE.code)||'';
 const needInvite=()=>!!(cdoc&&!partnerJoined()&&code());
 const en=()=>document.documentElement.lang==='en';
 
+const GET_URL='https://the-couples.github.io/hikayatna/get.html';
 function inviteText(){
-  const link=location.origin+location.pathname.replace(/[^/]*$/,'')+(en()?'en.html':'');
-  return 'Join me on Hikayatna 💞\nInvite code: '+code()+'\n'+link;
+  const link=GET_URL+'?c='+encodeURIComponent(code())+(en()?'&lang=en':'');
+  return 'Join me on Hikayatna 💞\nInvite code: '+code()+'\\nGet the app here: '+link;
 }
 async function copyCode(){
   try{await navigator.clipboard.writeText(code());A().toast('Code copied ✅')}
@@ -3298,17 +3340,23 @@ function openInfo(){
     '<label class="l">First name</label><div style="display:flex;gap:8px"><input class="in" id="inf-n1" maxlength="20" required value="'+esc(names.hassan||'')+'">'+gsel('inf-g1',g.hassan)+'</div>'+
     '<label class="l">Second name</label><div style="display:flex;gap:8px"><input class="in" id="inf-n2" maxlength="20" required value="'+esc(names.leen||'')+'">'+gsel('inf-g2',g.leen||'f')+'</div>'+
     '<label class="l">Your relationship now</label><select class="in" id="inf-r">'+rels.map(o=>'<option value="'+o[0]+'"'+(rel===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>'+
-    '<label class="l">Date you met</label><input class="in" type="date" id="inf-d-dating" value="'+esc(d.dating||'')+'">'+
-    '<label class="l">Engagement date</label><input class="in" type="date" id="inf-d-engaged" value="'+esc(d.engaged||'')+'">'+
-    '<label class="l">Wedding date</label><input class="in" type="date" id="inf-d-married" value="'+esc(d.married||'')+'">'+
+    '<label class="l" id="inf-l-dating">Date you met</label><input class="in" type="date" id="inf-d-dating" value="'+esc(d.dating||'')+'">'+
+    '<label class="l" id="inf-l-engaged">Engagement date</label><input class="in" type="date" id="inf-d-engaged" value="'+esc(d.engaged||'')+'">'+
+    '<label class="l" id="inf-l-married">Wedding date</label><input class="in" type="date" id="inf-d-married" value="'+esc(d.married||'')+'">'+
     '<p class="small">The day counter uses the date of your current relationship.</p>'+
     '<div class="acts"><button class="btn pri" type="submit">Save</button></div></form>');
+  const LB={dating:{dating:'Date you met',engaged:'Expected engagement date (optional)',married:'Expected wedding date (optional)'},
+    engaged:{dating:'Date you met (optional)',engaged:'Engagement date',married:'Planned wedding date (optional)'},
+    married:{dating:'Date you met (optional)',engaged:'Engagement date (optional)',married:'Wedding date'}};
+  const relab=()=>{const r=document.getElementById('inf-r').value;['dating','engaged','married'].forEach(k=>{const l=document.getElementById('inf-l-'+k);if(l)l.textContent=LB[r][k]})};
+  document.getElementById('inf-r').onchange=relab;relab();
   document.getElementById('inf').addEventListener('submit',async e=>{e.preventDefault();
     const $=id=>document.getElementById(id);
     const n1=$('inf-n1').value.trim(),n2=$('inf-n2').value.trim();if(!n1||!n2)return;
     const r=$('inf-r').value;
     const dates={dating:$('inf-d-dating').value||'',engaged:$('inf-d-engaged').value||'',married:$('inf-d-married').value||''};
     const nc={...(a.COUPLE||{}),names:{hassan:n1,leen:n2},gender:{hassan:$('inf-g1').value,leen:$('inf-g2').value},relation:r};delete nc.legacy;
+    if(r!==rel){let x=Array.isArray(nc.sections)&&nc.sections.length?nc.sections.slice():['moments','album','fit','cal','us','games','house','wish','plans','stats'];if(r==='dating')x=x.filter(t=>t!=='house');else if(rel==='dating'&&!x.includes('house'))x.push('house');if(x.length)nc.sections=x}
     const ns={...(a.settings||{}),dates,start:dates[r]||''};
     a.close();
     await a.write(async()=>{await a.db.doc('meta/couple').set(nc);await a.db.doc('meta/settings').set(ns)},'Your info is saved ✅');
@@ -3330,6 +3378,75 @@ setInterval(()=>{
     unwatch=a.coupleWatch(c=>{cdoc=c||null;homeCard()});}
 },1500);
 window.__openInfo=openInfo;
+})();
+
+/* ---------- الصور الشخصية: اضغط على الاسم أو الأيقونة أعلى المحادثة ---------- */
+(function(){
+const A=()=>window.__app;
+let av={},unsub=null,base='';
+const oth=w=>w==='hassan'?'leen':'hassan';
+function paint(){
+  const a=A();if(!a||!a.me)return;
+  const el=document.getElementById('chav');if(!el)return;
+  const src=av[oth(a.me)];
+  if(src){el.style.backgroundImage='url("'+src+'")';el.classList.add('hasimg')}
+  else{el.style.backgroundImage='';el.classList.remove('hasimg')}
+  const sh=document.getElementById('avsh');if(sh)fill(sh);
+}
+function watch(){
+  const a=A();if(!a||!a.db||!a.cid)return;
+  if(base===a.cid&&unsub)return;
+  try{unsub&&unsub()}catch(x){}
+  base=a.cid;av={};
+  unsub=a.db.doc('meta/avatars').onSnapshot(s=>{av=(s.exists&&s.data())||{};paint()},()=>{});
+}
+setInterval(watch,1500);
+function circle(w,big){
+  const a=A(),src=av[w],nm=(a.WHO&&a.WHO[w])||'?';
+  return '<div class="avc'+(big?' big':'')+'"'+(src?' style="background-image:url(&quot;'+src+'&quot;)"':'')+'>'+(src?'':String(nm).charAt(0))+'</div>';
+}
+function fill(sh){
+  const a=A(),me=a.me,o=oth(me);
+  sh.innerHTML='<div class="avrow"><div class="avp">'+circle(me,1)+'<b>'+((a.WHO&&a.WHO[me])||'')+' (you)</b>'+
+   '<div class="ava"><button type="button" class="btn pri" data-av="pick">'+(av[me]?'Change my photo':'Add my photo')+'</button>'+
+   (av[me]?'<button type="button" class="btn" data-av="del">Remove photo</button>':'')+'</div></div>'+
+   '<div class="avp">'+circle(o,1)+'<b>'+((a.WHO&&a.WHO[o])||'')+'</b>'+(av[o]?'':'<span class="small">No photo yet</span>')+'</div></div>'+
+   '<input type="file" id="avf" accept="image/*" hidden>';
+}
+function openAv(){
+  const a=A();if(!a||!a.me)return;
+  a.open('<h2>Profile photos</h2><p class="small" style="margin-top:0">Pick a photo of yourself — your partner will see it in the chat.</p><div id="avsh"></div>');
+  const sh=document.getElementById('avsh');if(sh)fill(sh);
+}
+function shrink(file){
+  return new Promise((res,rej)=>{
+    const u=URL.createObjectURL(file),im=new Image();
+    im.onload=()=>{const S=320,c=document.createElement('canvas');c.width=c.height=S;
+      const s=Math.min(im.naturalWidth,im.naturalHeight),x=(im.naturalWidth-s)/2,y=(im.naturalHeight-s)/2;
+      const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,S,S);g.drawImage(im,x,y,s,s,0,0,S,S);
+      URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.82))};
+    im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('img'))};
+    im.src=u;
+  });
+}
+async function save(patch){
+  const a=A();const n=Object.assign({},av,patch);Object.keys(n).forEach(k=>{if(!n[k])delete n[k]});
+  await a.db.doc('meta/avatars').set(n);
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#chav')||e.target.closest('.chtop .nm')){openAv();return}
+  const b=e.target.closest('#avsh [data-av]');if(!b)return;
+  const a=A();
+  if(b.dataset.av==='pick'){const f=document.getElementById('avf');if(f){f.value='';f.click()}}
+  if(b.dataset.av==='del'){save({[a.me]:null}).then(()=>a.toast('Your photo was removed')).catch(()=>a.toast('Couldn’t remove it, please try again'))}
+});
+document.addEventListener('change',async e=>{
+  if(!e.target||e.target.id!=='avf')return;
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  const a=A();
+  try{const d=await shrink(f);await save({[a.me]:d});a.toast('Your photo was saved ✅')}
+  catch(x){a.toast('Couldn’t read that image, try another one')}
+});
 })();
 
 /* \u0646\u0635 \u0627\u0644\u0625\u0634\u0639\u0627\u0631 \u0628\u0644\u063a\u0629 \u0627\u0644\u0634\u0631\u064a\u0643 \u0627\u0644\u0645\u0633\u062a\u0642\u0628\u0650\u0644 (fem: \u0627\u0644\u0645\u0631\u0633\u0644 \u0623\u0646\u062b\u0649\u060c ofem: \u0627\u0644\u0645\u0633\u062a\u0642\u0628\u0650\u0644 \u0623\u0646\u062b\u0649) */
@@ -3420,12 +3537,13 @@ function onbNew(u){let logo='';
  '<h2>Who are you?</h2><label class="lb">Your name</label><div class="row"><input class="in" id="o-n1" maxlength="20" placeholder="Your name">'+gsel('o-g1','m')+'</div>'+
  '<label class="lb">Partner name</label><div class="row"><input class="in" id="o-n2" maxlength="20" placeholder="Their name">'+gsel('o-g2','f')+'</div>'+
  '<label class="lb">Your relationship</label><select class="in" id="o-r"><option value="engaged">Engaged</option><option value="married">Married</option><option value="dating">Dating</option></select>'+
- '<div class="row"><div><label class="lb">Your special date</label><input class="in" id="o-d" type="date"></div><div><label class="lb">Your birthday</label><input class="in" id="o-bd" type="date"></div></div>'+
+ '<div class="row"><div><label class="lb" id="o-dl">Your special date</label><input class="in" id="o-d" type="date"></div><div><label class="lb">Your birthday</label><input class="in" id="o-bd" type="date"></div></div><div id="o-xd"></div>'+
  '<h2>Your logo (optional)</h2><div class="lgp"><div class="pv" id="o-pv">No logo</div><div style="display:flex;flex-direction:column;gap:6px;flex:1"><button type="button" class="btn gh" id="o-lu" style="margin:0">Upload image</button><button type="button" class="btn gh" id="o-lx" style="margin:0;opacity:.7">No logo</button></div><input type="file" id="o-lf" accept="image/*" hidden></div>'+
  '<h2>What do you want in the app?</h2><div class="cbx">'+TABS2.map(t=>'<label><input type="checkbox" value="'+t[0]+'" checked>'+t[1]+'</label>').join('')+'<label><input type="checkbox" id="o-ch" checked>Chat</label><label><input type="checkbox" id="o-ks" checked>Kiss button</label></div>'+
  '<button class="btn pri" id="o-go" style="margin-top:22px">Create our space 💞</button><button class="btn gh" id="o-bk">Back</button><div class="err" id="o-err"></div>';
  const pv=()=>{document.getElementById('o-pv').innerHTML=logo?'<img src="'+logo+'" alt="">':'No logo'};
  document.getElementById('o-bk').onclick=()=>onbStart(u);
+ {const rx=()=>{const r=document.getElementById('o-r').value,X=document.getElementById('o-xd');if(!X)return;const ke={pe:(document.getElementById('o-pe')||{}).value||'',pm:(document.getElementById('o-pm')||{}).value||''};X.innerHTML=(r==='dating'?'<label class="lb">Expected engagement date (optional)</label><input class="in" id="o-pe" type="date">':'')+(r!=='married'?'<label class="lb">'+(r==='dating'?'Expected wedding date (optional)':'Planned wedding date (optional)')+'</label><input class="in" id="o-pm" type="date">':'');const pe=document.getElementById('o-pe'),pm=document.getElementById('o-pm');if(pe)pe.value=ke.pe;if(pm)pm.value=ke.pm;const dl=document.getElementById('o-dl');if(dl)dl.textContent=r==='married'?'Your wedding date':r==='dating'?'The day you met':'Your engagement date';const h=OX.querySelector('.cbx input[value=house]');if(h)h.checked=r!=='dating'};document.getElementById('o-r').onchange=rx;rx()}
  document.getElementById('o-lu').onclick=()=>document.getElementById('o-lf').click();
  document.getElementById('o-lx').onclick=()=>{logo='';pv()};
  document.getElementById('o-lf').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{logo=await window.__resizeLogo(f,360);pv()}catch(x){}};
@@ -3440,7 +3558,7 @@ function onbNew(u){let logo='';
    await setDoc(doc(fs,base+'meta/couple'),{names:{hassan:n1,leen:n2},gender:{hassan:document.getElementById('o-g1').value,leen:document.getElementById('o-g2').value},relation:document.getElementById('o-r').value,title:'',logo,sections,chat:document.getElementById('o-ch').checked,kiss:document.getElementById('o-ks').checked,code});
    await setDoc(doc(fs,base+'meta/people'),{hassan:u.uid});
    const d=document.getElementById('o-d').value,bd=document.getElementById('o-bd').value;
-   if(d)await setDoc(doc(fs,base+'meta/settings'),{start:d});if(bd)await setDoc(doc(fs,base+'profiles/hassan'),{bday:bd});
+   {const r=document.getElementById('o-r').value,pe=(document.getElementById('o-pe')||{}).value||'',pm=(document.getElementById('o-pm')||{}).value||'';const dates={dating:'',engaged:'',married:''};dates[r]=d;if(r==='dating'&&pe)dates.engaged=pe;if(r!=='married'&&pm)dates.married=pm;if(d||pe||pm)await setDoc(doc(fs,base+'meta/settings'),{start:d,dates})}if(bd)await setDoc(doc(fs,base+'profiles/hassan'),{bday:bd});
    await setDoc(doc(fs,'users',u.uid),{cid:cref.id,role:'hassan',email:u.email||'',createdAt:Date.now()});
    OX.innerHTML='<div class="lheart" style="text-align:center">🎉</div><h1>All set!</h1><p class="s">Send this code to your partner. They create an account and enter it to join you</p><div class="codebox" style="color:#fff">'+code+'</div><button class="btn gh" id="o-sh">Share code</button><button class="btn pri" id="o-in">Enter the app</button>';
    document.getElementById('o-sh').onclick=()=>{const t='Get the app and create an account, then choose «I have a code» and enter: '+code;if(navigator.share)navigator.share({text:t}).catch(()=>{});else navigator.clipboard&&navigator.clipboard.writeText(t)};

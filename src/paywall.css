@@ -18,3 +18,8 @@ html.pw-on body{overflow:hidden}
 .pw-rest{margin-top:10px;border:0;background:none;color:var(--mute,#cfc8e6);text-decoration:underline;font-size:13.5px}
 .pw-legal{font-size:11.5px;color:var(--mute,#cfc8e6);opacity:.85;margin:10px 0 0;line-height:1.6}.pw-legal a{color:inherit}
 .pw-acc{display:flex;justify-content:center;gap:14px;margin-top:10px}.pw-acc button{border:0;background:none;color:var(--mute,#cfc8e6);font-size:13px;text-decoration:underline}
+.trem{text-align:center;display:flex;flex-direction:column;gap:10px;padding-bottom:6px}
+.trem .tremi{font-size:44px;line-height:1}
+.trem h2{margin:0;font-size:22px}
+.trem p{margin:0}
+.trem .btn{width:100%}

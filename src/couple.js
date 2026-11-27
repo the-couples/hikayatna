@@ -8,9 +8,10 @@ const code=()=>(cdoc&&cdoc.code)||(A()&&A().COUPLE&&A().COUPLE.code)||'';
 const needInvite=()=>!!(cdoc&&!partnerJoined()&&code());
 const en=()=>document.documentElement.lang==='en';
 
+const GET_URL='https://the-couples.github.io/hikayatna/get.html';
 function inviteText(){
-  const link=location.origin+location.pathname.replace(/[^/]*$/,'')+(en()?'en.html':'');
-  return 'انضمّ إليّ في حكايتنا 💞\nكود الدعوة: '+code()+'\n'+link;
+  const link=GET_URL+'?c='+encodeURIComponent(code())+(en()?'&lang=en':'');
+  return 'انضمّ إليّ في حكايتنا 💞\nكود الدعوة: '+code()+'\nحمّل التطبيق من هنا: '+link;
 }
 async function copyCode(){
   try{await navigator.clipboard.writeText(code());A().toast('نُسخ الكود ✅')}
@@ -58,17 +59,23 @@ function openInfo(){
     '<label class="l">الاسم الأول</label><div style="display:flex;gap:8px"><input class="in" id="inf-n1" maxlength="20" required value="'+esc(names.hassan||'')+'">'+gsel('inf-g1',g.hassan)+'</div>'+
     '<label class="l">الاسم الثاني</label><div style="display:flex;gap:8px"><input class="in" id="inf-n2" maxlength="20" required value="'+esc(names.leen||'')+'">'+gsel('inf-g2',g.leen||'f')+'</div>'+
     '<label class="l">علاقتكما الآن</label><select class="in" id="inf-r">'+rels.map(o=>'<option value="'+o[0]+'"'+(rel===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>'+
-    '<label class="l">تاريخ التعارف</label><input class="in" type="date" id="inf-d-dating" value="'+esc(d.dating||'')+'">'+
-    '<label class="l">تاريخ الخطبة</label><input class="in" type="date" id="inf-d-engaged" value="'+esc(d.engaged||'')+'">'+
-    '<label class="l">تاريخ الزواج</label><input class="in" type="date" id="inf-d-married" value="'+esc(d.married||'')+'">'+
+    '<label class="l" id="inf-l-dating">تاريخ التعارف</label><input class="in" type="date" id="inf-d-dating" value="'+esc(d.dating||'')+'">'+
+    '<label class="l" id="inf-l-engaged">تاريخ الخطبة</label><input class="in" type="date" id="inf-d-engaged" value="'+esc(d.engaged||'')+'">'+
+    '<label class="l" id="inf-l-married">تاريخ الزواج</label><input class="in" type="date" id="inf-d-married" value="'+esc(d.married||'')+'">'+
     '<p class="small">يعتمد عدّاد الأيام على تاريخ علاقتكما الحالية.</p>'+
     '<div class="acts"><button class="btn pri" type="submit">احفظ</button></div></form>');
+  const LB={dating:{dating:'تاريخ التعارف',engaged:'تاريخ الخطوبة المتوقّع (اختياري)',married:'تاريخ الزواج المتوقّع (اختياري)'},
+    engaged:{dating:'تاريخ التعارف (اختياري)',engaged:'تاريخ الخطبة',married:'تاريخ الزواج المقرّر (اختياري)'},
+    married:{dating:'تاريخ التعارف (اختياري)',engaged:'تاريخ الخطبة (اختياري)',married:'تاريخ الزواج'}};
+  const relab=()=>{const r=document.getElementById('inf-r').value;['dating','engaged','married'].forEach(k=>{const l=document.getElementById('inf-l-'+k);if(l)l.textContent=LB[r][k]})};
+  document.getElementById('inf-r').onchange=relab;relab();
   document.getElementById('inf').addEventListener('submit',async e=>{e.preventDefault();
     const $=id=>document.getElementById(id);
     const n1=$('inf-n1').value.trim(),n2=$('inf-n2').value.trim();if(!n1||!n2)return;
     const r=$('inf-r').value;
     const dates={dating:$('inf-d-dating').value||'',engaged:$('inf-d-engaged').value||'',married:$('inf-d-married').value||''};
     const nc={...(a.COUPLE||{}),names:{hassan:n1,leen:n2},gender:{hassan:$('inf-g1').value,leen:$('inf-g2').value},relation:r};delete nc.legacy;
+    if(r!==rel){let x=Array.isArray(nc.sections)&&nc.sections.length?nc.sections.slice():['moments','album','fit','cal','us','games','house','wish','plans','stats'];if(r==='dating')x=x.filter(t=>t!=='house');else if(rel==='dating'&&!x.includes('house'))x.push('house');if(x.length)nc.sections=x}
     const ns={...(a.settings||{}),dates,start:dates[r]||''};
     a.close();
     await a.write(async()=>{await a.db.doc('meta/couple').set(nc);await a.db.doc('meta/settings').set(ns)},'حُفظت معلوماتكما ✅');
@@ -90,4 +97,73 @@ setInterval(()=>{
     unwatch=a.coupleWatch(c=>{cdoc=c||null;homeCard()});}
 },1500);
 window.__openInfo=openInfo;
+})();
+
+/* ---------- الصور الشخصية: اضغط على الاسم أو الأيقونة أعلى المحادثة ---------- */
+(function(){
+const A=()=>window.__app;
+let av={},unsub=null,base='';
+const oth=w=>w==='hassan'?'leen':'hassan';
+function paint(){
+  const a=A();if(!a||!a.me)return;
+  const el=document.getElementById('chav');if(!el)return;
+  const src=av[oth(a.me)];
+  if(src){el.style.backgroundImage='url("'+src+'")';el.classList.add('hasimg')}
+  else{el.style.backgroundImage='';el.classList.remove('hasimg')}
+  const sh=document.getElementById('avsh');if(sh)fill(sh);
+}
+function watch(){
+  const a=A();if(!a||!a.db||!a.cid)return;
+  if(base===a.cid&&unsub)return;
+  try{unsub&&unsub()}catch(x){}
+  base=a.cid;av={};
+  unsub=a.db.doc('meta/avatars').onSnapshot(s=>{av=(s.exists&&s.data())||{};paint()},()=>{});
+}
+setInterval(watch,1500);
+function circle(w,big){
+  const a=A(),src=av[w],nm=(a.WHO&&a.WHO[w])||'?';
+  return '<div class="avc'+(big?' big':'')+'"'+(src?' style="background-image:url(&quot;'+src+'&quot;)"':'')+'>'+(src?'':String(nm).charAt(0))+'</div>';
+}
+function fill(sh){
+  const a=A(),me=a.me,o=oth(me);
+  sh.innerHTML='<div class="avrow"><div class="avp">'+circle(me,1)+'<b>'+((a.WHO&&a.WHO[me])||'')+' (أنت)</b>'+
+   '<div class="ava"><button type="button" class="btn pri" data-av="pick">'+(av[me]?'غيّر صورتي':'أضف صورتي')+'</button>'+
+   (av[me]?'<button type="button" class="btn" data-av="del">احذف الصورة</button>':'')+'</div></div>'+
+   '<div class="avp">'+circle(o,1)+'<b>'+((a.WHO&&a.WHO[o])||'')+'</b>'+(av[o]?'':'<span class="small">لم يضف صورة بعد</span>')+'</div></div>'+
+   '<input type="file" id="avf" accept="image/*" hidden>';
+}
+function openAv(){
+  const a=A();if(!a||!a.me)return;
+  a.open('<h2>الصور الشخصية</h2><p class="small" style="margin-top:0">اختر صورة لك، وستظهر لشريكك في المحادثة.</p><div id="avsh"></div>');
+  const sh=document.getElementById('avsh');if(sh)fill(sh);
+}
+function shrink(file){
+  return new Promise((res,rej)=>{
+    const u=URL.createObjectURL(file),im=new Image();
+    im.onload=()=>{const S=320,c=document.createElement('canvas');c.width=c.height=S;
+      const s=Math.min(im.naturalWidth,im.naturalHeight),x=(im.naturalWidth-s)/2,y=(im.naturalHeight-s)/2;
+      const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,S,S);g.drawImage(im,x,y,s,s,0,0,S,S);
+      URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.82))};
+    im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('img'))};
+    im.src=u;
+  });
+}
+async function save(patch){
+  const a=A();const n=Object.assign({},av,patch);Object.keys(n).forEach(k=>{if(!n[k])delete n[k]});
+  await a.db.doc('meta/avatars').set(n);
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#chav')||e.target.closest('.chtop .nm')){openAv();return}
+  const b=e.target.closest('#avsh [data-av]');if(!b)return;
+  const a=A();
+  if(b.dataset.av==='pick'){const f=document.getElementById('avf');if(f){f.value='';f.click()}}
+  if(b.dataset.av==='del'){save({[a.me]:null}).then(()=>a.toast('حُذفت صورتك')).catch(()=>a.toast('لم ينجح الحذف، حاول مرة أخرى'))}
+});
+document.addEventListener('change',async e=>{
+  if(!e.target||e.target.id!=='avf')return;
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  const a=A();
+  try{const d=await shrink(f);await save({[a.me]:d});a.toast('حُفظت صورتك ✅')}
+  catch(x){a.toast('لم نتمكن من قراءة الصورة، جرّب صورة أخرى')}
+});
 })();

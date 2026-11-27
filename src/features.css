@@ -28,5 +28,5 @@
 .pushbar .pi{font-size:20px}.pushbar .pt{flex:1}
 .pushbar .pb{border:0;border-radius:10px;padding:7px 14px;background:var(--gold,#f1cf83);color:#14112c;font-weight:800;font-size:14px}
 .pushbar .px{border:0;background:none;color:inherit;opacity:.7;font-size:14px;padding:4px}
-/* Hikayatna keeps its own mood strip; hide the newer home mood cards to avoid duplicates */
-#moodc{display:none!important}
+/* moods: card style (#moodc); hide the older strip */
+#moods{display:none!important}

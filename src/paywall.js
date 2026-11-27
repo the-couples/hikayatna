@@ -114,7 +114,33 @@ function hide(){if(!el)return;el.hidden=true;shown=false;blocking=false;document
 function evaluate(){
   if(gated(couple)){if(!shown||!blocking)show(true)}
   else if(shown&&blocking)hide();
+  else lastDay();
 }
+
+/* تذكير قبل يوم من نهاية التجربة المجانية (مرة باليوم) */
+function trialApplies(c){return !!c&&!premiumOn(c)&&!FREE_PLANS.includes(c.plan)&&(native()||c.plan==='store')}
+let ldT=0;
+function lastDay(){
+  const c=couple,a=A();if(!trialApplies(c)||!a||!a.me||shown)return;
+  const ms=trialEnd(c)-Date.now();if(ms<=0||ms>DAY)return;
+  const k='hk-trial-rem-'+(a.cid||'')+'-'+new Date().toDateString();
+  try{if(localStorage.getItem(k))return}catch(x){}
+  if(ldT)return;
+  ldT=setTimeout(()=>{ldT=0;
+    if(document.getElementById('sheet')&&document.getElementById('scrim').classList.contains('on'))return;
+    try{localStorage.setItem(k,'1')}catch(x){}
+    const h=Math.max(1,Math.round(ms/36e5));
+    a.open('<div class="trem"><div class="tremi">⏳</div><h2>بقي لك يوم واحد على انتهاء تجربتك المجانية</h2>'+
+      '<p>اشترك الآن لتبقى حكايتكما بكل ميزاتها، اشتراك واحد يكفيكما معًا.</p>'+
+      '<p class="small">تنتهي التجربة خلال '+h+' ساعة تقريبًا.</p>'+
+      '<button type="button" class="btn pri" id="trem-go">💎 اشترك الآن</button>'+
+      '<button type="button" class="btn ghost" id="trem-later">لاحقًا</button></div>');
+  },2500);
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#trem-go')){try{A().close()}catch(x){}setTimeout(()=>show(false),300)}
+  else if(e.target.closest('#trem-later')){try{A().close()}catch(x){}}
+});
 
 /* زر الاشتراك داخل الإعدادات */
 function addSettingsRow(){
