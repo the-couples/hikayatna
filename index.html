@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script>(function(){try{var w=localStorage.getItem('hk-lang'),here=document.documentElement.lang;if(w&&w!==here&&!/[?&]stay/.test(location.search)){location.replace(w==='en'?'en.html':'./');}}catch(e){}})();window.__setLang=function(l){try{localStorage.setItem('hk-lang',l)}catch(e){}location.href=l==='en'?'en.html':'./'};</script>
-<meta name="app-ver" content="2026-11-26.73">
+<meta name="app-ver" content="2026-11-27.80">
 <script>try{var n=navigator;if((n.maxTouchPoints>1&&/Macintosh/.test(n.userAgent)||/iPad/.test(n.userAgent))&&(n.standalone||matchMedia("(display-mode: standalone)").matches))document.documentElement.classList.add("ipad")}catch(e){}</script>
 <style>.nosp #splash{display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -697,8 +697,12 @@ body.chat-open #sky,body.chat-open #sky *,#sky.off,#sky.off *{animation-play-sta
 mark.srm{background:#ffd54a;color:#1a1300;border-radius:4px;padding:0 1px}
 .cb.srcur{box-shadow:0 0 0 3px #ffd54a}
 #chlist .cb{touch-action:manipulation}
-.dbh{position:fixed;z-index:90;font-size:76px;line-height:1;pointer-events:none;transform:translate(-50%,-50%) scale(0);animation:dbh .95s cubic-bezier(.2,1.3,.4,1) forwards;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
-@keyframes dbh{0%{transform:translate(-50%,-50%) scale(0);opacity:0}25%{transform:translate(-50%,-50%) scale(1.15);opacity:1}45%{transform:translate(-50%,-50%) scale(.95)}70%{transform:translate(-50%,-60%) scale(1);opacity:1}100%{transform:translate(-50%,-110%) scale(.8);opacity:0}}
+.dbh{position:fixed;z-index:90;width:110px;height:110px;margin:-55px 0 0 -55px;pointer-events:none;transform:scale(0);animation:dbh .9s cubic-bezier(.2,1.3,.4,1) forwards}
+.dbh svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 8px 16px rgba(225,29,72,.45))}
+.dbp{position:fixed;z-index:90;width:18px;height:18px;margin:-9px 0 0 -9px;pointer-events:none;animation:dbp .7s cubic-bezier(.2,.8,.3,1) forwards}
+.dbp svg{width:100%;height:100%}
+@keyframes dbp{0%{transform:translate(0,0) scale(.3);opacity:0}20%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+@keyframes dbh{0%{transform:scale(0) rotate(-12deg);opacity:0}22%{transform:scale(1.18) rotate(4deg);opacity:1}40%{transform:scale(.94) rotate(0)}55%{transform:scale(1.02)}75%{transform:scale(1);opacity:1}100%{transform:translateY(-38px) scale(.7);opacity:0}}
 
 .chinw{flex:1;min-width:0;position:relative;display:flex}
 .chdict{display:none!important}
@@ -718,12 +722,102 @@ mark.srm{background:#ffd54a;color:#1a1300;border-radius:4px;padding:0 1px}
 .tyb.recb i{width:6px!important;height:6px!important}
 #chst.rec::before{content:'🎤 '}
 body.chat-open .bnav{z-index:73;background:var(--card)}
-@media (display-mode: standalone){html{min-height:min(100lvh,calc(100% + env(safe-area-inset-top)))}}
+@media (display-mode: standalone){html:not(.ipad){min-height:min(100lvh,calc(100% + env(safe-area-inset-top)))}}
 html:has(body.chat-open),body.chat-open{overscroll-behavior:none}
 .bnav{touch-action:none;overscroll-behavior:none}
 body.chat-open:not(.kbopen) #ch{bottom:var(--bnh,64px)}
 body.chat-open:not(.kbopen) .chbar{padding-bottom:6px}
 body.chat-open.kbopen main,body.chat-open.kbopen header,body.chat-open.kbopen .fab{visibility:hidden}
+/* ===== v75 chat polish (WhatsApp-like) ===== */
+.ch::before{content:'';position:absolute;inset:0;pointer-events:none;background:var(--ink);opacity:.045;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 38c-4-6-14-4-14 4 0 7 14 14 14 14s14-7 14-14c0-8-10-10-14-4z'/%3E%3Cpath d='M128 22l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z'/%3E%3Ccircle cx='150' cy='100' r='9'/%3E%3Cpath d='M96 140c-3-4-10-3-10 3 0 5 10 10 10 10s10-5 10-10c0-6-7-7-10-3z'/%3E%3Cpath d='M40 120l2 5 5 0-4 3 2 5-5-3-5 3 2-5-4-3 5 0z'/%3E%3Cpath d='M86 64q6-8 12 0t12 0'/%3E%3Ccircle cx='20' cy='160' r='2.5'/%3E%3Ccircle cx='160' cy='160' r='2'/%3E%3Ccircle cx='110' cy='96' r='2'/%3E%3Cpath d='M150 52v8M146 56h8'/%3E%3C/svg%3E") 0 0/180px 180px repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30 38c-4-6-14-4-14 4 0 7 14 14 14 14s14-7 14-14c0-8-10-10-14-4z'/%3E%3Cpath d='M128 22l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z'/%3E%3Ccircle cx='150' cy='100' r='9'/%3E%3Cpath d='M96 140c-3-4-10-3-10 3 0 5 10 10 10 10s10-5 10-10c0-6-7-7-10-3z'/%3E%3Cpath d='M40 120l2 5 5 0-4 3 2 5-5-3-5 3 2-5-4-3 5 0z'/%3E%3Cpath d='M86 64q6-8 12 0t12 0'/%3E%3Ccircle cx='20' cy='160' r='2.5'/%3E%3Ccircle cx='160' cy='160' r='2'/%3E%3Ccircle cx='110' cy='96' r='2'/%3E%3Cpath d='M150 52v8M146 56h8'/%3E%3C/svg%3E") 0 0/180px 180px repeat}
+.ch>*{position:relative}
+.chtop{box-shadow:0 6px 18px -14px rgba(0,0,0,.6);z-index:2}
+.chlist{padding:10px 12px 8px}
+.cm{margin:2px 0}
+.cm.gf{margin-top:9px}
+.cb{border-radius:16px;padding:6px 10px 6px 10px;box-shadow:0 1px 1.5px rgba(0,0,0,.22);transition:transform .18s cubic-bezier(.2,.9,.3,1)}
+.cm.cme .cb{border-end-start-radius:16px;background:linear-gradient(170deg,color-mix(in srgb,var(--rose) 96%,#fff),color-mix(in srgb,var(--rose) 84%,#000))}
+.cm.cot .cb{border-end-end-radius:16px;border:0;background:var(--card)}
+.cm.gf.cme .cb:not(.big):not(.stk):not(.tyb){border-start-start-radius:3px}
+.cm.gf.cot .cb:not(.big):not(.stk):not(.tyb){border-start-end-radius:3px}
+.cm.gf.cme .cb:not(.big):not(.stk):not(.tyb)::after,.cm.gf.cot .cb:not(.big):not(.stk):not(.tyb)::after{content:'';position:absolute;top:0;width:9px;height:12px;pointer-events:none}
+.cm.gf.cme .cb:not(.big):not(.stk):not(.tyb)::after{inset-inline-start:-8px;background:color-mix(in srgb,var(--rose) 96%,#fff);clip-path:polygon(0 0,100% 0,0 100%);border-top-left-radius:3px}
+.cm.gf.cot .cb:not(.big):not(.stk):not(.tyb)::after{inset-inline-end:-8px;background:var(--card);clip-path:polygon(0 0,100% 0,100% 100%);border-top-right-radius:3px}
+.cb .tm{font-size:11px;font-weight:600;opacity:.72;margin-inline-start:12px;margin-top:9px;margin-bottom:-4px;gap:2px}
+.cb .tk.rd{color:#53bdeb}
+.cm.cme .cb .tk.rd{color:#1f8fd6;opacity:1}
+.cb.big .tm{margin-top:4px}
+.chday{margin:12px 0 8px}
+.chday span{border-radius:9px;padding:5px 12px;font-size:12.5px;box-shadow:0 1px 1.5px rgba(0,0,0,.2);background:var(--card)}
+.chunread{margin:10px -12px}
+@keyframes waIn{0%{opacity:0;transform:translateY(18px) scale(.94)}55%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes waInO{0%{opacity:0;transform:translateX(-14px) scale(.96)}60%{opacity:1}100%{opacity:1;transform:none}}
+.cm.in{animation:waIn .38s cubic-bezier(.22,1,.36,1) both}
+.cm.cot.in{animation-name:waInO}
+.crp{border-inline-start-width:4px;border-radius:7px;background:rgba(0,0,0,.14);padding:4px 9px}
+.cm.cot .crp{color:var(--rose)}
+.cm.cot .crp .crt{color:var(--ink);opacity:.8}
+.chbar{background:color-mix(in srgb,var(--card) 92%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5)}
+.chrow textarea{border-radius:24px;background:var(--card);border-color:color-mix(in srgb,var(--line) 80%,transparent);box-shadow:inset 0 1px 2px rgba(0,0,0,.12);transition:border-color .2s}
+.chrow textarea:focus{border-color:color-mix(in srgb,var(--rose) 45%,var(--line))}
+.chmic{background:var(--rose);color:var(--on);box-shadow:0 4px 12px -6px var(--rose)}
+.chsend{box-shadow:0 4px 12px -6px var(--rose)}
+.moodc{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:4px 0 10px}
+.mdh{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px 10px 11px;text-align:center;box-shadow:0 8px 22px -16px rgba(0,0,0,.5);transition:transform .15s;-webkit-tap-highlight-color:transparent;color:inherit;font:inherit;display:block;width:100%}
+.mdh.mine{cursor:pointer}.mdh.mine:active{transform:scale(.96)}
+.mdh .mn{font-size:12.5px;font-weight:800;color:var(--mute);display:block}
+.mdh .me2{font-size:40px;line-height:1.15;display:block;margin:4px 0 2px;animation:mdpop .5s cubic-bezier(.3,1.5,.5,1)}
+.mdh .me2.q{opacity:.35;font-size:32px;filter:grayscale(1)}
+.mdh .ml{font-size:14.5px;font-weight:800;display:block}
+.mdh .mt{font-size:12px;color:var(--mute);font-weight:600;display:block;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mdh .med{position:absolute;top:8px;left:8px;width:24px;height:24px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:12px;color:var(--rose)}
+@keyframes mdpop{from{transform:scale(.4);opacity:0}}
+.attov{position:fixed;inset:0;z-index:90;background:rgba(5,6,20,.35);opacity:0;pointer-events:none;transition:opacity .2s}
+.attov.on{opacity:1;pointer-events:auto}
+.attp{position:absolute;left:12px;right:12px;bottom:calc(var(--bnh,64px) + 74px);background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px 8px 10px;box-shadow:0 18px 40px -12px rgba(0,0,0,.6);transform:translateY(24px) scale(.96);transform-origin:50% 100%;transition:transform .28s cubic-bezier(.3,1.4,.5,1)}
+.attov.on .attp{transform:none}
+.attg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:0}
+.attg button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 0;font:inherit;color:inherit;background:none;border:0}
+.attg b{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 20px -10px rgba(0,0,0,.5);transition:transform .15s}
+.attg b svg{width:28px;height:28px}
+.attg button:active b{transform:scale(.9)}
+.attg span{font-size:14px;font-weight:800}
+.mdgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 12px}
+.mdgrid button{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:10px 2px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font:inherit;color:inherit;transition:transform .12s,border-color .2s,background .2s}
+.mdgrid button b{font-size:30px;line-height:1.1}
+.mdgrid button span{font-size:12px;font-weight:800}
+.mdgrid button:active{transform:scale(.92)}
+.mdgrid button.on{border-color:var(--rose);background:color-mix(in srgb,var(--rose) 16%,var(--card))}
+#chav[data-mood]{position:relative}
+#chav[data-mood]::after{content:attr(data-mood);position:absolute;right:-5px;bottom:-5px;font-size:15px;line-height:1;background:var(--card);border-radius:50%;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+@keyframes waPop{from{transform:scale(.4) rotate(-30deg);opacity:0}to{transform:none;opacity:1}}
+.chrow .chsend:not(.hid),.chrow .chmic:not(.hid){animation:waPop .26s cubic-bezier(.3,1.5,.5,1) both}
+.chmic:active,.chsend:active{transform:scale(.86)!important}
+.chjump{transition:transform .25s cubic-bezier(.3,1.4,.5,1),opacity .2s}
+.cb.big,.cb.stk{box-shadow:none}
+.chday span{transition:opacity .35s ease,transform .35s ease}
+.chlist:not(.chsc) .chday.stuck span{opacity:0;transform:translateY(-6px)}
+.cb.tx .tm{position:absolute;left:10px;bottom:5px;float:none;margin:0}
+.cb.tx .tsp{display:inline-flex;gap:2px;visibility:hidden;font-size:11px;font-weight:600;margin-inline-start:12px;white-space:nowrap;height:0;vertical-align:baseline;pointer-events:none}
+.cb.tx .tsp .tk{font-size:12px;letter-spacing:-3px}
+.chcam{position:absolute;left:4px;bottom:4px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--mute);transition:transform .15s,opacity .2s}
+.chcam:active{transform:scale(.86)}
+.chinw textarea{padding-left:42px}
+.chinw textarea:not(:placeholder-shown){padding-left:14px}
+.chinw textarea:not(:placeholder-shown)~.chcam{opacity:0;pointer-events:none;transform:scale(.6)}
+.cvid{position:relative;display:block;border-radius:14px;overflow:hidden;margin:2px 0 4px;background:#000;cursor:pointer;min-width:160px;min-height:120px}
+.cvid img{margin:0!important;border-radius:0!important;display:block}
+.cvid .vpl{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;color:#fff;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.cvid .vpl svg{width:24px;height:24px;margin-left:3px}
+.cvid .vdu{position:absolute;left:8px;bottom:7px;font-size:12px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:2px 7px;border-radius:8px;display:flex;gap:4px;align-items:center;direction:ltr}
+.cvid .vst{position:absolute;left:0;right:0;top:calc(50% - 54px);text-align:center;font-size:12.5px;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.cvid .vring{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px}
+.cvid .vring circle{fill:none;stroke-width:4}
+.cvid .vring .bg{stroke:rgba(255,255,255,.25)}.cvid .vring .fg{stroke:#fff;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .25s}
+.vview{position:fixed;inset:0;z-index:95;background:#000;display:flex;align-items:center;justify-content:center;animation:kfade .25s ease}
+.vview[hidden]{display:none}
+.vview video{width:100%;max-height:100%;background:#000}
+.vvx{position:absolute;top:calc(env(safe-area-inset-top) + 12px);right:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:20px;display:grid;place-items:center}
 
 .lheart{font-size:64px;line-height:1;filter:drop-shadow(0 0 16px rgba(241,207,131,.45))}
 .login .lsw{background:none;border:0;color:var(--gold);font-size:14px;margin-top:14px;text-decoration:underline;cursor:pointer}
@@ -827,6 +921,7 @@ body.chat-open.kbopen main,body.chat-open.kbopen header,body.chat-open.kbopen .f
 
 <div class="callv" id="callv" hidden><button class="cmin" id="callmin" aria-label="العودة إلى التطبيق"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="top"><div class="cring"><span class="cav" id="callav"></span></div><b id="callnm"></b><span id="callst"></span></div><div class="cbtns"><button class="cb2" id="callspk" aria-label="مكبّر الصوت" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12.5 5v14l-5-4.5H4z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.6 6.4a7.6 7.6 0 0 1 0 11.2"/></svg></button><button class="cb2" id="callmute" aria-label="كتم الميكروفون" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M4 4l16 16"/></svg></button><button class="cb2 red" id="callend" aria-label="إنهاء المكالمة"><svg viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(135deg)"><path d="M6.6 3.5h3l1.6 4.4-2.1 1.4a11.5 11.5 0 0 0 5.6 5.6l1.4-2.1 4.4 1.6v3a2 2 0 0 1-2.1 2A16.8 16.8 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1z"/></svg></button><button class="cb2 green" id="callok" aria-label="ردّ"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 3.5h3l1.6 4.4-2.1 1.4a11.5 11.5 0 0 0 5.6 5.6l1.4-2.1 4.4 1.6v3a2 2 0 0 1-2.1 2A16.8 16.8 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1z"/></svg></button></div></div>
 <button class="cpill" id="callpill" hidden aria-label="العودة إلى المكالمة"><span class="cdot"></span><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M6.6 3.5h3l1.6 4.4-2.1 1.4a11.5 11.5 0 0 0 5.6 5.6l1.4-2.1 4.4 1.6v3a2 2 0 0 1-2.1 2A16.8 16.8 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1z"/></svg><b id="callpnm"></b><span id="callpt"></span></button>
+<div class="vview" id="vview" hidden><button class="vvx" id="vvx" aria-label="إغلاق">✕</button><video id="vvv" playsinline controls preload="auto"></video></div>
 <nav class="bnav" id="bnav"><button class="bn" data-go="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>الرئيسية</span></button><button class="bn" id="chBtn" aria-label="محادثتنا"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 20.5l1.6-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg><span>محادثتنا</span><i class="chbadge" id="chBadge" hidden></i></button><button class="bn" data-go="moments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.3-9C1 8.6 3.3 5 6.8 5c2 0 3.6 1.1 5.2 3 1.6-1.9 3.2-3 5.2-3C20.7 5 23 8.6 21.3 12 19 16.6 12 21 12 21z"/></svg><span>لحظاتنا</span></button><button class="bn" data-go="album"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg><span>ألبومنا</span></button><button class="bn" data-go="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>المزيد</span></button></nav>
 <div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <div class="login" id="login"><form id="lf"><div class="lheart">💞</div><h1 id="l-t">حكايتنا</h1><p id="l-sub" style="opacity:.75;margin:-8px 0 16px;font-size:14px">ادخل إلى حسابك</p>
@@ -854,9 +949,9 @@ body.chat-open.kbopen main,body.chat-open.kbopen header,body.chat-open.kbopen .f
 <div class="chpush" id="chpush" hidden><span>🔔</span><div id="chpusht">فعّل الإشعارات لتصلك الرسائل حتى لو كان التطبيق مغلقًا</div><button id="chpushb">فعّل</button><button class="x" id="chpushx" aria-label="لاحقًا">✕</button></div>
 <div class="chlist" id="chlist"></div>
 <div class="chbar"><button class="chjump" id="chjump" hidden aria-label="إلى آخر رسالة">⬇️</button><div class="chreply" id="chrp" hidden><div id="chrpt"></div><button id="chrpx" aria-label="إلغاء الرد">✕</button></div><div class="chquick" id="chq"></div><div class="chemo" id="chemo" hidden></div><div class="chstk" id="chstk" hidden></div><input type="file" id="stkfile" accept="image/*" hidden>
-<div class="chrow"><button class="ib" id="chemob" aria-label="رموز تعبيرية">😊</button><button class="ib" id="chstkb" aria-label="ملصقات"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v6.5z"/><path d="M14.5 21v-3.5a3 3 0 0 1 3-3H21"/><circle cx="9" cy="10" r=".9" fill="currentColor"/><circle cx="15" cy="10" r=".9" fill="currentColor"/><path d="M8.8 13.6c1.6 1.3 4 1.3 5.4 0"/></svg></button><button class="ib" id="chpic" aria-label="صورة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg></button><div class="chinw"><textarea id="chin" rows="1" placeholder="اكتب رسالة…" maxlength="2000"></textarea><button class="chdict" id="chdict" hidden type="button" aria-label="حوّل كلامك إلى كتابة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/><path d="M19.5 2.5v3M18 4h3" stroke-width="1.6"/></svg><i class="spin"></i></button></div><button class="chmic" id="chmic" aria-label="سجّل رسالة صوتية"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button><button class="chsend hid" id="chsend" aria-label="أرسل"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5L3.6 10.6c-.8.3-.8 1.5.1 1.7l6.3 1.7 1.7 6.3c.2.9 1.4 1 1.7.1L20.5 3.5z" transform="scale(-1,1) translate(-24,0)"/></svg></button></div>
+<div class="chrow"><button class="ib" id="chemob" aria-label="رموز تعبيرية">😊</button><button class="ib" id="chstkb" aria-label="ملصقات"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v6.5z"/><path d="M14.5 21v-3.5a3 3 0 0 1 3-3H21"/><circle cx="9" cy="10" r=".9" fill="currentColor"/><circle cx="15" cy="10" r=".9" fill="currentColor"/><path d="M8.8 13.6c1.6 1.3 4 1.3 5.4 0"/></svg></button><button class="ib" id="chpic" aria-label="صورة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg></button><div class="chinw"><textarea id="chin" rows="1" placeholder="اكتب رسالة…" maxlength="2000"></textarea><button class="chdict" id="chdict" hidden type="button" aria-label="حوّل كلامك إلى كتابة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/><path d="M19.5 2.5v3M18 4h3" stroke-width="1.6"/></svg><i class="spin"></i></button><button class="chcam" id="chcam" type="button" aria-label="الكاميرا"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.6l1.4-2h5l1.4 2h1.6A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.6"/></svg></button></div><button class="chmic" id="chmic" aria-label="سجّل رسالة صوتية"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button><button class="chsend hid" id="chsend" aria-label="أرسل"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5L3.6 10.6c-.8.3-.8 1.5.1 1.7l6.3 1.7 1.7 6.3c.2.9 1.4 1 1.7.1L20.5 3.5z" transform="scale(-1,1) translate(-24,0)"/></svg></button></div>
 <div class="chrec" id="chrec" hidden><button class="ib" id="chrecx" aria-label="إلغاء" style="width:44px;height:44px;font-size:20px">🗑️</button><div class="recst"><i class="rdot"></i><b class="dictl">أستمع إليك…</b><span id="chrect">0:00</span><span class="lv" id="chlv"><canvas id="chlvc"></canvas></span></div><button class="chsend" id="chrecs" aria-label="أرسل الصوت"><svg class="ck" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><svg class="pl" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5L3.6 10.6c-.8.3-.8 1.5.1 1.7l6.3 1.7 1.7 6.3c.2.9 1.4 1 1.7.1L20.5 3.5z" transform="scale(-1,1) translate(-24,0)"/></svg></button></div>
-<input type="file" id="chfile" accept="image/*" multiple hidden></div></div>
+<input type="file" id="chfile" accept="image/*" multiple hidden><input type="file" id="chcamf" accept="image/*" capture="environment" hidden><input type="file" id="chvidf" accept="video/*" multiple hidden></div></div>
 <div class="toast" id="toast"><span id="tmsg"></span><button id="tbtn"></button></div>
 
 <script>
@@ -1061,13 +1156,14 @@ function chMsgHtml(m,prevBy,oread){const mine=m.by===me;let inner='';
  if(m.del)inner='<div class="cb del">🚫 حُذفت هذه الرسالة</div>';
  else{const big=!m.img&&!m.aud&&!m.reply&&isBigEmo(m.text);
   const rp=m.reply?'<span class="crp" data-goto="'+esc(m.reply.id||'')+'"><b>'+esc(WHO[m.reply.by]||'')+'</b><span class="crt">'+esc((m.reply.text||'📷 صورة').slice(0,80))+'</span></span>':'';
-  const im=m.img?'<img alt="صورة" decoding="async" data-cimg="'+esc(m.id)+'" src="'+m.img+'"'+imgDim(m)+'>':'';
+  const im=m.vid?vidHtml(m):m.img?'<img alt="صورة" decoding="async" data-cimg="'+esc(m.id)+'" src="'+m.img+'"'+imgDim(m)+'>':'';
   const au=m.aud?audHtml(m):'';
   const tk=mine?(m._p?'<span class="tk pd">🕓</span>':'<span class="tk'+((oread||0)>=(m.t||0)?' rd':'')+'">✓✓</span>'):'';
-  inner=m.stk?'<div class="cb stk" data-chm="'+esc(m.id)+'">'+(m.reply?rp:'')+'<span class="sk">'+stkHtml(m.stk)+'</span>'+'<span class="tm">'+(m.edited?'<i class="ed">معدّلة</i> ':'')+hm(m.t)+' '+tk+'</span></div>':'<div class="cb'+(big?' big':'')+'" data-chm="'+esc(m.id)+'">'+rp+im+au+(m.text?linkify(esc(m.text)):'')+'<span class="tm">'+(m.edited?'<i class="ed">معدّلة</i> ':'')+hm(m.t)+' '+tk+'</span></div>'}
+  const tmh=(m.edited?'<i class="ed">معدّلة</i> ':'')+hm(m.t)+' '+tk,tx=!!m.text&&!big&&!m.aud;
+  inner=m.stk?'<div class="cb stk" data-chm="'+esc(m.id)+'">'+(m.reply?rp:'')+'<span class="sk">'+stkHtml(m.stk)+'</span>'+'<span class="tm">'+tmh+'</span></div>':'<div class="cb'+(big?' big':'')+(tx?' tx':'')+'" data-chm="'+esc(m.id)+'">'+rp+im+au+(m.text?linkify(esc(m.text)):'')+(tx?'<span class="tsp" aria-hidden="true">'+tmh+'</span>':'')+'<span class="tm">'+tmh+'</span></div>'}
  const rx=m.react&&!m.del?Object.values(m.react).filter(Boolean):[];
  if(rx.length)inner=inner.replace(/<\/div>$/,'<span class="crx">'+rx.join('')+'</span></div>');
- return '<div class="cm '+(mine?'cme':'cot')+(rx.length?' hasr':'')+'"'+(prevBy===m.by?'':' style="margin-top:10px"')+'>'+inner+'</div>'}
+ return '<div class="cm '+(mine?'cme':'cot')+(prevBy===m.by?'':' gf')+(rx.length?' hasr':'')+'">'+inner+'</div>'}
 let chUnreadKey='',chTypingShown='',chRecIv=0;
 function chRecPing(on){clearInterval(chRecIv);chRecIv=0;if(!db||!me)return;const w=()=>{try{db.doc('chatmeta/'+me).set({...(chMeta[me]||{}),rec:on?Date.now():0,typing:0})}catch(x){}};w();if(on)chRecIv=setInterval(w,3000)}
 const kOf=m=>m.cid||m.id;
@@ -1082,6 +1178,22 @@ function chPatch(items,anim){
   else if(!el){el=chMk(it);if(anim&&it.a)fresh.push(el)}
   const at=chl.children[idx];if(at!==el)chl.insertBefore(el,at||null);idx++}
  fresh.forEach(el=>{el.classList.add('in');el.addEventListener('animationend',()=>el.classList.remove('in'),{once:true})});return fresh.length}
+/* ---- chat sounds (soft, cute) ---- */
+const CSnd=(()=>{let c=null,out=null,last={};
+ function C(){try{if(!c){const A=window.AudioContext||window.webkitAudioContext;c=new A();const comp=c.createDynamicsCompressor();comp.threshold.value=-18;comp.ratio.value=3;out=c.createGain();out.gain.value=.9;out.connect(comp);comp.connect(c.destination)}if(c.state!=='running')c.resume().catch(()=>{})}catch(x){c=null}return c}
+ addEventListener('pointerdown',()=>{if(!c)C();else if(c.state!=='running')c.resume().catch(()=>{})},{passive:true,capture:true});
+ function tone(f0,f1,t0,dur,vol,type,har){const a=c.createOscillator(),g=c.createGain();a.type=type||'sine';a.frequency.setValueAtTime(f0,t0);if(f1)a.frequency.exponentialRampToValueAtTime(f1,t0+dur*.6);
+  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(vol,t0+.006);g.gain.exponentialRampToValueAtTime(.0005,t0+dur);a.connect(g);g.connect(out);a.start(t0);a.stop(t0+dur+.02);
+  if(har){const b=c.createOscillator(),h=c.createGain();b.frequency.setValueAtTime(f0*2,t0);if(f1)b.frequency.exponentialRampToValueAtTime(f1*2,t0+dur*.6);h.gain.setValueAtTime(0,t0);h.gain.linearRampToValueAtTime(vol*har,t0+.004);h.gain.exponentialRampToValueAtTime(.0005,t0+dur*.6);b.connect(h);h.connect(out);b.start(t0);b.stop(t0+dur)}}
+ function air(t0,dur,vol,f0,f1){const n=Math.floor(c.sampleRate*dur),buf=c.createBuffer(1,n,c.sampleRate),d=buf.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1);
+  const src=c.createBufferSource(),bp=c.createBiquadFilter(),g=c.createGain();src.buffer=buf;bp.type='bandpass';bp.Q.value=1.4;bp.frequency.setValueAtTime(f0,t0);bp.frequency.exponentialRampToValueAtTime(f1,t0+dur);
+  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(vol,t0+dur*.35);g.gain.exponentialRampToValueAtTime(.0005,t0+dur);src.connect(bp);bp.connect(g);g.connect(out);src.start(t0)}
+ function go(k,fn,gap){const now=Date.now();if(now-(last[k]||0)<(gap||70))return;last[k]=now;if(!C())return;try{fn(c.currentTime+.01)}catch(x){}}
+ return{
+  send:()=>go('send',t=>{air(t,.13,.05,900,3200);tone(560,1040,t+.03,.16,.2,'sine',.25)}),
+  recv:()=>go('recv',t=>{tone(988,0,t,.2,.16,'sine',.35);tone(1480,0,t+.085,.28,.14,'sine',.3)},400),
+  react:()=>go('react',t=>{[1568,2093,2637].forEach((f,i)=>tone(f,0,t+i*.055,.3,.075,'triangle'))}),
+  tap:()=>go('tap',t=>tone(1500,1100,t,.05,.05,'sine'),40)}})();
 function renderChat(){chBadge();if(!chOpen)return;if(swBusy){swPend=true;return}
  const o=other(me);$('#chnm').textContent=WHO[o]||'';$('#chav').textContent=(WHO[o]||'?').charAt(0);chStatus(true);
  const near=chStick,prevTop=chl.scrollTop;
@@ -1099,7 +1211,7 @@ function renderChat(){chBadge();if(!chOpen)return;if(swBusy){swPend=true;return}
  if(chKeep){chl.scrollTop=chl.scrollHeight-chKeep;chKeep=0}
  else if(first){chFirst=false;chNew=0;const u=chUnreadKey&&chl.querySelector('[data-k="unread"]');if(u&&u.offsetTop>chl.clientHeight*.5){chl.scrollTop=u.offsetTop-70;chStick=false}else chl.scrollTop=chl.scrollHeight}
  else if(near)chl.scrollTop=chl.scrollHeight;else chl.scrollTop=prevTop;
- jumpUI();if(auEl&&auId)auUI(auId,!auEl.paused,auEl.currentTime/(isFinite(auEl.duration)?auEl.duration:1));
+ jumpUI();try{chDayStick()}catch(x){}if(auEl&&auId)auUI(auId,!auEl.paused,auEl.currentTime/(isFinite(auEl.duration)?auEl.duration:1));
  chMarkRead()}
 function jumpUI(){const j=$('#chjump');const far=chl.scrollHeight-chl.scrollTop-chl.clientHeight>300;j.hidden=!far;j.innerHTML='⬇️'+(chNew&&far?'<span>'+chNew+'</span>':'')}
 chl.addEventListener('scroll',()=>{chStick=chl.scrollHeight-chl.scrollTop-chl.clientHeight<140;if(chStick)chNew=0;jumpUI()},{passive:true});
@@ -1107,6 +1219,8 @@ chl.addEventListener('load',e=>{if(e.target.tagName==='IMG'&&chStick)chl.scrollT
 $('#chjump').onclick=()=>{chl.scrollTo({top:chl.scrollHeight,behavior:'smooth'});chNew=0};
 function chMore(){if(chMoreBusy)return;chMoreBusy=true;chKeep=chl.scrollHeight-chl.scrollTop;if(chStart>0){chShow+=50;renderChat()}else{chLimit+=300;subChat()}setTimeout(()=>chMoreBusy=false,250)}
 function chReveal(id){const i=chat.findIndex(m=>m.id===id);if(i<0)return null;if(i<chStart){chShow=chat.length-i+12;renderChat()}return chl.querySelector('[data-chm="'+CSS.escape(id)+'"]')}
+let chScT=0;function chDayStick(){const top=chl.getBoundingClientRect().top;chl.querySelectorAll('.chday').forEach(d=>{const r=d.getBoundingClientRect();d.classList.toggle('stuck',chl.scrollTop>4&&r.top-top<=24)})}
+chl.addEventListener('scroll',()=>{chl.classList.add('chsc');clearTimeout(chScT);chScT=setTimeout(()=>{chl.classList.remove('chsc')},1300);chDayStick()},{passive:true});
 chl.addEventListener('scroll',()=>{if(chl.scrollTop<250&&chStart>0&&!chMoreBusy&&!chFirst)requestAnimationFrame(chMore)},{passive:true});
 chl.addEventListener('click',e=>{if(e.target.closest('#cholder')){chMore();return}
  const g=e.target.closest('[data-goto]');if(!g||!g.dataset.goto)return;e.stopPropagation();const t=chl.querySelector('[data-chm="'+CSS.escape(g.dataset.goto)+'"]')||chReveal(g.dataset.goto);
@@ -1134,10 +1248,12 @@ $('#chsup').addEventListener('click',()=>{if(!srHits.length)return;srI=Math.min(
 $('#chsdn').addEventListener('click',()=>{if(!srHits.length)return;srI=Math.max(0,srI-1);srShow()});
 {const _rc=renderChat;renderChat=function(){const r=_rc.apply(this,arguments);if(srQ&&!$('#chsr').hidden)try{srMark()}catch(x){}return r}}
 let dtLast={id:'',t:0,x:0,y:0};
-chl.addEventListener('click',e=>{const cb=e.target.closest('[data-chm]');if(!cb||e.target.closest('.cau,a,[data-goto],[data-cimg],.crx'))return;const id=cb.dataset.chm,now=Date.now();
+chl.addEventListener('click',e=>{const cb=e.target.closest('[data-chm]');if(!cb||e.target.closest('.cau,a,[data-goto],[data-cimg],[data-cvid],.crx'))return;const id=cb.dataset.chm,now=Date.now();
  if(dtLast.id===id&&now-dtLast.t<350&&Math.hypot(e.clientX-dtLast.x,e.clientY-dtLast.y)<30){dtLast={id:'',t:0,x:0,y:0};dtHeart(id,e.clientX,e.clientY)}else dtLast={id,t:now,x:e.clientX,y:e.clientY}});
-function dtHeart(id,x,y){const m=chat.find(z=>z.id===id);if(!m||m.del||m._p||!db)return;const h=document.createElement('div');h.className='dbh';h.textContent='❤️';h.style.left=x+'px';h.style.top=y+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),950);
- try{navigator.vibrate&&navigator.vibrate(12)}catch(z){}if((m.react||{})[me]==='❤️')return;m.react={...(m.react||{}),[me]:'❤️'};renderChat();try{Music.sfx.pop()}catch(z){}
+function dtHeart(id,x,y){const m=chat.find(z=>z.id===id);if(!m||m.del||m._p||!db)return;const HP='<path d="M12 21.2s-8.6-5.3-8.6-11.4A4.9 4.9 0 0 1 12 6.9a4.9 4.9 0 0 1 8.6 2.9c0 6.1-8.6 11.4-8.6 11.4z"/>';
+ const h=document.createElement('div');h.className='dbh';h.innerHTML='<svg viewBox="0 0 24 24"><defs><linearGradient id="dbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5c8a"/><stop offset="1" stop-color="#e11d48"/></linearGradient></defs><path fill="url(#dbg)" d="M12 21.2s-8.6-5.3-8.6-11.4A4.9 4.9 0 0 1 12 6.9a4.9 4.9 0 0 1 8.6 2.9c0 6.1-8.6 11.4-8.6 11.4z"/><ellipse cx="8.2" cy="9.4" rx="2.1" ry="1.3" fill="#fff" opacity=".45" transform="rotate(-30 8.2 9.4)"/></svg>';h.style.left=x+'px';h.style.top=y+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),950);
+ for(let k=0;k<7;k++){const p=document.createElement('div'),a=k/7*Math.PI*2+Math.random()*.5,r=62+Math.random()*26;p.className='dbp';p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--dx',Math.cos(a)*r+'px');p.style.setProperty('--dy',Math.sin(a)*r+'px');p.style.animationDelay=(.12+Math.random()*.06)+'s';p.innerHTML='<svg viewBox="0 0 24 24" fill="'+['#ff5c8a','#fb7185','#f43f5e','#fda4af'][k%4]+'">'+HP+'</svg>';document.body.appendChild(p);setTimeout(()=>p.remove(),1000)}
+ try{navigator.vibrate&&navigator.vibrate(12)}catch(z){}if((m.react||{})[me]==='❤️')return;m.react={...(m.react||{}),[me]:'❤️'};renderChat();try{CSnd.react()}catch(z){}
  db.collection('chat').doc(m.id).update({['react.'+me]:'❤️'}).catch(()=>db.collection('chat').doc(m.id).update({react:m.react}).catch(()=>{}))}
 /* ---- voice calls (v62) ---- */
 let call=null,callLastId='',callIceC=null,callAudioEl=null;
@@ -1255,7 +1371,7 @@ function chMarkRead(){if(!chOpen||document.hidden||!me||!db)return;const last=ch
  if(last>cur&&Date.now()-chReadT>800){chReadT=Date.now();chMeta[me]={...(chMeta[me]||{}),read:last};db.doc('chatmeta/'+me).set({...(chMeta[me]||{}),read:last,seen:Date.now()}).catch(()=>{});chBadge()}}
 function onChat(docs){const before=chSeenIds;chat=docs.sort((a,b)=>(a.t||0)-(b.t||0));
  if(before){const fresh=chat.filter(m=>!before.has(m.id)&&m.by&&m.by!==me&&!m.del&&(m.t||0)>chLoadT);
-  if(fresh.length){try{Music.sfx.pop()}catch(x){}if(chOpen&&!chStick)chNew+=fresh.length;const m=fresh[fresh.length-1];
+  if(fresh.length){try{CSnd.recv()}catch(x){}if(chOpen&&!chStick)chNew+=fresh.length;const m=fresh[fresh.length-1];
    if(!chOpen)toast('💬 '+(WHO[m.by]||'')+': '+(m.stk?'🌟 ملصق':m.aud?'🎤 رسالة صوتية':m.img?'📷 صورة':(m.text||'').slice(0,40)),'افتح',openChat)}}
  chSeenIds=new Set(chat.map(m=>m.id));renderChat()}
 let chMetaSig='';
@@ -1326,19 +1442,65 @@ chin.addEventListener('input',()=>{chGrow();try{localStorage.setItem('hl-chat-dr
 chin.addEventListener('focus',()=>{chClosePanels();window.scrollTo(0,0)});
 async function chSend(text,img,extra){text=(text||'').trim();if(!text&&!img&&!(extra&&(extra.aud||extra.stk)))return;if(needMe())return;
  const m={by:me,text,t:Date.now(),cid:me[0]+Date.now().toString(36)+Math.random().toString(36).slice(2,6),...(extra||{})};if(chReply)m.reply=chReply;if(img)m.img=img;
- const tmp={...m,id:'tmp'+m.t,_p:1};chat.push(tmp);setReply(null);chStick=true;renderChat();try{Music.sfx.tick()}catch(x){}
- try{await db.collection('chat').add(m);notifyOther('💬 '+(WHO[me]||''),m.stk?'🌟 ملصق':m.aud?'🎤 رسالة صوتية':m.img?(m.text?'📷 '+m.text:'📷 صورة'):m.text,'chat','chat',{chat:m});if(chMeta[me]&&chMeta[me].typing)db.doc('chatmeta/'+me).set({...chMeta[me],typing:0}).catch(()=>{})}
+ const tmp={...m,id:'tmp'+m.t,_p:1};chat.push(tmp);setReply(null);chStick=true;renderChat();try{CSnd.send()}catch(x){}
+ try{await db.collection('chat').add(m);notifyOther('💬 '+(WHO[me]||''),m.stk?'🌟 ملصق':m.aud?'🎤 رسالة صوتية':m.vid?(m.text?'🎥 '+m.text:'🎥 فيديو'):m.img?(m.text?'📷 '+m.text:'📷 صورة'):m.text,'chat','chat',{chat:m});if(chMeta[me]&&chMeta[me].typing)db.doc('chatmeta/'+me).set({...chMeta[me],typing:0}).catch(()=>{})}
  catch(e){chat=chat.filter(x=>x!==tmp);if(text&&!chin.value){chin.value=text;chGrow()}renderChat();toast(e&&e.code==='permission-denied'?'يجب إضافة «chat» لقواعد Firestore':'لم تُرسل الرسالة، حاول مرة أخرى')}}
-$('#chsend').onclick=()=>{if(chEdit){const m=chEdit,nt=chin.value.trim();chEdit=null;$('#chrp').hidden=true;clrDraft();if(nt&&nt!==m.text){m.text=nt;m.edited=Date.now();renderChat();try{Music.sfx.tick()}catch(x){}db.collection('chat').doc(m.id).update({text:nt,edited:m.edited}).catch(()=>toast('لم تُعدَّل الرسالة، حاول مرة أخرى'))}return}const t=chin.value;chin.value='';chGrow();try{localStorage.removeItem('hl-chat-draft')}catch(x){}chStick=true;chSend(t);chin.focus()};
+$('#chsend').onclick=()=>{if(chEdit){const m=chEdit,nt=chin.value.trim();chEdit=null;$('#chrp').hidden=true;clrDraft();if(nt&&nt!==m.text){m.text=nt;m.edited=Date.now();renderChat();try{CSnd.send()}catch(x){}db.collection('chat').doc(m.id).update({text:nt,edited:m.edited}).catch(()=>toast('لم تُعدَّل الرسالة، حاول مرة أخرى'))}return}const t=chin.value;chin.value='';chGrow();try{localStorage.removeItem('hl-chat-draft')}catch(x){}chStick=true;chSend(t);chin.focus()};
 chin.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!('ontouchstart' in window)){e.preventDefault();$('#chsend').click()}});
-$('#chq').onclick=e=>{const b=e.target.closest('[data-qe]');if(!b)return;const em=b.dataset.qe,st=chin.selectionStart??chin.value.length,en=chin.selectionEnd??st;chin.value=chin.value.slice(0,st)+em+chin.value.slice(en);try{chin.setSelectionRange(st+em.length,st+em.length)}catch(x){}chin.dispatchEvent(new Event('input',{bubbles:true}));try{Music.sfx.tick()}catch(x){}b.animate([{transform:'scale(1.35)'},{transform:'none'}],{duration:220,easing:'cubic-bezier(.2,1.4,.4,1)'})};
+$('#chq').onclick=e=>{const b=e.target.closest('[data-qe]');if(!b)return;const em=b.dataset.qe,st=chin.selectionStart??chin.value.length,en=chin.selectionEnd??st;chin.value=chin.value.slice(0,st)+em+chin.value.slice(en);try{chin.setSelectionRange(st+em.length,st+em.length)}catch(x){}chin.dispatchEvent(new Event('input',{bubbles:true}));try{CSnd.tap()}catch(x){}b.animate([{transform:'scale(1.35)'},{transform:'none'}],{duration:220,easing:'cubic-bezier(.2,1.4,.4,1)'})};
 $('#chemob').onclick=()=>{const p=$('#chemo'),op=pOpen(p);panelAnim($('#chstk'),false);if(!op)chin.blur();panelAnim(p,!op)};
-$('#chemo').onclick=e=>{const b=e.target.closest('[data-ee]');if(!b)return;const st=chin.selectionStart??chin.value.length;chin.value=chin.value.slice(0,st)+b.dataset.ee+chin.value.slice(chin.selectionEnd??st);chGrow();try{Music.sfx.tick()}catch(x){}};
-$('#chpic').onclick=()=>$('#chfile').click();
-$('#chfile').onchange=async e=>{const fs=[...(e.target.files||[])].slice(0,10);e.target.value='';if(!fs.length)return;let cap=chin.value;chin.value='';chGrow();
+$('#chemo').onclick=e=>{const b=e.target.closest('[data-ee]');if(!b)return;const st=chin.selectionStart??chin.value.length;chin.value=chin.value.slice(0,st)+b.dataset.ee+chin.value.slice(chin.selectionEnd??st);chGrow();try{CSnd.tap()}catch(x){}};
+$('#chpic').onclick=()=>{let o=$('#attov');if(!o){o=document.createElement('div');o.id='attov';o.className='attov';o.innerHTML='<div class="attp"><div class="attg"><button data-att="img"><b style="background:linear-gradient(145deg,#a78bfa,#7c3aed)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/></svg></b><span>صور</span></button><button data-att="cam"><b style="background:linear-gradient(145deg,#38bdf8,#0284c7)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.6l1.4-2h5l1.4 2h1.6A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.6"/></svg></b><span>الكاميرا</span></button></div></div>';document.body.appendChild(o);
+  o.addEventListener('click',e=>{const b=e.target.closest('[data-att]');o.classList.remove('on');if(b){const k=b.dataset.att;$(k==='img'?'#chfile':k==='vid'?'#chvidf':'#chcamf').click()}})}
+ void o.offsetWidth;o.classList.add('on');try{CSnd.tap()}catch(x){}};
+$('#chvidf').onchange=e=>{const fs=[...(e.target.files||[])];e.target.value='';chPickFiles(fs)};
+/* ---- video messages (WhatsApp-like) ---- */
+const VPLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.8v14.4a1 1 0 0 0 1.5.86l11.6-7.2a1 1 0 0 0 0-1.72L8.5 3.94A1 1 0 0 0 7 4.8z"/></svg>';
+function vidHtml(m){const up=m._up!=null,C=2*Math.PI*25;
+ const img=m.img?'<img alt="فيديو" decoding="async" src="'+m.img+'"'+imgDim(m)+'>':'<img alt="" width="220" height="160" style="width:220px;height:160px;background:#111">';
+ return '<span class="cvid" data-cvid="'+esc(m.id)+'">'+img+(up?'<svg class="vring" viewBox="0 0 58 58"><circle class="bg" cx="29" cy="29" r="25"/><circle class="fg" cx="29" cy="29" r="25" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+(C*(1-(m._up||0))).toFixed(1)+'"/></svg><span class="vst">'+(m._st||'')+'</span>':'<span class="vpl">'+VPLAY+'</span>')+'<span class="vdu"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm14 3.5 4-2.5v8l-4-2.5z"/></svg>'+fmtDur(Math.round(m.vdur||0))+'</span></span>'}
+function vidMeta(file){return new Promise(res=>{const u=URL.createObjectURL(file),v=document.createElement('video');let done=false;v.muted=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='auto';
+ const fin=(poster)=>{if(done)return;done=true;const r={dur:isFinite(v.duration)?v.duration:0,w:v.videoWidth||0,h:v.videoHeight||0,poster:poster||'',url:u};try{v.removeAttribute('src');v.load()}catch(x){}res(r)};
+ const grab=()=>{try{const W=v.videoWidth,Hh=v.videoHeight;if(!W||!Hh)return fin('');const sc=Math.min(1,480/Math.max(W,Hh)),c=document.createElement('canvas');c.width=Math.round(W*sc);c.height=Math.round(Hh*sc);c.getContext('2d').drawImage(v,0,0,c.width,c.height);fin(c.toDataURL('image/jpeg',.72))}catch(x){fin('')}};
+ v.onloadeddata=()=>{try{v.currentTime=Math.min(.15,(v.duration||1)/2)}catch(x){grab()}};v.onseeked=grab;v.onerror=()=>fin('');setTimeout(()=>fin(''),6000);v.src=u;try{v.load()}catch(x){}})}
+function vidUpload(file,onp){return new Promise((res,rej)=>{const x=new XMLHttpRequest();x.open('POST',PUSH_URL+'/vid');x.setRequestHeader('content-type',file.type||'video/mp4');x.upload.onprogress=e=>{if(e.lengthComputable)onp(e.loaded/e.total)};x.onload=()=>{try{if(x.status===200)res(JSON.parse(x.responseText).id);else rej(new Error(x.status===413?'size':'http'))}catch(e){rej(e)}};x.onerror=()=>rej(new Error('net'));x.send(file)})}
+function loadMB(){return window.MBC?Promise.resolve():new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='mb.js?v=1';sc.onload=()=>window.MBC?res():rej(new Error('mb'));sc.onerror=()=>rej(new Error('mb'));document.head.appendChild(sc)})}
+async function vidCompress(file,meta,onp){await loadMB();const dur=meta.dur||0;let w=meta.w,h=meta.h;const L=Math.max(w,h);
+ if(L>1280){const sc=1280/L;w=Math.round(w*sc/2)*2;h=Math.round(h*sc/2)*2}else{w=Math.round(w/2)*2;h=Math.round(h/2)*2}
+ const vb=dur>0?Math.max(450e3,Math.min(2.2e6,22e6*8/dur-110e3)):1.6e6;
+ const r=await window.MBC(file,{w:w||0,h:h||0,vb:Math.round(vb),fps:30},onp);return r.blob}
+async function sendVideo(file,cap){if(needMe()||!db)return;
+ const meta=await vidMeta(file);
+ if(meta.dur&&meta.dur>22e6*8/450e3){toast('الفيديو طويل جدًا، اختر فيديو أقصر من 6 دقائق');return}
+ const big=file.size>8e6;
+ const tmp={by:me,text:cap||'',t:Date.now(),id:'tmpv'+Date.now(),_p:1,_up:0,_st:big?'جارٍ الضغط…':'جارٍ الإرسال…',vid:'local',vdur:meta.dur,img:meta.poster,iw:meta.w,ih:meta.h};
+ chat.push(tmp);chStick=true;renderChat();
+ const el=()=>chl.querySelector('[data-cvid="'+tmp.id+'"]');
+ const setP=p=>{tmp._up=p;const e=el(),ring=e&&e.querySelector('.fg');if(ring){const C=2*Math.PI*25;ring.setAttribute('stroke-dashoffset',(C*(1-p)).toFixed(1))}};
+ const setSt=t=>{tmp._st=t;const e=el(),x=e&&e.querySelector('.vst');if(x)x.textContent=t};
+ try{let blob=file,base=0;
+  if(big){try{blob=await vidCompress(file,meta,p=>setP(p*.6));base=.6}catch(err){console.warn('compress',err);blob=file;base=0}
+   if(blob.size>25e6)throw new Error('size')}
+  else if(file.size>25e6)throw new Error('size');
+  setSt('جارٍ الإرسال…');
+  const id=await vidUpload(blob,p=>setP(base+p*(1-base)));chat=chat.filter(x=>x!==tmp);try{URL.revokeObjectURL(meta.url)}catch(x){}
+  await chSend(cap||'',meta.poster||'',{vid:id,vt:blob.type||file.type||'video/mp4',vdur:Math.round(meta.dur||0),iw:meta.w,ih:meta.h})}
+ catch(e){chat=chat.filter(x=>x!==tmp);renderChat();toast(e&&e.message==='size'?'الفيديو كبير جدًا ولم نتمكن من ضغطه، جرّب فيديو أقصر':'لم يُرسَل الفيديو، حاول مرة أخرى')}}
+function vidOpen(m){if(!m||!m.vid||m.vid==='local')return;try{if(auEl&&!auEl.paused)auEl.pause()}catch(x){}const v=$('#vvv');v.src=PUSH_URL+'/vid/'+encodeURIComponent(m.vid);if(m.img)v.poster=m.img;$('#vview').hidden=false;v.play().catch(()=>{})}
+function vidClose(){const v=$('#vvv');try{v.pause()}catch(x){}v.removeAttribute('src');v.removeAttribute('poster');try{v.load()}catch(x){}$('#vview').hidden=true}
+$('#vvx').onclick=vidClose;
+chl.addEventListener('click',e=>{const el=e.target.closest('[data-cvid]');if(!el)return;e.stopPropagation();vidOpen(chat.find(x=>x.id===el.dataset.cvid))});
+$('#chcam').onclick=()=>$('#chcamf').click();
+async function chPickFiles(fs){fs=fs.slice(0,10);if(!fs.length)return;let cap=chin.value;chin.value='';chGrow();
+ const vids=fs.filter(f=>/^video\//.test(f.type)||/\.(mov|mp4|m4v|webm)$/i.test(f.name||'')),imgs=fs.filter(f=>!vids.includes(f));
+ for(const v of vids){await sendVideo(v,cap);cap=''}
+ if(imgs.length)await chSendImgs(imgs,cap)}
+$('#chcamf').onchange=e=>{const fs=[...(e.target.files||[])];e.target.value='';chPickFiles(fs)};
+$('#chfile').onchange=e=>{const fs=[...(e.target.files||[])];e.target.value='';chPickFiles(fs)};
+async function chSendImgs(fs,cap){
  for(let i=0;i<fs.length;i++){toast(fs.length>1?'جارٍ الإرسال '+(i+1)+' من '+fs.length+'…':'جارٍ إرسال الصورة…');
   try{const full=await shrink(fs[i],1600,.82,850000,false),th=await shrink(fs[i],520,.7,90000,false);const dim=await new Promise(r=>{const im=new Image();im.onload=()=>r([im.naturalWidth,im.naturalHeight]);im.onerror=()=>r([0,0]);im.src=th});const ref=db.collection('chatimg').doc();await ref.set({data:full});chStick=true;await chSend(i===0?cap:'',th,{imgId:ref.id,iw:dim[0],ih:dim[1]})}
-  catch(x){toast(x&&x.code==='permission-denied'?'يجب إضافة «chatimg» لقواعد Firestore':'لم نستطع إرسال هذه الصورة')}}};
+  catch(x){toast(x&&x.code==='permission-denied'?'يجب إضافة «chatimg» لقواعد Firestore':'لم نستطع إرسال هذه الصورة')}}}
 
 
 /* stickers */
@@ -1495,7 +1657,7 @@ chl.addEventListener('touchmove',e=>{if(!swB)return;const dx=e.touches[0].client
  const r=swB.getBoundingClientRect(),rr=swB.closest('.cm').getBoundingClientRect();const p=Math.min(1,Math.abs(dx)/70);
  swIc.style.opacity=p;swIc.style.transform='translateY(-50%) scale('+(.5+p*.6)+')';swIc.style.left=(dx>0?(r.left-rr.left-34):(r.right-rr.left+6))+'px';
  if(Math.abs(dx)>=70&&!swIc.dataset.hit){swIc.dataset.hit=1;try{navigator.vibrate&&navigator.vibrate(12)}catch(x){}}},{passive:false});
-chl.addEventListener('touchend',()=>{clearTimeout(lpT);if(swMode==='h'&&swB){const hit=Math.abs(swDx)>=70,id=swB.dataset.chm;swReset(true);if(hit){const m=chat.find(x=>x.id===id);if(m&&!m.del&&m.id&&!m._p){setReply(m);try{Music.sfx.tick()}catch(x){}chin.focus()}}return}
+chl.addEventListener('touchend',()=>{clearTimeout(lpT);if(swMode==='h'&&swB){const hit=Math.abs(swDx)>=70,id=swB.dataset.chm;swReset(true);if(hit){const m=chat.find(x=>x.id===id);if(m&&!m.del&&m.id&&!m._p){setReply(m);try{CSnd.tap()}catch(x){}chin.focus()}}return}
  if(swB){swB.style.transform=''}swB=null;swMode=''});
 chl.addEventListener('touchcancel',()=>{clearTimeout(lpT);swReset(true)});
 chl.addEventListener('contextmenu',e=>{const b=e.target.closest('[data-chm]');if(b){e.preventDefault();chMenu(b.dataset.chm)}});
@@ -1503,7 +1665,7 @@ chl.addEventListener('click',async e=>{const i=e.target.closest('[data-cimg]');i
  const v=document.createElement('div');v.className='chimgv';v.innerHTML='<button class="vbtn" style="inset-inline-start:14px" aria-label="إغلاق">✕</button><button class="vbtn" style="inset-inline-end:14px" aria-label="تنزيل">⬇️</button><img alt="" src="'+m.img+'">';document.body.appendChild(v);
  const bs=v.querySelectorAll('button'),vi=v.querySelector('img');let src=m.img;bs[0].onclick=()=>v.remove();vi.onclick=()=>v.remove();
  if(m.imgId){if(chFull[m.imgId]){src=vi.src=chFull[m.imgId]}else{try{const d=await db.doc('chatimg/'+m.imgId).get();const x=d.exists&&d.data().data;if(x){chFull[m.imgId]=x;src=vi.src=x}}catch(y){}}}
- bs[1].onclick=()=>{try{saveFiles([dataToFile(src,'hassan-leen-chat-'+(m.t||0)+'.jpg')])}catch(x){toast('لم نستطع تنزيلها')}}});
+ bs[1].onclick=()=>{try{saveFiles([dataToFile(src,'hikayatna-chat-'+(m.t||0)+'.jpg')])}catch(x){toast('لم نستطع تنزيلها')}}});
 const NOTYET='ليس بعد';function chWhen(t){if(!t)return '';const d=new Date(t),n=new Date(),tm=d.toLocaleTimeString(L,{hour:'numeric',minute:'2-digit'});if(d.toDateString()===n.toDateString())return 'اليوم '+tm;const y=new Date(n);y.setDate(n.getDate()-1);if(d.toDateString()===y.toDateString())return 'أمس '+tm;return d.toLocaleDateString(L,{day:'numeric',month:'long'})+' '+tm}
 function chInfo(m){const o=other(me),on=WHO[o]||'',mine=m.by===me,rd=(chMeta[o]||{}).read||0,f=G[o]==='f';const rows=[];
  rows.push(['📤 أُرسلت',chWhen(m.t)]);
@@ -1516,7 +1678,7 @@ function chMenu(id){const m=chat.find(x=>x.id===id);if(!m||m.del||!m.id||m._p)re
  w.innerHTML='<div class="rx">'+CREACT.map(r=>'<button data-r="'+r+'" class="'+(r===my?'on':'')+'">'+r+'</button>').join('')+'</div><div class="pv">'+(m.stk?'🌟 ملصق ':'')+(m.aud?'🎤 رسالة صوتية ':'')+(m.img?'📷 صورة ':'')+esc((m.text||'').slice(0,200))+'</div>'+chInfo(m)+'<div class="ac"><button data-a="reply">↩️ ردّ</button>'+(m.text?'<button data-a="copy">📋 انسخ</button>':'')+(mine&&m.text&&!m.aud&&!m.stk?'<button data-a="edit">✏️ عدّل</button>':'')+(mine?'<button data-a="del" class="dl">🗑️ احذف</button>':'')+'</div>';
  document.body.appendChild(w);['contextmenu','selectstart'].forEach(n=>w.addEventListener(n,e=>e.preventDefault()));
  w.onclick=async e=>{const r=e.target.closest('[data-r]'),a=e.target.closest('[data-a]');
-  if(r){w.remove();const nv=r.dataset.r===my?'':r.dataset.r;m.react={...(m.react||{}),[me]:nv};renderChat();try{Music.sfx.pop()}catch(x){}try{await db.collection('chat').doc(m.id).update({['react.'+me]:nv})}catch(x){try{await db.collection('chat').doc(m.id).update({react:m.react})}catch(y){}}return}
+  if(r){w.remove();const nv=r.dataset.r===my?'':r.dataset.r;m.react={...(m.react||{}),[me]:nv};renderChat();try{CSnd.react()}catch(x){}try{await db.collection('chat').doc(m.id).update({['react.'+me]:nv})}catch(x){try{await db.collection('chat').doc(m.id).update({react:m.react})}catch(y){}}return}
   if(a){w.remove();if(a.dataset.a==='reply'){setReply(m);chin.focus()}
    else if(a.dataset.a==='edit'){setEdit(m)}
    else if(a.dataset.a==='copy'){try{await navigator.clipboard.writeText(m.text);toast('نُسخت')}catch(x){}}
@@ -1952,7 +2114,7 @@ async function uploadPhotos(files){
 }
 const full={};
 const dataToFile=(d,name)=>{const b=atob(d.split(',')[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new File([u],name,{type:'image/jpeg'})};
-const photoName=(p,i)=>'hassan-leen-'+(p.date||today())+(i!=null?'-'+(i+1):'')+'.jpg';
+const photoName=(p,i)=>'hikayatna-'+(p.date||today())+(i!=null?'-'+(i+1):'')+'.jpg';
 async function fullOf(p){if(full[p.id])return full[p.id];try{const s=await db.doc('photoFull/'+p.id).get();const d=s.exists&&s.data().data;if(okImg(d)){full[p.id]=d;return d}}catch(x){}return okImg(p.thumb)?p.thumb:null}
 function saveFiles(files){
  try{if(navigator.canShare&&navigator.canShare({files})){return navigator.share({files}).then(()=>true).catch(x=>{if(x&&x.name!=='AbortError')fallbackDl(files);return false})}}catch(x){}
