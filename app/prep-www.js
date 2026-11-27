@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path');
 const root=path.join(__dirname,'..'),out=path.join(__dirname,'www');
 fs.rmSync(out,{recursive:true,force:true});fs.mkdirSync(out,{recursive:true});
-for(const f of ['index.html','en.html','manifest.json','manifest-en.json'])fs.copyFileSync(path.join(root,f),path.join(out,f));
+for(const f of ['index.html','en.html','manifest.json','manifest-en.json','mb.js'])fs.copyFileSync(path.join(root,f),path.join(out,f));
 fs.cpSync(path.join(root,'icons'),path.join(out,'icons'),{recursive:true});
 const fcm=fs.existsSync(path.join(__dirname,'android','app','google-services.json'));
 const nat=(fcm?'window.__FCM=true;\n':'')+fs.readFileSync(path.join(__dirname,'native.js'),'utf8');
