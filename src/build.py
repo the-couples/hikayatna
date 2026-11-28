@@ -105,5 +105,8 @@ rep("async function avRemove(){if(!me||!db)return;const d={img:'',t:Date.now(),b
     "window.__avRender=()=>{try{avRender()}catch(x){}};\nasync function avRemove(){if(!me||!db||!window.__hkAv)return;try{await window.__hkAv.set(me,null);avRender();")
 rep("document.addEventListener('click',e=>{if(e.target.closest('#chav')&&me&&!document.querySelector('.avov'))avView(other(me));else if(",
     "document.addEventListener('click',e=>{if(")
+# ---- truth or dare (hasan-leen v110): gendered verb as whole words; English "for <name>" tag
+rep("'<p>اختار'+(f?'ي':'')+' صراحة","'<p>'+(f?'اختاري':'اختار')+' صراحة")
+rep("'لـ'+WHO[d.by]","(document.documentElement.lang==='en'?'for ':'لـ')+WHO[d.by]")
 open(D+'/merged.html','w',encoding='utf-8').write(s)
 print('merged',len(s))
